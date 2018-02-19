@@ -1,33 +1,43 @@
 Modown (in dev.): a minimalist file format for morphometrics data
 --------
-[![Travis-CI Build Status](https://travis-ci.org/vbonhomme/coo.svg?branch=master)](https://travis-ci.org/vbonhomme/coo)
+![maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)
+[![Travis-CI Build Status](https://travis-ci.org/vbonhomme/Momit.svg?branch=master)](https://travis-ci.org/vbonhomme/Momit)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/Momit)](http://cran.r-project.org/package=Momit)
 [![Coverage Status](https://img.shields.io/codecov/c/github/vbonhomme/coo/master.svg)](https://codecov.io/github/vbonhomme/coo?branch=master)
 <!--
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/coo)](http://cran.r-project.org/package=coo)
 ![CRAN downloads last month](http://cranlogs.r-pkg.org/badges/coo) ![CRAN downloads grand total](http://cranlogs.r-pkg.org/badges/grand-total/coo)
 -->
+## Get it
+```
+devtools::install_github("vbonhomme/Momit", build_vignettes = TRUE)
+```
 
-### Rationale
-Morphometrics data essentially consist of coordinates and, if any, associated covariates.
+This package is still in development and will be published on CRAN in spring 2018.
 
-Existing morphometrics, eg `.tps`, `.nts`, `.xml`, etc. are not fully generic and/or explicitely defined/consistent, etc.
+## Rationale
+ * Morphometrics data essentially consist of coordinates and, if any, associated covariates.
 
-I propose here the `.mod` (short for `Modown`) file format along with R utilities.
+* Existing morphometrics file format, eg `.tps`, `.nts`, `.xml`, etc. are not fully generic and/or explicitely defined/consistent, etc.
 
-Just like markdown, `Modown` has minimalist syntax and is easy to read/manipulate/write both for humans and machines.
+* Here is proposed the `.mom` (short for *mo*dern *m*orphometrics and to echo [`MomX`](https://github.com/MomX)) file format along with R utilities to import, parse, manipulate, export them.
 
-Modown name is derived from [markdown](https://daringfireball.net/projects/markdown/), sounds a bit like [Momocs](https://cran.r-project.org/web/packages/Momocs/index.html) and is a tribute to [Motown](https://en.wikipedia.org/wiki/Motown).
+* `.mom` files are easy to read, for humans, and to parse, for computers.
 
-### Specifications
+## Definition
 `.mod` files are plain text files whose single line syntax fall within one of the five following rules:
 
-1. **space-separated numbers** stand for coordinates or other numeric data in each dimension: eg `-0.5 0.5`; `0 0 0`
-2. **word and word/number** include a covariate name and its value: eg `LM`; `out`
-3. **single word** introduces a partition of coordinates: eg `size 3.14` <br />`sp H. sapiens`
-4. **tilde and word** names a shape when several are collated in the same file: eg `~iris150`
-5. **anything else** is ignored: eg `#a comment`
+Rule | Pattern                 | What                          | Examples
+-----|-------------------------|-------------------------------|--------------
+ 1   | space-separated numbers | coordinates in each dimension | `-0.5 0.5`; `0 0 0`
+ 2   | word and word/number    | covariate name and its value  | `scale 56`
+ 3   | single word             | partition of coordinates      | `LM` ; `out`
+ 4   | tilde and word          | shape name when collated      |  `~iris150`  ; `~H. sapiens`
+ 5   | anything else           | ignored                       | `#a comment`
+ 
+**TODO**: handle units, handle missing data (?)
 
-### Examples
+## Examples
 
 A single shape with one covariate:
 
@@ -93,6 +103,3 @@ A shape with nothing else but coordinates:
 [...]
 ```
 Examples adapted from [Momocs](https://github.com/vbonhomme/Momocs/): `bot[1]`, `olea[1]`, `charring[1]`, `shapes[1]`.
-
----------
-Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
