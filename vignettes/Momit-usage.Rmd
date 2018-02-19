@@ -1,0 +1,177 @@
+---
+title: "Use Momit"
+author: "Vincent Bonhomme"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{momit-usage}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+## General workflow
+_classes below functions indicates the R zone, otherwise we talk about files on a machine_
+```
+                     character        mod_df       character
+
+files  +----> momit() +----> from_*() +----> to_*()  +---->   files
+```
+
+
+1. You have morphometric data
+2. `momit()` find and read them
+3. `from_*()` parse them to a `mom_df` `data.frame`
+4. `to_*()` translate them to the format you want
+5. `write_*` these files.
+
+## Examples
+
+* You have `.tps` files in the folder "data", and want to import them into R:<br /> `momit("data") %>% from_tps()`
+
+* Same but you want to collate them into a single `.mom` file:<br /> `momit("data") %>% from_tps() %>% to_mom() %>% write_single()`
+
+* You have thousands of outlines of the same object, as viewed from two views (say lateral and dorsal), and saved as `.mom` files with the appropriate cofactor (say `view dorsal`) and you only want the dorsal outlines to be imported in Momocs:<br />
+`momit("data") %>% from_mom() %>% filter(view=="dorsal") %>% to_Out()`
+
+Talking about pipes, all [MomX](https://github.com/MomX) packages use them intensively, so you may want to read [magrittr's vignette](https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html)
+
+Of course, `from_` and `to_` functions are easy to add to convert from/to any file format. An example will be given in a dedicated vignette. So far, Momit has the following functions:
+
+**TODO**
+<!-- `from_tps` and `to_tps` -->
+<!-- `from_nts` and `to_nps` -->
+
+## Behind the curtain
+We will follow all the thing that happen along the path schematized above. You do not really need to understand (or even read) this section if you just want to convert your files. But in case you need to custom something, here is the long story.
+
+Let's create a `.mom` file from scratch. It contains four individuals with some coordinates (we don't care whether they are outlines, curves, landmarks, etc. here they're truncated anyway) and four covariates: `var`iety, `domes`tication status, `view`,  `ind`ividual name and `size`.
+
+We first load Momit (that re-exports magrittr's pipe), then we write the lines below to simulate such a file.
+```{r}
+library(Momit)
+"~0001-cAglan_O10VD
+var Aglan
+domes cult
+view VD
+ind O10
+size 2.23
+-0.5000 0.00000
+-0.4967 0.01035
+-0.4935 0.02414
+~0001-cAglan_O10VL 
+var Aglan
+domes cult
+view VL
+ind O10
+size 2.43
+-0.5000 0.00000
+-0.4995 0.01018
+-0.4957 0.02022
+~0001-cIvorra_O11VL 
+var Ivorra
+domes wild
+view VL
+ind O11
+size 2.56
+-0.5000 0.00000
+-0.4985 0.0112
+-0.4845 0.021
+~0001-cIvorra_O11VD 
+var Ivorra
+domes wild
+view VD
+ind O11
+size 2.74
+-0.5000 0.00000
+-0.4995 0.011
+-0.49 0.0198" %>% writeLines("foo.mom")
+```
+
+We can now read this file:
+```{r}
+readLines("foo.mom")
+```
+
+`momit()` function will find all the files, when provided containing folder(s) or directly a list of files. A list of files, read as lines, is returned.
+
+```{r}
+momit()
+# equivalent to "foo.mom" %>% momit()
+# or to list.files(getwd(), full.names=TRUE, pattern="mom$") %>% momit()
+```
+
+This list is parsed to a `premom_df`. Just a `data.frame` with a custom print method that would help find problems, should you want to develop your own `from` function.
+
+What we want to import is a `.mom` file, so we need `from_mom`. Let's see what it contains. Note the absence of parentheses, that prints the definition of the function.
+
+```{r}
+from_mom
+```
+
+Quite empty function! let's try its components, first `parse_mom`.
+
+```{r}
+momit() %>% parse_mom()
+```
+
+Here we have the parsed `data.frame`. Apparently everything gone fine. Let's simulate a wrong syntax in the `.mom` file.
+
+```{r}
+m <- momit()
+m[[1]][5] <- "0.5; crash this"
+m %>% parse_mom
+```
+
+So this function is pretty useful if you're developping your own `from_function`. A dedicated vignette will follow. 
+
+`momify` then combines this `data.frame` into a `mom_df` that you already encountered since we recreated `from_mom`.
+
+```{r}
+df <- momit() %>% parse_mom() %>% momify()
+```
+
+The only pain here is to manually declare all columns classes (see the `mutate` below). The good news is that it's pretty cool to have a `data.frame` to store morphometric data ([and data as a whole](https://cran.r-project.org/web/packages/tidyverse/vignettes/manifesto.html)), since you can very easily manipulate them.
+
+```{r}
+library(dplyr)
+# retain only the first two shapes
+df %>% slice(1:2) 
+# only dorsal views
+df %>% filter(view=="VD") 
+# create a new column on the fly
+# and retain only the upper half
+df %>% 
+  mutate(size2=as.numeric(size)*2) %>% 
+  filter(size2 > median(size2))
+```
+
+And of course you can turn back this `data.frame` to character thant can later be written to individual or separate `.mom` files or any other available file format.
+
+```{r}
+df %>% to_mom() # hmmm, that looks like a .mom
+df %>% to_mom() %>% write_single("plop.mom") # let's write it into a single file
+readLines("plop.mom")
+```
+
+Yes, we end up with the same information as in  `foo.mom`, only the order of covariates/coordinates changes.
+
+Don't forget to remove these two files!
+```{r, echo=FALSE}
+file.remove("plop.mom", "foo.mom")
+```
+
+## Final word
+ * I will add `from_*` and `to_*` functions in spring 2018.
+ * I also still need to implement missing values handling and units.
+ * All of this is pretty experimental so all comments are welcome.
+ * Please use GitHub issues for bugs/ideas. If you'd like to get in touch privately or send me some exotic data to be included in Momit, you can email me at: `bonhomme.vincent@gmail.com`.
+ * More to come.
+ 
+ 
+
+
+
+
+
