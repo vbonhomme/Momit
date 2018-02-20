@@ -7,7 +7,8 @@
 parse_mom(x)
 }
 \arguments{
-\item{x}{\code{character}, typically lines returned by \link{harvest}
+\item{x}{\code{list} of \code{character}, typically lines returned by \link{harvest}.
+\code{character} can also be passed directly to ease \code{from_*} function development. See vignettes.
 or similarly prepared with \link{readLines}.}
 }
 \value{
