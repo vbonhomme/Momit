@@ -13,21 +13,21 @@
     dplyr::mutate(non_valid =! rowSums(.)) %>%
     dplyr::transmute(x=x, what=colnames(.)[apply(., 1, which)]) %>%
     tibble::as_tibble() -> x
-  class(x) <- unique(c("yo", class(x)))
+  class(x) <- unique(c("premom_df", class(x)))
   x
 }
 
 #' Parse a mom-like vector of character lines
 #'
-#' @param x `character`, typically lines returned by [harvest]
+#' @param x `list` of `character`, typically lines returned by [harvest].
+#' `character` can also be passed directly to ease `from_*` function development. See vignettes.
 #' or similarly prepared with [readLines].
 #' @return `mom_df`
 #' @export
 parse_mom <- function(x){
   # single file case
   if (is.character(x)){
-    .parse_1_mom(x) %>%
-      return()
+    return(.parse_1_mom(x))
   }
   # several files case
   if (is.list(x)) {
@@ -39,7 +39,7 @@ parse_mom <- function(x){
 
 # print method for mom_df
 #' @export
-print.yo <- function(x, ...){
+print.premom_df <- function(x, ...){
   # counts the number of non_valid lines
   NV <- sum(x$what == "non_valid")
   if (NV>0) { # some non_valid cases
@@ -61,12 +61,23 @@ print.yo <- function(x, ...){
 
 # mom -----------------------------------------------------
 
+# x <- readLines("http://life.bio.sunysb.edu/morph/data/RohlfSlice1990Mosq.nts") %>%
+#   brush_remove_lines('"') %>%
+#   brush_remove_lines("([[:alnum:]]+ ){3,}") %>%
+#   brush_word_as_collated() %>%
+#   parse_mom()
+
 # takes a single premom_df and return a single mom as a list
 # used internally by momify
 .pre_mom <- function(x){
-  # if any removes collated
+  # handles collated
+  # if ("collated" %in% x$what){
+  #   # grab names
+  #   n <- dplyr::filter(x, what == "collated")$x %>% gsub("~", "", .)
+  #   x <- dplyr::filter(x, what != "collated")
+  # }
+  # remove collated if any
   x <- dplyr::filter(x, what != "collated")
-
   # pick cov (if any) and remove them
   .cov <- grep("cov", x$what)
   if (length(.cov)>0){
@@ -88,6 +99,10 @@ print.yo <- function(x, ...){
   } else { # no partition case
     coo <- x$x %>% .str_2_mtx()
   }
+  # name them if n has been created before
+  # if (!is.null(n)){
+  #   names(coo) <- n
+  # }
   # return extracted components
   list(coo=coo, cov=cov)
 }
@@ -118,12 +133,32 @@ momify <- function(x){
   } else {
     name <- gsub("~", "", names(moms))
   }
+  # if (is.list(name)) name <- unlist(name)
 
   # bind components and turn them into a mom_df tibble
+  # lapply to keep the lsit structure
   coo <- lapply(moms, `[`, "coo") %>% do.call("rbind", .)
+  # sapply to have columns ready for the df
   cov <- sapply(moms, `[`, "cov") %>% do.call("rbind", .)
 
-  cbind(name, coo, cov) %>%
-    dplyr::as_data_frame() %>%
-    `class<-`(unique(c("mom_df", class(.))))
+  # debug
+  # return(list(name=name, coo=coo, cov=cov))
+  res <- dplyr::data_frame(name=name)
+  if (!is.null(coo))
+    res$coo <- coo
+  if (!is.null(cov))
+    res <- dplyr::bind_cols(res, cov)
+
+  # return this beauty
+  class(res) <- unique(c("mom_df", class(res)))
+  res
+  #
+  # # there MUST be a better way
+  # pre <- cbind(name, coo, cov)
+  # # return(pre)
+  # if (is.list(pre[, "name"]))
+  #   pre[, "name"] <- unlist(pre[, "name"], use.names=FALSE)
+  # pre %>%
+  #   dplyr::as_data_frame() %>%
+  #   `class<-`(unique(c("mom_df", class(.))))
 }
