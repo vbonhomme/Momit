@@ -20,3 +20,9 @@ momit(x = getwd(), pattern = "mom$", ...)
 A convenient wrapper around \link{list.files} and \link{readLines} that
 also prepare files for the momification.
 }
+\note{
+\code{list.files} is passed with \code{full.names=TRUE, recursive = TRUE},
+so that full names are returned and all subfolders (if any) will be scrapped.
+If you do not want this behaviour, \code{list.files} manually then continue with one
+of \code{from_*} function.
+}
