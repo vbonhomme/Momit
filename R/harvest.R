@@ -14,7 +14,7 @@
 #' @return `character` lines that can be momified with [parse_mom]
 #'
 #' @export
-momit <- function(x=getwd(), pattern="mom$", ...){
+harvest <- function(x=getwd(), pattern="mom$", ...){
   # if folder(s) path(s) are provided,
   # list all paths to patterned files
   if (all(dir.exists(x))){
