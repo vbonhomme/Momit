@@ -27,8 +27,7 @@ harvest <- function(x=getwd(), pattern="mom$", ...){
   # was directly provided, read them all
   if (all(sapply(x, file.exists))){
     x %>%
-      lapply(readLines) %>%
+      lapply(readLines, warn=FALSE) %>%  # to prevent "incomplete final line" warning
       lapply(.prune)
   }
 }
-
