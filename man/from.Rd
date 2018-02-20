@@ -5,10 +5,13 @@
 \alias{from_mom}
 \title{Convert a parsed filed to a mom_df that can be manipulated and exported}
 \usage{
-from_mom(x)
+from_mom(x, ...)
 }
 \arguments{
-\item{x}{\code{character} typically what is returned by \link{momit}}
+\item{x}{\code{character} typically what is returned by \link{harvest}; otherwise
+bypassed with appropriate parameters. See the \emph{Momit-usage} vignette.}
+
+\item{...}{additional parameters to feed \link{harvest} (and \link{list.files} in the end)}
 }
 \value{
 \code{mom_df} that can be manipulated and exported

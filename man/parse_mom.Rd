@@ -7,7 +7,7 @@
 parse_mom(x)
 }
 \arguments{
-\item{x}{\code{character}, typically lines returned by \link{momit}
+\item{x}{\code{character}, typically lines returned by \link{harvest}
 or similarly prepared with \link{readLines}.}
 }
 \value{

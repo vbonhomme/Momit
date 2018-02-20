@@ -19,7 +19,7 @@
 
 #' Parse a mom-like vector of character lines
 #'
-#' @param x `character`, typically lines returned by [momit]
+#' @param x `character`, typically lines returned by [harvest]
 #' or similarly prepared with [readLines].
 #' @return `mom_df`
 #' @export
