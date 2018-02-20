@@ -13,7 +13,7 @@ editor_options:
 
 ## General workflow
 ```
-                     character        mod_df       character
+                     character        mod_df        character
 
 files  +--> harvest() +----> from_*() +----> to_*()  +---->   files
 ```
