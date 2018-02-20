@@ -142,12 +142,4 @@ x %>% parse_mom %>% momify
 So the question is: is it worth the pain to import it using a custom importer? The answer is yes to my opinion. I spent a lot of time answering to Momocs' user questions about importing badly formatted data and this decided me to define `.mom` and write Momit. The hope is now twofold: homoegeneize morphometric data presentation and go around the jungle of existing morphometric formats.
 
 Again, if you have some exotic data, wrote an `from_*` function and/or need help to do so, I will be there to help and include it in Momit.
-  
-  
-  <!-- brush_remove_lines("([[:alnum:]]+ ){3,}") %>% -->
-  <!-- brush_word_as_collated() %>%  parse_mom() -->
-
-
-
-
 
