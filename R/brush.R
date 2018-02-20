@@ -4,6 +4,11 @@
 #'
 #' @param x `character` typically after a [harvest] or a [readLines]
 #' @param pattern a [`regex`]
+#' @param gather_by `numeric` how many elements per line
+#' (most of the time this is the number of dimensions)
+#' @param span `numeric` every `span` insert `this`
+#' @param this `character` to insert every `span`.
+#' If not provided, dummy names 'shp_NN' are inserted
 #'
 #' @return a `character`
 #'

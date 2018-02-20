@@ -47,6 +47,14 @@ brush_insert_every(x, span, this)
 \item{x}{\code{character} typically after a \link{harvest} or a \link{readLines}}
 
 \item{pattern}{a \code{\link{regex}}}
+
+\item{gather_by}{\code{numeric} how many elements per line
+(most of the time this is the number of dimensions)}
+
+\item{span}{\code{numeric} every \code{span} insert \code{this}}
+
+\item{this}{\code{character} to insert every \code{span}.
+If not provided, dummy names 'shp_NN' are inserted}
 }
 \value{
 a \code{character}
