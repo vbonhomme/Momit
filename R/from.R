@@ -45,3 +45,61 @@ from_tps <- function(x, ...){
   ) %>%
     parse_mom() %>% momify()
 }
+
+#' @rdname from
+#' @export
+from_nts <- function(x, ...){
+  if (!is.list(x)){
+    x <- harvest(x, pattern="nts$", ...)
+  }
+
+  lapply(x, function(.x) {
+    # first remove any comment
+    x <- brush_remove_lines(.x, '"')
+
+    # handles nts specifications
+    # seems complicated but we need to deduce the dimensionnality
+    # of the data since some people use nts for 3D data as well
+
+    # extract the number of rows from the x1 y1 (z1) etc.
+    nb_row <- brush_get_nts_nrow(x)
+    # remove x1 y1 (z1) x2 y2 (z2) etc.
+    x <- x %>% brush_remove_coordinates_pattern()
+    # extract the number of coordinates
+    nb_coo <- brush_get_nts_nb_coo(x)
+    # and the number of individuals
+    nb_ind <- brush_get_nts_nb_ind(x)
+    # deduce the dimensionnality
+    D <- nb_coo / nb_row
+    # and get rid of this line
+    x <- x %>% brush_remove_nts_dimensions()
+
+    # possible weakness here
+    # but sometimes we have names like 1_0_2384 ...
+    nts_names <- "[[:alpha:]]+([[:alnum:]]|_)+"
+    names_pos <- grep(nts_names , x)
+    shp_names <- x[names_pos] %>%
+      # prevent accidental multiple spaces
+      gsub(" {2, }", " ", .) %>%
+      # split and concatenate back
+      strsplit(" ") %>%
+      do.call("c", .) %>%
+      paste0("~", .)
+    # remove lines where names were previously matched/extracted
+    x <- x[-names_pos]
+    x %>%
+      # reshape lines by their dimensionnality
+      brush_reshape_lines(pattern = " ", gather_by = D) %>%
+      # and insert names
+      brush_insert_every(span = nb_coo/D, this = shp_names)
+    # now ready to parse
+  }
+  ) %>%
+    parse_mom() %>% momify()
+}
+
+# harvest("foreign/tpsDig_XYsusSEAsia.NTS")  %>% from_nts()
+
+# harvest("foreign/tpsDig_guenons_online.nts")  %>%
+# lapply(function(x) gsub("([[:digit:]]+_[[:digit:]])", "ind_\\1", x)) %>%
+  # from_nts()
