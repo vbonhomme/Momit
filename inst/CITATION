@@ -1,0 +1,14 @@
+citHeader("Before the paper, if you use Momit in publications, please cite it this way:")
+
+citEntry(
+  entry = "Unpublished",
+  title        = "Momit: a file format for morphometric data exchange and conversion",
+  author       = personList(as.person("Vincent Bonhomme")),
+  url          = "http://www.github.com/MomX/Momit",
+  note= "in dev.",
+  textVersion  =
+  paste("Vincent Bonhomme",
+        "Momit: a file format for morphometric data exchange and conversion",
+        "URL http://www.github.com/MomX/Momit")
+)
+
