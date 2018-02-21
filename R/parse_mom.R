@@ -37,19 +37,24 @@ parse_mom <- function(x){
   }
 }
 
-# print method for mom_df
+#' Print method for mom_df
+#' @param x `premom_df` typically obtained with [parse_mom]
+#' @param n `numeric` number of rows to show (or `all`)
+#' @param ... optionnal arguments to stick with [print] generic
 #' @export
-print.premom_df <- function(x, ...){
+print.premom_df <- function(x, n=10, ...){
   # counts the number of non_valid lines
   NV <- sum(x$what == "non_valid")
   if (NV>0) { # some non_valid cases
+    if (n=="all") n <- NV
     x %>%
-      do.call(dplyr::bind_cols, .) %>% print
+      do.call(dplyr::bind_cols, .) %>% print(n=n)
     cat("\n", crayon::red("\u2717", NV, "non valid line(s)\n"))
   } else {     # zero non_valid case
     # no idea why this doesnt work
     # x %>% dplyr::as_data_frame() %>% print
-    x %>% do.call(dplyr::bind_cols, .) %>% print
+    if (n=="all") n <- nrow(x)
+    x %>% do.call(dplyr::bind_cols, .) %>% print(n=n)
     y <- table(x$what)
     cat("\n")
     paste0("* ", y, "\t", names(y), "\n") %>%
