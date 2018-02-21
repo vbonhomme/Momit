@@ -33,22 +33,22 @@ brush_add_tildes <- function(x, pattern="^([[:alpha:]]+([[:alnum:]]|[[:punct:]])
 brush_remove_lines <- function(x, pattern){
   # not x[-grep(pattern, x)]
   # to prevent integer(0)
-  x[grep(pattern, x, invert=TRUE)]
+  grep(pattern, x, invert=TRUE, value=TRUE)
 }
 
 #' @rdname brush
 #' @export
 brush_remove_nts_dimensions <- function(x){
-  grep("([[:digit:]]* ){3,}", x, value=TRUE, invert = TRUE)
+  grep("([[:digit:]]*(l|L)? ){3,}", gsub("L", "", x), value=TRUE, invert = TRUE)
 }
 
 #' @rdname brush
 #' @export
 brush_get_nts_nb_ind <- function(x){
   x %>%
+    gsub("L", "", ., ignore.case = TRUE) %>%
     grep("([[:digit:]]* ){3,}", ., value=TRUE) %>%
     strsplit(" ") %>% `[[`(1) %>% `[`(2) %>%
-    gsub("L", "", .) %>%
     as.numeric()
 }
 
@@ -56,9 +56,9 @@ brush_get_nts_nb_ind <- function(x){
 #' @export
 brush_get_nts_nb_coo <- function(x){
   x %>%
+    gsub("L", "", ., ignore.case = TRUE) %>%
     grep("([[:digit:]]* ){3,}", ., value=TRUE) %>%
     strsplit(" ") %>% `[[`(1) %>% `[`(3) %>%
-    gsub("L", "", .) %>%
     as.numeric()
 }
 
@@ -94,15 +94,17 @@ brush_remove_trailing_spaces <- function(x){
 
 #' @rdname brush
 #' @export
-brush_reshape_lines <- function(x, pattern= " ", gather_by){
-  x %>% lapply(function(i)
-    # split and retain the first element (the only one)
-    i %>% strsplit(pattern) %>% `[[`(1) %>%
-      # build matrices, then collapse lines
-      matrix(ncol=gather_by, byrow=T) %>%
-      apply(1, paste, collapse= " ")) %>%
-    # concatenate the entire list
-    do.call("c", .)
+brush_reshape_lines <- function(x, pattern=" ", gather_by){
+  y <- x %>%
+    # prevent accidental multiple spaces
+    gsub(" {2, }", " ", .) %>%
+    # split and concatenate back
+    strsplit(" ") %>% do.call("c", .)
+
+  # "starting ids"
+  ids <- seq(1, length(y), by=gather_by)
+  # paste elements from the latter to the "ending ids"
+  sapply(ids, function(i) paste(y[i:(i+gather_by-1)], collapse=" "))
 }
 
 #' @rdname brush
@@ -182,3 +184,23 @@ brush_gsub <- function(x, pattern, replacement){
   gsub(pattern, replacement, x)
 }
 
+#' @rdname brush
+#' @export
+brush_get_nts_nrow <- function(x){
+  grep("((x|y|z)[[:digit:]]+ ){2, }", x, value=TRUE, ignore.case = TRUE) %>%
+    gsub("(x|y|z)", "", ., ignore.case = TRUE) %>% strsplit(" ") %>%
+    do.call("c", .) %>%
+    as.numeric() %>% max()
+}
+
+#' @rdname brush
+#' @export
+brush_remove_coordinates_pattern <- function(x){
+  grep("((x|y|z){1}[[:digit:]]+)", x, invert=TRUE, value=TRUE, ignore.case = TRUE)
+}
+
+#' @rdname brush
+#' @export
+brush_get_lines <- function(x, pattern){
+  grep(pattern, x, value=TRUE)
+}

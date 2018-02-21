@@ -19,6 +19,9 @@
 \alias{brush_remove_empty_partition}
 \alias{brush_rename_partition}
 \alias{brush_gsub}
+\alias{brush_get_nts_nrow}
+\alias{brush_remove_coordinates_pattern}
+\alias{brush_get_lines}
 \title{Helper function to develop new from_* functions}
 \usage{
 brush_add_comment(x, pattern)
@@ -54,6 +57,12 @@ brush_remove_empty_partition(x)
 brush_rename_partition(x, pattern_split)
 
 brush_gsub(x, pattern, replacement)
+
+brush_get_nts_nrow(x)
+
+brush_remove_coordinates_pattern(x)
+
+brush_get_lines(x, pattern)
 }
 \arguments{
 \item{x}{\code{character} typically after a \link{harvest} or a \link{readLines}}
