@@ -3,9 +3,12 @@
 \name{from}
 \alias{from}
 \alias{from_mom}
+\alias{from_tps}
 \title{Convert a parsed filed to a mom_df that can be manipulated and exported}
 \usage{
 from_mom(x, ...)
+
+from_tps(x, ...)
 }
 \arguments{
 \item{x}{\code{character} typically what is returned by \link{harvest}; otherwise
