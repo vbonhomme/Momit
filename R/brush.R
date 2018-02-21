@@ -31,7 +31,9 @@ brush_add_tildes <- function(x, pattern="^([[:alpha:]]+([[:alnum:]]|[[:punct:]])
 #' @rdname brush
 #' @export
 brush_remove_lines <- function(x, pattern){
-  x[-grep(pattern, x)]
+  # not x[-grep(pattern, x)]
+  # to prevent integer(0)
+  x[grep(pattern, x, invert=TRUE)]
 }
 
 #' @rdname brush
