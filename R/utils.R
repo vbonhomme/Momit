@@ -1,6 +1,6 @@
 
 # regex patterns ------------------------------------------
-number <- "-?[[:digit:]]+\\.?[[:digit:]]*[[:space:]]*"
+number <- "-?[[:digit:]]+\\.?[[:digit:]]*(e(\\+|-))?[[:space:]]*"
 name   <- "[[:alpha:]]+([[:alnum:]]|[[:punct:]])*"
 
 coordinates <- paste0("^(", number, ")+$")
