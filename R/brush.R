@@ -4,11 +4,14 @@
 #'
 #' @param x `character` typically after a [harvest] or a [readLines]
 #' @param pattern a [`regex`]
+#' @param replacement a [`regex`]
 #' @param gather_by `numeric` how many elements per line
 #' (most of the time this is the number of dimensions)
 #' @param span `numeric` every `span` insert `this`
 #' @param this `character` to insert every `span`.
 #' If not provided, dummy names 'shp_NN' are inserted
+#' @param pattern_split `character` where to split collated
+#' @param pattern_on_top `character` which patterned lines to put on top
 #'
 #' @return a `character`
 #'
@@ -117,8 +120,63 @@ brush_insert_every <- function(x, span, this){
     do.call("c", .)
 }
 
-#
-# readLines("tests/testthat/mosquito.nts") %>%
-#   brush_remove_lines('"') %>%
-#   brush_remove_lines("([[:alnum:]]+ ){3,}") %>%
-#   brush_word_as_collated() %>%  parse_mom()
+#' @rdname brush
+#' @export
+brush_on_top <- function(x, pattern_split, pattern_on_top){
+  if (length(grep(pattern_split, x))==1) {
+    f <- rep(1, length(x))
+  } else {
+    f <- .splitting_vector(x, pattern_split)
+  }
+  xs <- split(x, f)
+
+  lapply(xs, function(i) {
+    pos <- grep(pattern_on_top, i)
+    c(i[pos], i[-pos])
+  }
+  ) %>%
+    do.call("c", .) %>%
+    `names<-`(NULL)
+}
+
+#' @rdname brush
+#' @export
+brush_remove_empty_partition <- function(x){
+  partition_pos <- grep(partition, x)
+  partition_empty <- partition_pos %>% diff %>% `==`(1) %>% which %>% `[`(partition_pos, .)
+  x[-partition_empty]
+}
+
+#' @rdname brush
+#' @export
+brush_rename_partition <- function(x, pattern_split){
+  if (length(grep(pattern_split, x))==1) {
+    f <- rep(1, length(x))
+  } else {
+    f <- .splitting_vector(x, pattern_split)
+  }
+  xs <- split(x, f)
+
+  # given a single collated,
+  # (dummy) rename repeated partition names
+  distinguish_partition <- function(x){
+    repeated_partition_names <- grep(partition, x, value=TRUE) %>%
+      table %>% `>`(1) %>% which %>% names
+    for (i in repeated_partition_names){
+      pos <- grep(i, x)
+      x[pos] <- paste(i, 1:length(pos), sep="_")
+    }
+    x
+  }
+  # apply it on the list of collated
+  lapply(xs, distinguish_partition) %>%
+    # concatenate all and remove names
+    do.call("c", .) %>% `names<-`(NULL)
+}
+
+#' @rdname brush
+#' @export
+brush_gsub <- function(x, pattern, replacement){
+  gsub(pattern, replacement, x)
+}
+

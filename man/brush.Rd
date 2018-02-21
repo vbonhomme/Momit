@@ -15,6 +15,10 @@
 \alias{brush_remove_trailing_spaces}
 \alias{brush_reshape_lines}
 \alias{brush_insert_every}
+\alias{brush_on_top}
+\alias{brush_remove_empty_partition}
+\alias{brush_rename_partition}
+\alias{brush_gsub}
 \title{Helper function to develop new from_* functions}
 \usage{
 brush_add_comment(x, pattern)
@@ -42,6 +46,14 @@ brush_remove_trailing_spaces(x)
 brush_reshape_lines(x, pattern = " ", gather_by)
 
 brush_insert_every(x, span, this)
+
+brush_on_top(x, pattern_split, pattern_on_top)
+
+brush_remove_empty_partition(x)
+
+brush_rename_partition(x, pattern_split)
+
+brush_gsub(x, pattern, replacement)
 }
 \arguments{
 \item{x}{\code{character} typically after a \link{harvest} or a \link{readLines}}
@@ -55,6 +67,12 @@ brush_insert_every(x, span, this)
 
 \item{this}{\code{character} to insert every \code{span}.
 If not provided, dummy names 'shp_NN' are inserted}
+
+\item{pattern_split}{\code{character} where to split collated}
+
+\item{pattern_on_top}{\code{character} which patterned lines to put on top}
+
+\item{replacement}{a \code{\link{regex}}}
 }
 \value{
 a \code{character}
