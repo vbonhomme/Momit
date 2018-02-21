@@ -6,7 +6,16 @@
 #' that is a swiss-army knife for converting files from/to the
 #' different morphometric markup dialects.
 #'
-#' To cite Momit in publications: `citation("Modown")`.
+#' To cite Momit in publications: `citation("Momit")`.
+#'
+#' @section Cheers:
+#' For their ideas, support and data samples,
+#' I am very grateful to (in alphabetical order):
+#' Andrea Cardini, Thomas Cucchi, Carmelo Fruciano, Jim Rohlf,
+#' Murat Maga, Chris Percival.
+#'
+#' Special thanks to Allowen Evin
+#' for her patience and exotic data.
 #'
 #' @docType package
 #' @name Momit
