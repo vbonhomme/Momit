@@ -12,6 +12,7 @@
 #' If not provided, dummy names 'shp_NN' are inserted
 #' @param pattern_split `character` where to split collated
 #' @param pattern_on_top `character` which patterned lines to put on top
+#' @param ncol `numeric` how many coordinates to retain
 #'
 #' @return a `character`
 #'
@@ -203,4 +204,13 @@ brush_remove_coordinates_pattern <- function(x){
 #' @export
 brush_get_lines <- function(x, pattern){
   grep(pattern, x, value=TRUE)
+}
+
+#' @rdname brush
+#' @export
+brush_shorten_coordinates <- function(x, ncol){
+  pattern_lines <- grep(coordinates, x)
+  x[pattern_lines] <- x[pattern_lines] %>%
+    .str_2_mtx() %>% `[`(, 1:ncol) %>% .mtx_2_str()
+  x
 }

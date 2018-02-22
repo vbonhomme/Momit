@@ -22,6 +22,7 @@
 \alias{brush_get_nts_nrow}
 \alias{brush_remove_coordinates_pattern}
 \alias{brush_get_lines}
+\alias{brush_shorten_coordinates}
 \title{Helper function to develop new from_* functions}
 \usage{
 brush_add_comment(x, pattern)
@@ -63,6 +64,8 @@ brush_get_nts_nrow(x)
 brush_remove_coordinates_pattern(x)
 
 brush_get_lines(x, pattern)
+
+brush_shorten_coordinates(x, ncol)
 }
 \arguments{
 \item{x}{\code{character} typically after a \link{harvest} or a \link{readLines}}
@@ -82,6 +85,8 @@ If not provided, dummy names 'shp_NN' are inserted}
 \item{pattern_on_top}{\code{character} which patterned lines to put on top}
 
 \item{replacement}{a \code{\link{regex}}}
+
+\item{ncol}{\code{numeric} how many coordinates to retain}
 }
 \value{
 a \code{character}
