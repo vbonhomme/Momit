@@ -9,6 +9,8 @@ Momit: a file format for morphometric data exchange and conversion
 ![CRAN downloads last month](http://cranlogs.r-pkg.org/badges/coo) ![CRAN downloads grand total](http://cranlogs.r-pkg.org/badges/grand-total/coo)
 -->
 ## Get it
+__This package is still in development and will be published on CRAN in spring 2018.__
+
 ```
 devtools::install_github("vbonhomme/Momit", build_vignettes = TRUE)
 ```
@@ -17,8 +19,6 @@ Then have a look to vignettes:
 ```
 browseVignettes("Momit")
 ```
-
-This package is still in development and will be published on CRAN in spring 2018.
 
 ## Rationale
  * Morphometrics data essentially consist of coordinates and, if any, associated covariates.
