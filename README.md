@@ -52,10 +52,10 @@ extension | software              | `from_*` function  | `to_*` function
 `.stv`    | meshtools             | `from_stv`         | planned
 `.txt`    | StereoMorph           | `from_StereoMorph` | 
 `.asc`    | Optimas               | `from_Optimas`     | planned
+`.txt`    | PAST                  | `from_PAST`        | planned
 `.txt`    | ImageJ xy (among ot.) | planned            | planned
 `.xml`    | morphoJ               | planned            |
 `.txt`    | morphologika          | planned            |
-`.txt`    | PAST                  | planned            | planned
 
 __Any suggestion of additional formats/softs, along with example datasets are more than welcome.__
  

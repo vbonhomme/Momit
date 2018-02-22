@@ -225,8 +225,8 @@ from_Optimas <- function(x, ...){
     grep("(\t[[:alpha:]])+", x, val=T) %>%
       # remove leading/trainling space characters
       gsub("(^[[:space:]]*)|([[:space:]]*$)", "", .) %>%
-      # turn separating space characters to singe spaces
-      gsub("[[:space:]]+", " ", .) %>%
+      # replace space characters (tabs here) with single space
+      brush_replace_space_characters_with_space() %>%
       # split on single space
       strsplit(" ") %>%
       # back to vector
@@ -264,6 +264,35 @@ from_Optimas <- function(x, ...){
 }
 
 
+#' @rdname from
+#' @export
+from_PAST <- function(x, ...){
+  if (!is.list(x)){
+    x <- harvest(x, ...)
+  }
+
+  PAST1 <- function(.x){
+    x  <- .x %>%
+      brush_remove_lines("RawCoord") %>%
+      brush_replace_space_characters_with_space()
+
+    # explode, grab name and coordinates,
+    # reformat them to mom-like and concatenate back
+    past_single_conf <- function(x){
+      x <- x %>% strsplit(" ") %>% unlist
+      c(paste0("~", x[1]),
+        x[-1] %>% paste(collapse=" ") %>% brush_reshape_lines(gather_by=2))
+    }
+    x %>%
+      # apply to all lines and concatenate back
+      lapply(past_single_conf) %>%
+      do.call("c", .)
+  }
+
+
+  lapply(x, PAST1) %>%
+    parse_mom %>% momify
+}
 
 
 # To tests:
@@ -286,3 +315,6 @@ from_Optimas <- function(x, ...){
 # lapply(
 #   list.files("foreign", pattern="Optimas", full.names = T, rec=T),
 #   from_Optimas)
+
+# harvest("foreign/PAST_ontogeny9L.past.txt") %>% from_PAST()
+
