@@ -283,6 +283,6 @@ from_Optimas <- function(x, ...){
 # harvest("foreign/StereoMorph_mug_002.txt") %>% from_StereoMorph()
 # harvest("foreign/StereoMorph_mug_003.txt") %>% from_StereoMorph()
 
-# list.files("foreign", pattern="Optimas", full.names = T, rec=T)[6] %>%
-  # readLines() %>% list %>% from_Optimas()
-
+# lapply(
+#   list.files("foreign", pattern="Optimas", full.names = T, rec=T),
+#   from_Optimas)
