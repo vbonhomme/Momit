@@ -75,15 +75,6 @@ patterns_regex <- c("coordinates" = coordinates,
   #grep("[[:alnum:]]+", ., value=TRUE)
 }
 
-# read one or several files, ensure a name is present or add it,
-# bind all character together
-.readLines_and_bind <- function(x){
-  x %>%
-    lapply(readLines) %>%
-    .ensure_collated(n=.trim_path_and_extension(x)) %>%
-    do.call("c", .)
-}
-
 # when collating a single or many files,
 # ensure a collated name (ie ~name) is present,
 # otherwise add it to the character
