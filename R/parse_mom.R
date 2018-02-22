@@ -128,6 +128,8 @@ momify <- function(x){
 
   #split into a list and name it
   x <- .split_collated(x)
+  # when no collated this is not a (proper) list yet but a data.frame
+  if (is.data.frame(x)) x <- list(x)
   # turn each tibble1 into mom
   moms <- lapply(x, .pre_mom)
 
