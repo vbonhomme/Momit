@@ -11,11 +11,11 @@
 #' @section Cheers:
 #' For their ideas, support and data samples,
 #' I am very grateful to (in alphabetical order):
-#' Andrea Cardini, Thomas Cucchi, Carmelo Fruciano, Jim Rohlf,
+#' Thomas Cucchi, Carmelo Fruciano, Jim Rohlf,
 #' Murat Maga, Chris Percival.
 #'
-#' Special thanks to Allowen Evin
-#' for her patience and exotic data.
+#' Special thanks to Andrea Cardini for sharing very diverse datasets,
+#' and to Allowen Evin for her patience and exotic data.
 #'
 #' @docType package
 #' @name Momit
