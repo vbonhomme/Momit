@@ -8,8 +8,9 @@
 #' @param gather_by `numeric` how many elements per line
 #' (most of the time this is the number of dimensions)
 #' @param span `numeric` every `span` insert `this`
-#' @param this `character` to insert every `span`.
-#' If not provided, dummy names 'shp_NN' are inserted
+#' @param this `character` to insert. For `brush_insert_every`,
+#' it is inserted every `span`. If not provided, dummy names 'shp_NN' are inserted
+#' @param at `numeric` positions where to insert
 #' @param pattern_split `character` where to split collated
 #' @param pattern_on_top `character` which patterned lines to put on top
 #' @param ncol `numeric` how many coordinates to retain
@@ -214,3 +215,31 @@ brush_shorten_coordinates <- function(x, ncol){
     .str_2_mtx() %>% `[`(, 1:ncol) %>% .mtx_2_str()
   x
 }
+
+#' @rdname brush
+#' @export
+brush_add_names_empty_lines <- function(x){
+  empty <- which(nchar(x)==0)
+  shp_names <- paste0("~shp_", 1:length(empty))
+  x[empty] <- shp_names
+  x
+}
+
+#' @rdname brush
+#' @export
+brush_remove_multiple_pattern <- function(x, pattern){
+  gsub(paste0(pattern, "+"), "", x)
+}
+
+#' @rdname brush
+#' @export
+brush_insert_this_at <- function(x, this, at){
+  # adapted from https://stackoverflow.com/a/18951302/6101188
+  # from Ferdinand.kraft
+  stopifnot(length(this)==length(at))
+  result <- vector("list", 2 * length(at) + 1)
+  result[c(TRUE,  FALSE)] <- split(x, cumsum(seq_along(x) %in% (at+1)))
+  result[c(FALSE, TRUE)] <- this
+  unlist(result)
+}
+

@@ -23,6 +23,9 @@
 \alias{brush_remove_coordinates_pattern}
 \alias{brush_get_lines}
 \alias{brush_shorten_coordinates}
+\alias{brush_add_names_empty_lines}
+\alias{brush_remove_multiple_pattern}
+\alias{brush_insert_this_at}
 \title{Helper function to develop new from_* functions}
 \usage{
 brush_add_comment(x, pattern)
@@ -66,6 +69,12 @@ brush_remove_coordinates_pattern(x)
 brush_get_lines(x, pattern)
 
 brush_shorten_coordinates(x, ncol)
+
+brush_add_names_empty_lines(x)
+
+brush_remove_multiple_pattern(x, pattern)
+
+brush_insert_this_at(x, this, at)
 }
 \arguments{
 \item{x}{\code{character} typically after a \link{harvest} or a \link{readLines}}
@@ -77,8 +86,8 @@ brush_shorten_coordinates(x, ncol)
 
 \item{span}{\code{numeric} every \code{span} insert \code{this}}
 
-\item{this}{\code{character} to insert every \code{span}.
-If not provided, dummy names 'shp_NN' are inserted}
+\item{this}{\code{character} to insert. For \code{brush_insert_every},
+it is inserted every \code{span}. If not provided, dummy names 'shp_NN' are inserted}
 
 \item{pattern_split}{\code{character} where to split collated}
 
@@ -87,6 +96,8 @@ If not provided, dummy names 'shp_NN' are inserted}
 \item{replacement}{a \code{\link{regex}}}
 
 \item{ncol}{\code{numeric} how many coordinates to retain}
+
+\item{at}{\code{numeric} positions where to insert}
 }
 \value{
 a \code{character}

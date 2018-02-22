@@ -209,6 +209,63 @@ from_StereoMorph <- function(x, ...){
     parse_mom() %>% momify()
 }
 
+
+#' @rdname from
+#' @export
+from_Optimas <- function(x, ...){
+  if (!is.list(x)){
+    x <- harvest(x, ...)
+  }
+
+  optimas1 <- function(.x){
+    # add (dummy) names where empty lines are
+    x <- brush_add_names_empty_lines(.x)
+    # find tab separated words
+    grep("(\t[[:alpha:]])+", x, val=T) %>%
+      # remove leading/trainling space characters
+      gsub("(^[[:space:]]*)|([[:space:]]*$)", "", .) %>%
+      # turn separating space characters to singe spaces
+      gsub("[[:space:]]+", " ", .) %>%
+      # split on single space
+      strsplit(" ") %>%
+      # back to vector
+      unlist() -> cov_names
+
+    # handles Optimas special cases
+    SampledPoints_pos <- grep("ArSampledPoints", cov_names)
+    if (length(SampledPoints_pos)>0)
+      cov_names <- c(cov_names[-SampledPoints_pos], paste0("ArSampledPoints", "_", c("x", "y")))
+
+    # deduce the number of cov
+    cov_nb <- length(cov_names)
+    # remove header line
+    x <- x[-grep("(\t[[:alpha:]])+", x)]
+    # cov lines are now just those after a white space
+    cov_lines <- grep("~", x)+1
+
+    # get rid of multiple tabs and leading/trailing spaces
+    x <- brush_gsub(x, "\t", " ") %>%
+      brush_remove_multiple_spaces() %>%
+      brush_remove_leading_spaces() %>%
+      brush_remove_trailing_spaces()
+
+    # add mom-like cov_names to cov_values
+    cov_ready <- strsplit(x[cov_lines], " ") %>%
+      lapply(function(.x) paste(cov_names, .x))
+
+
+    # add them, replace cov lines and return
+    brush_insert_this_at(x, cov_ready, cov_lines)
+  }
+
+  lapply(x, optimas1) %>%
+    parse_mom %>% momify
+}
+
+
+
+
+# To tests:
 # harvest("foreign/tpsDig_XYsusSEAsia.NTS")  %>% from_nts()
 
 # harvest("foreign/tpsDig_guenons_online.nts")  %>%
@@ -224,3 +281,7 @@ from_StereoMorph <- function(x, ...){
 # harvest("foreign/StereoMorph_mug_001.txt") %>% from_StereoMorph()
 # harvest("foreign/StereoMorph_mug_002.txt") %>% from_StereoMorph()
 # harvest("foreign/StereoMorph_mug_003.txt") %>% from_StereoMorph()
+
+# list.files("foreign", pattern="Optimas", full.names = T, rec=T)[6] %>%
+  # readLines() %>% list %>% from_Optimas()
+
