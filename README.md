@@ -1,6 +1,6 @@
 Momit: a file format for morphometric data exchange and conversion
 --------
-![maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)
+![experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg) 
 [![Travis-CI Build Status](https://travis-ci.org/MomX/Momit.svg?branch=master)](https://travis-ci.org/MomX/Momit)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/Momit)](http://cran.r-project.org/package=Momit)
 [![Coverage Status](https://img.shields.io/codecov/c/github/vbonhomme/Momit/master.svg)](https://codecov.io/github/MomX/Momit?branch=master)
@@ -11,6 +11,11 @@ Momit: a file format for morphometric data exchange and conversion
 ## Get it
 ```
 devtools::install_github("vbonhomme/Momit", build_vignettes = TRUE)
+```
+
+Then have a look to vignettes:
+```
+browseVignettes("Momit")
 ```
 
 This package is still in development and will be published on CRAN in spring 2018.
