@@ -38,7 +38,7 @@ Rule | Pattern                 | What                          | Examples
 **TODO**: handle units, handle missing data (?)
 
 ## Supported formats
-`to_*` exporters have not yet been written but below is a list of supported format importers:
+`to_*` exporters have not yet been written but below is a list of currently supported (experimental) importers:
 
 extension | software              | function
 ----------|-----------------------|-------------
