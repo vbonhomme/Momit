@@ -19,7 +19,7 @@ To cite Momit in publications: \code{citation("Momit")}.
 
 For their ideas, support and data samples,
 I am very grateful to (in alphabetical order):
-Thomas Cucchi, Carmelo Fruciano, Jim Rohlf,
+Thomas Cucchi, Carmelo Fruciano, Sabrina Renaud, Jim Rohlf,
 Murat Maga, Chris Percival.
 
 Special thanks to Andrea Cardini for sharing very diverse datasets,
