@@ -151,6 +151,7 @@ from_StereoMorph <- function(x, ...){
     x <- harvest(x, ...)
   }
   # importer for 1
+  # what about Filter(Negate(is.null), x)
   StereoMorph1 <- function(.x){
     # rewrite file in a tmp file
     tmp <- paste0(tempfile(), "tmp.txt")
