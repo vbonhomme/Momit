@@ -243,3 +243,8 @@ brush_insert_this_at <- function(x, this, at){
   unlist(result)
 }
 
+#' @rdname brush
+#' @export
+brush_replace_space_characters_with_space <- function(x){
+  gsub("[[:space:]]+", " ", x)
+}

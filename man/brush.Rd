@@ -26,6 +26,7 @@
 \alias{brush_add_names_empty_lines}
 \alias{brush_remove_multiple_pattern}
 \alias{brush_insert_this_at}
+\alias{brush_replace_space_characters_with_space}
 \title{Helper function to develop new from_* functions}
 \usage{
 brush_add_comment(x, pattern)
@@ -75,6 +76,8 @@ brush_add_names_empty_lines(x)
 brush_remove_multiple_pattern(x, pattern)
 
 brush_insert_this_at(x, this, at)
+
+brush_replace_space_characters_with_space(x)
 }
 \arguments{
 \item{x}{\code{character} typically after a \link{harvest} or a \link{readLines}}
