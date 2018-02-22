@@ -38,22 +38,21 @@ Rule | Pattern                 | What                          | Examples
 **TODO**: handle units, handle missing data (?)
 
 ## Supported formats
-`to_*` exporters have not yet been written but below is a list of currently supported (experimental) importers:
 
-extension | software              | function
-----------|-----------------------|-------------
-`.tps`    | tps series and others | `from_tps`
-`.nts`    | tps series and others | `from_nts`
-`.lmk`    | meshtools             | `from_lmk`
-`.stv`    | meshtools             | `from_stv`
-`.txt`    | StereoMorph           | `from_StereoMorph`
+extension | software              | `from_*` function  | `to_*` function |
+----------|-----------------------|---------------------------------------
+`.tps`    | tps series and others | `from_tps`         | planned
+`.nts`    | tps series and others | `from_nts`         | planned
+`.lmk`    | meshtools             | `from_lmk`         | planned
+`.stv`    | meshtools             | `from_stv`         | planned
+`.txt`    | StereoMorph           | `from_StereoMorph` | 
+`.asc`    | Optimas               | `from_Optimas`     | planned
+`.txt`    | ImageJ xy (among ot.) | planned            | planned
+`.xml`    | morphoJ               | planned            |
+`.txt`    | morphologika          | planned            |
+`.txt`    | PAST                  | planned            | planned
 
-Planned :
- * ImageJ and others text-based data
- * morphoJ
- * PAST
- * Optimas
- * morphologika
+__Any suggestion of additional formats/softs, along with example datasets are more than welcome.__
  
 ## Examples
 
