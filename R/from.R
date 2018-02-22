@@ -22,27 +22,30 @@ from_mom <- function(x, ...){
     parse_mom() %>% momify()
 }
 
+# tps* ------------------------------------------------
 #' @rdname from
 #' @export
 from_tps <- function(x, ...){
   if (!is.list(x)){
     x <- harvest(x, pattern="tps$", ...)
   }
-
-  lapply(x, function(.x) .x %>%
-           # move IMAGE on top and turn it into a collated
-           brush_on_top("LM", "IMAGE") %>%
-           brush_add_tildes("IMAGE=")  %>%
-           # handle covariates (not partitions !)
-           brush_gsub("([[:alnum:]]+)=([[:alnum:]]+)", "\\1 \\2") %>%
-           brush_gsub("(LM).*", "\\1") %>%
-           brush_gsub("(CURVES).*", "\\1") %>%
-           brush_gsub("(POINTS).*", "\\1") %>%
-           # in case we have eg curve \n points \n <some coords> points
-           # remove curve and rename nested partitions
-           brush_remove_empty_partition() %>%
-           brush_rename_partition("~")
-  ) %>%
+  # importer for 1
+  from_tps1 <- function(.x) {
+    .x %>%
+      # move IMAGE on top and turn it into a collated
+      brush_on_top("LM", "IMAGE") %>%
+      brush_add_tildes("IMAGE=")  %>%
+      # handle covariates (not partitions !)
+      brush_gsub("([[:alnum:]]+)=([[:alnum:]]+)", "\\1 \\2") %>%
+      brush_gsub("(LM).*", "\\1") %>%
+      brush_gsub("(CURVES).*", "\\1") %>%
+      brush_gsub("(POINTS).*", "\\1") %>%
+      # in case we have eg curve \n points \n <some coords> points
+      # remove curve and rename nested partitions
+      brush_remove_empty_partition() %>%
+      brush_rename_partition("~")
+  }
+  lapply(x, from_tps1) %>%
     parse_mom() %>% momify()
 }
 
@@ -52,15 +55,13 @@ from_nts <- function(x, ...){
   if (!is.list(x)){
     x <- harvest(x, pattern="nts$", ...)
   }
-
-  lapply(x, function(.x) {
+  # importer for 1
+  nts1 <- function(.x){
     # first remove any comment
     x <- brush_remove_lines(.x, '"')
-
     # handles nts specifications
     # seems complicated but we need to deduce the dimensionnality
     # of the data since some people use nts for 3D data as well
-
     # extract the number of rows from the x1 y1 (z1) etc.
     nb_row <- brush_get_nts_nrow(x)
     # remove x1 y1 (z1) x2 y2 (z2) etc.
@@ -94,12 +95,56 @@ from_nts <- function(x, ...){
       brush_insert_every(span = nb_coo/D, this = shp_names)
     # now ready to parse
   }
-  ) %>%
+  lapply(x, nts1) %>%
     parse_mom() %>% momify()
 }
+
+# meshtools ------------------------------------------------
+
+#' @rdname from
+#' @export
+from_stv <- function(x, ...){
+  if (!is.list(x)){
+    x <- harvest(x, pattern="stv$", ...)
+  }
+  # importer for 1
+  from_stv1 <- function(.x) {
+    .x %>%
+      # remove Landmarks from concerned lines
+      brush_gsub("Landmark[[:digit:]]+: ", "") %>%
+      # remove dimension line
+      brush_remove_lines("0 [[:digit:]]+")  %>%
+      # reduce to 3 coordinates for concerned lines
+      brush_shorten_coordinates(ncol=3)
+  }
+  lapply(x, from_stv1) %>%
+    parse_mom() %>% momify()
+}
+
+
+#' @rdname from
+#' @export
+from_lmk <- function(x, ...){
+  if (!is.list(x)){
+    x <- harvest(x, pattern="lmk$", ...)
+  }
+  # importer for 1
+  from_lmk1 <- function(.x) {
+    .x %>%
+      # remove Landmarks from concerned lines
+      brush_gsub("Landmark[[:digit:]]+: ", "")
+  }
+  lapply(x, from_lmk1) %>%
+    parse_mom() %>% momify()
+}
+
 
 # harvest("foreign/tpsDig_XYsusSEAsia.NTS")  %>% from_nts()
 
 # harvest("foreign/tpsDig_guenons_online.nts")  %>%
 # lapply(function(x) gsub("([[:digit:]]+_[[:digit:]])", "ind_\\1", x)) %>%
-  # from_nts()
+# from_nts()
+
+# "foreign/meshtools_ZMK_TRF_01_34.lmk" %>% from_lmk
+
+# "foreign/meshtools_TRF_01_34.stv" %>% from_stv

@@ -5,6 +5,8 @@
 \alias{from_mom}
 \alias{from_tps}
 \alias{from_nts}
+\alias{from_stv}
+\alias{from_lmk}
 \title{Convert a parsed filed to a mom_df that can be manipulated and exported}
 \usage{
 from_mom(x, ...)
@@ -12,6 +14,10 @@ from_mom(x, ...)
 from_tps(x, ...)
 
 from_nts(x, ...)
+
+from_stv(x, ...)
+
+from_lmk(x, ...)
 }
 \arguments{
 \item{x}{\code{character} typically what is returned by \link{harvest}; otherwise
