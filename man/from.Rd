@@ -8,6 +8,7 @@
 \alias{from_stv}
 \alias{from_lmk}
 \alias{from_StereoMorph}
+\alias{from_Optimas}
 \title{Convert a parsed filed to a mom_df that can be manipulated and exported}
 \usage{
 from_mom(x, ...)
@@ -21,6 +22,8 @@ from_stv(x, ...)
 from_lmk(x, ...)
 
 from_StereoMorph(x, ...)
+
+from_Optimas(x, ...)
 }
 \arguments{
 \item{x}{\code{list} typically what is returned by \link{harvest}; otherwise, if \code{character}
