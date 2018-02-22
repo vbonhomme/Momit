@@ -121,3 +121,6 @@ A shape with nothing else but coordinates:
 [...]
 ```
 Examples adapted from [Momocs](https://github.com/vbonhomme/Momocs/): `bot[1]`, `olea[1]`, `charring[1]`, `shapes[1]`.
+
+## Thanks
+See `?Momit`.
