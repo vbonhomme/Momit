@@ -214,12 +214,13 @@ from_StereoMorph <- function(x, ...){
 #' @export
 from_Optimas <- function(x, ...){
   if (!is.list(x)){
-    x <- harvest(x, ...)
+    x <- harvest(x, prune=FALSE, ...)
   }
 
-  optimas1 <- function(.x){
+  Optimas1 <- function(.x){
     # add (dummy) names where empty lines are
     x <- brush_add_names_empty_lines(.x)
+    # x <- .x
     # find tab separated words
     grep("(\t[[:alpha:]])+", x, val=T) %>%
       # remove leading/trainling space characters
@@ -258,7 +259,7 @@ from_Optimas <- function(x, ...){
     brush_insert_this_at(x, cov_ready, cov_lines)
   }
 
-  lapply(x, optimas1) %>%
+  lapply(x, Optimas1) %>%
     parse_mom %>% momify
 }
 
