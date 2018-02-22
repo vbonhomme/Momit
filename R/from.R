@@ -222,7 +222,7 @@ from_Optimas <- function(x, ...){
     x <- brush_add_names_empty_lines(.x)
     # x <- .x
     # find tab separated words
-    grep("(\t[[:alpha:]])+", x, val=T) %>%
+    grep("(\t[[:alpha:]])+", x, value=TRUE) %>%
       # remove leading/trainling space characters
       gsub("(^[[:space:]]*)|([[:space:]]*$)", "", .) %>%
       # replace space characters (tabs here) with single space
