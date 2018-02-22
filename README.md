@@ -1,4 +1,4 @@
-Modown (in dev.): a minimalist file format for morphometrics data
+Momit: a file format for morphometric data exchange and conversion
 --------
 ![maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)
 [![Travis-CI Build Status](https://travis-ci.org/MomX/Momit.svg?branch=master)](https://travis-ci.org/MomX/Momit)
