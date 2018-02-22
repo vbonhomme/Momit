@@ -12,7 +12,7 @@ Momit: a file format for morphometric data exchange and conversion
 __This package is still in development and will be published on CRAN in spring 2018.__
 
 ```
-devtools::install_github("vbonhomme/Momit", build_vignettes = TRUE)
+devtools::install_github("MomX/Momit", build_vignettes = TRUE)
 ```
 
 Then have a look to vignettes:
