@@ -39,8 +39,8 @@ Rule | Pattern                 | What                          | Examples
 
 ## Supported formats
 
-extension | software              | `from_*` function  | `to_*` function |
-----------|-----------------------|---------------------------------------
+extension | software              | `from_*` function  | `to_*` function 
+----------|-----------------------|--------------------------------------
 `.tps`    | tps series and others | `from_tps`         | planned
 `.nts`    | tps series and others | `from_nts`         | planned
 `.lmk`    | meshtools             | `from_lmk`         | planned
