@@ -1,6 +1,6 @@
 #' Momit
 #'
-#' A minimalist file format for morphometrics data exchange.
+#' A minimalist file format for morphometrics data exchange and conversion.
 #' Intended to be easy to read for humans, and easy to parse for
 #' computers. Aimed at being a `pandoc` for morphometrics,
 #' that is a swiss-army knife for converting files from/to the
