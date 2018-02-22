@@ -7,6 +7,7 @@
 \alias{from_nts}
 \alias{from_stv}
 \alias{from_lmk}
+\alias{from_StereoMorph}
 \title{Convert a parsed filed to a mom_df that can be manipulated and exported}
 \usage{
 from_mom(x, ...)
@@ -18,10 +19,12 @@ from_nts(x, ...)
 from_stv(x, ...)
 
 from_lmk(x, ...)
+
+from_StereoMorph(x, ...)
 }
 \arguments{
-\item{x}{\code{character} typically what is returned by \link{harvest}; otherwise
-bypassed with appropriate parameters. See the \emph{Momit-usage} vignette.}
+\item{x}{\code{list} typically what is returned by \link{harvest}; otherwise, if \code{character}
+will be passed to \link{harvest} with appropriate parameters. See the \emph{Momit-usage} vignette.}
 
 \item{...}{additional parameters to feed \link{harvest} (and \link{list.files} in the end)}
 }
@@ -30,6 +33,12 @@ bypassed with appropriate parameters. See the \emph{Momit-usage} vignette.}
 }
 \description{
 Convert a parsed filed to a mom_df that can be manipulated and exported
+}
+\note{
+When \code{x} is passed as a \code{character},
+\link{harvest} will try to find them based on their extensions.
+Some format do not have their own extension (eg \code{.txt}).
+In the latter case and/or you should first \link{harvest} with proper parameters.
 }
 \seealso{
 Other from functions: \code{\link{to}}

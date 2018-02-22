@@ -1,11 +1,14 @@
 #' Convert a parsed filed to a mom_df that can be manipulated and exported
 #'
-#' @param x `character` typically what is returned by [harvest]; otherwise
-#' bypassed with appropriate parameters. See the _Momit-usage_ vignette.
+#' @param x `list` typically what is returned by [harvest]; otherwise, if `character`
+#'  will be passed to [harvest] with appropriate parameters. See the _Momit-usage_ vignette.
 #' @param ... additional parameters to feed [harvest] (and [list.files] in the end)
 #'
 #' @return `mom_df` that can be manipulated and exported
-#'
+#' @note When `x` is passed as a `character`,
+#' [harvest] will try to find them based on their extensions.
+#' Some format do not have their own extension (eg `.txt`).
+#' In the latter case and/or you should first [harvest] with proper parameters.
 #' @name from
 #' @rdname from
 #' @family from functions
@@ -95,6 +98,7 @@ from_nts <- function(x, ...){
       brush_insert_every(span = nb_coo/D, this = shp_names)
     # now ready to parse
   }
+  # import and parse them all
   lapply(x, nts1) %>%
     parse_mom() %>% momify()
 }
@@ -117,6 +121,7 @@ from_stv <- function(x, ...){
       # reduce to 3 coordinates for concerned lines
       brush_shorten_coordinates(ncol=3)
   }
+  # import and parse them all
   lapply(x, from_stv1) %>%
     parse_mom() %>% momify()
 }
@@ -134,10 +139,74 @@ from_lmk <- function(x, ...){
       # remove Landmarks from concerned lines
       brush_gsub("Landmark[[:digit:]]+: ", "")
   }
+  # import and parse them all
   lapply(x, from_lmk1) %>%
     parse_mom() %>% momify()
 }
 
+#' @rdname from
+#' @export
+from_StereoMorph <- function(x, ...){
+  if (!is.list(x)){
+    x <- harvest(x, ...)
+  }
+  # importer for 1
+  StereoMorph1 <- function(.x){
+    # rewrite file in a tmp file
+    tmp <- paste0(tempfile(), "tmp.txt")
+    writeLines(.x, tmp)
+    # on exit, remove it
+    on.exit(silent <- file.remove(tmp))
+    x <- StereoMorph::readShapes(tmp)
+
+    # to host mom-like lines
+    res <- character()
+
+    # handles image.id if any
+    if (!is.null(x$image.id)){
+      res <- append(res, paste0("~", x$image.id))
+    } else {
+      res <- append(res, paste0("~", "shp"))
+    }
+
+    # handles scaling if any
+    if (!is.null(x$scaling))
+      res <- append(res, paste("scaling", x$scaling))
+
+    # handles landmarks if any - if not scaled try pixel
+    if (!is.null(x$landmarks.scaled)) {
+      x$landmarks.scaled %>% `rownames<-`(NULL) %>%
+        .mtx_2_str() %>% c("landmarks", .) %>% append(res, .) -> res
+    } else {
+      if (!is.null(x$landmarks.pixel)) {
+        x$landmarks.pixel %>% `rownames<-`(NULL) %>%
+          .mtx_2_str() %>% c("landmarks", .) %>% append(res, .) -> res
+      }
+    }
+
+    # handles curves if any - if not scaled try pixel
+    if (!is.null(x$curves.scaled)){
+      curves_names <- paste0("curve_", names(x$curves.scaled))
+      curves_str <- x$curves.scaled %>% lapply(.mtx_2_str)
+      lapply(seq_along(curves_str),
+             function(i) c(curves_names[i], curves_str[[i]])) %>%
+        do.call("c", .) %>% append(res, .) -> res
+    } else {
+      if (!is.null(x$curves.pixel)){
+        curves_names <- paste0("curve_", names(x$curves.pixel))
+        curves_str <- x$curves.pixel %>% lapply(.mtx_2_str)
+        lapply(seq_along(curves_str),
+               function(i) c(curves_names[i], curves_str[[i]])) %>%
+          do.call("c", .) %>% append(res, .) -> res
+      }
+    }
+    res
+  }
+
+  # import and parse them all
+  lapply(x, StereoMorph1) %>%
+    parse_mom() %>% momify()
+}
 
 # harvest("foreign/tpsDig_XYsusSEAsia.NTS")  %>% from_nts()
 
@@ -148,3 +217,9 @@ from_lmk <- function(x, ...){
 # "foreign/meshtools_ZMK_TRF_01_34.lmk" %>% from_lmk
 
 # "foreign/meshtools_TRF_01_34.stv" %>% from_stv
+
+# doesnt work because of different shapes in original files
+# lapply(harvest("foreign", pattern="Stereo"), function(y) y %>% StereoMorph1) %>% parse_mom() %>% momify()
+# harvest("foreign/StereoMorph_mug_001.txt") %>% from_StereoMorph()
+# harvest("foreign/StereoMorph_mug_002.txt") %>% from_StereoMorph()
+# harvest("foreign/StereoMorph_mug_003.txt") %>% from_StereoMorph()

@@ -13,7 +13,7 @@ Encoding: UTF-8
 LazyData: true
 URL: https://github.com/MomX/Momit
 BugReports: https://github.com/MomX/Momit/issues
-Imports: dplyr, tibble, crayon
+Imports: dplyr, tibble, crayon, StereoMorph
 Suggests: devtools, knitr, rmarkdown, testthat, covr, Momocs
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
