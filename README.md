@@ -37,6 +37,24 @@ Rule | Pattern                 | What                          | Examples
  
 **TODO**: handle units, handle missing data (?)
 
+## Supported formats
+`to_*` exporters have not yet been written but below is a list of supported format importers:
+
+extension | software              | function
+----------|-----------------------|-------------
+`.tps`    | tps series and others | `from_tps`
+`.nts`    | tps series and others | `from_nts`
+`.lmk`    | meshtools             | `from_lmk`
+`.stv`    | meshtools             | `from_stv`
+`.txt`    | StereoMorph           | `from_StereoMorph`
+
+Planned :
+ * ImageJ and others text-based data
+ * morphoJ
+ * PAST
+ * Optimas
+ * morphologika
+ 
 ## Examples
 
 A single shape with one covariate:
