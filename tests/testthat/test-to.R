@@ -7,6 +7,16 @@ test_that("to_mom", {
 })
 
 test_that("to_Out", {
-  expect_true(from_mom("tests/testthat/bot_lite.mom") %>%
+  expect_true(from_mom("bot_lite.mom") %>%
                 to_Out() %>% Momocs::is_Out())
+})
+
+test_that("to_Opn", {
+  expect_true(from_mom("olea.mom") %>%
+                to_Opn() %>% Momocs::is_Opn())
+})
+
+test_that("to_Ldk", {
+  expect_true(from_tps("tpsDig_allowen1.tps") %>%
+                to_Ldk() %>% Momocs::is_Ldk())
 })
