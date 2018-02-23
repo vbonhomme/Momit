@@ -33,6 +33,17 @@ test_that(".mom_df_2_mom", {
   expect_equal(sum(re_mom[, 2]=="non_valid"), 0)
 })
 
+.ensure_collated <- function(x, n){
+  missing_collated <- which(sapply(x, function(.) !any(grepl(collated, .))))
+  if (length(missing_collated)==0){
+    return(x)
+  } else {
+    lapply(missing_collated, function(.) x[[.]] <- c(paste0("~", n[.]), x[[.]])) %>%
+      return()
+
+  }
+}
+
 test_that(".replace_na_with_last", {
   x <- c("3", NA, NA, NA, "4", NA)
   expect_equal(sum(is.na(.replace_na_with_last(x))), 0)
