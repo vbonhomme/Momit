@@ -2,9 +2,12 @@
 % Please edit documentation in R/parse_mom.R
 \name{parse_mom}
 \alias{parse_mom}
+\alias{some_non_valid}
 \title{Parse a mom-like vector of character lines}
 \usage{
 parse_mom(x)
+
+some_non_valid(x)
 }
 \arguments{
 \item{x}{\code{list} of \code{character}, typically lines returned by \link{harvest}.
@@ -12,7 +15,7 @@ parse_mom(x)
 or similarly prepared with \link{readLines}.}
 }
 \value{
-\code{mom_df}
+\code{mom_df} for \code{parse_mom}, a \code{logical} for \code{some_non_valid}
 }
 \description{
 Parse a mom-like vector of character lines

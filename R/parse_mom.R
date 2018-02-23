@@ -22,7 +22,10 @@
 #' @param x `list` of `character`, typically lines returned by [harvest].
 #' `character` can also be passed directly to ease `from_*` function development. See vignettes.
 #' or similarly prepared with [readLines].
-#' @return `mom_df`
+#' @return `mom_df` for `parse_mom`, a `logical` for `some_non_valid`
+#'
+#' @name parse_mom
+#' @rdname parse_mom
 #' @export
 parse_mom <- function(x){
   # single file case
@@ -35,6 +38,12 @@ parse_mom <- function(x){
       do.call("rbind", .) %>%
       return()
   }
+}
+
+#' @rdname parse_mom
+#' @export
+some_non_valid <- function(x){
+  sum(x$what=="non_valid")>0
 }
 
 #' Print method for mom_df
