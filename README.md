@@ -1,5 +1,5 @@
 Momit: a file format for morphometric data exchange and conversion <img src="man/figures/Momit_sticker.png" align="right" />
-======================
+
 ![experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg) 
 [![Travis-CI Build Status](https://travis-ci.org/MomX/Momit.svg?branch=master)](https://travis-ci.org/MomX/Momit)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/Momit)](http://cran.r-project.org/package=Momit)
