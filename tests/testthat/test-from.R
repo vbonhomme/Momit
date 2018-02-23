@@ -13,7 +13,7 @@ test_that("from_mom", {
 
 # 30LM fails! TODO
 test_that("from_tps", {
-    expect_equal(list.files("foreign", full=T, pattern="allowen") %>%
+    expect_equal(list.files(full=T, pattern="allowen") %>%
                    lapply(from_tps) %>%
                    lapply(class) %>%
                    sapply(`[`, 1) %>%
@@ -22,7 +22,7 @@ test_that("from_tps", {
 
 
 test_that("from_nts", {
-  expect_is(harvest("foreign/tpsDig_XYsusSEAsia.NTS")  %>% from_nts(), "mom_df")
+  expect_is(harvest("tpsDig_XYsusSEAsia.nts")  %>% from_nts(), "mom_df")
   # ~20 s below
   # expect_is(harvest("foreign/tpsDig_guenons_online.nts")  %>%
   #             lapply(function(x) gsub("([[:digit:]]+_[[:digit:]])", "ind_\\1", x)) %>%
@@ -30,15 +30,15 @@ test_that("from_nts", {
 })
 
 test_that("from_lmk", {
-  expect_is("foreign/meshtools_ZMK_TRF_01_34.lmk" %>% from_lmk, "mom_df")
+  expect_is("meshtools_ZMK_TRF_01_34.lmk" %>% from_lmk, "mom_df")
 })
 
 test_that("from_stv", {
-  expect_is("foreign/meshtools_TRF_01_34.stv" %>% from_stv, "mom_df")
+  expect_is("meshtools_TRF_01_34.stv" %>% from_stv, "mom_df")
 })
 
 test_that("from_StereoMorph", {
-  expect_equal(list.files("foreign", full=T, pattern="Stereo") %>%
+  expect_equal(list.files(full=T, pattern="Stereo") %>%
     lapply(from_StereoMorph) %>%
     lapply(class) %>%
     sapply(`[`, 1) %>%
@@ -46,7 +46,7 @@ test_that("from_StereoMorph", {
 })
 
 test_that("from_Optimas", {
-  expect_equal(lapply(list.files("foreign", pattern="Optimas", full.names = T, rec=T),
+  expect_equal(lapply(list.files(pattern="Optimas", full.names = T, rec=T),
                 from_Optimas) %>%
                  lapply(class) %>%
                  sapply(`[`, 1) %>%
@@ -54,5 +54,5 @@ test_that("from_Optimas", {
 })
 
 test_that("from_PAST", {
-  expect_is(harvest("foreign/PAST_ontogeny9L.past.txt") %>% from_PAST(), "mom_df")
+  expect_is(harvest("PAST_ontogeny9L.past.txt") %>% from_PAST(), "mom_df")
 })
