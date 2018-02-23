@@ -293,28 +293,3 @@ from_PAST <- function(x, ...){
   lapply(x, PAST1) %>%
     parse_mom %>% momify
 }
-
-
-# To tests:
-# harvest("foreign/tpsDig_XYsusSEAsia.NTS")  %>% from_nts()
-
-# harvest("foreign/tpsDig_guenons_online.nts")  %>%
-# lapply(function(x) gsub("([[:digit:]]+_[[:digit:]])", "ind_\\1", x)) %>%
-# from_nts()
-
-# "foreign/meshtools_ZMK_TRF_01_34.lmk" %>% from_lmk
-
-# "foreign/meshtools_TRF_01_34.stv" %>% from_stv
-
-# doesnt work because of different shapes in original files
-# lapply(harvest("foreign", pattern="Stereo"), function(y) y %>% StereoMorph1) %>% parse_mom() %>% momify()
-# harvest("foreign/StereoMorph_mug_001.txt") %>% from_StereoMorph()
-# harvest("foreign/StereoMorph_mug_002.txt") %>% from_StereoMorph()
-# harvest("foreign/StereoMorph_mug_003.txt") %>% from_StereoMorph()
-
-# lapply(
-#   list.files("foreign", pattern="Optimas", full.names = T, rec=T),
-#   from_Optimas)
-
-# harvest("foreign/PAST_ontogeny9L.past.txt") %>% from_PAST()
-
