@@ -17,7 +17,8 @@ write_separately(x, folder = "", extension = "")
 
 \item{folder}{\code{character}, where to write the file(s) (default ``, ie root of the working directory)}
 
-\item{extension}{\code{character}, the extension to use (default \code{mom})}
+\item{extension}{\code{character}, the extension to use, with or
+without a \code{.} before extension (default \code{mom})}
 }
 \description{
 Given the lines returned by \link{to}\code{_*}, write file(s).
