@@ -75,19 +75,6 @@ patterns_regex <- c("coordinates" = coordinates,
   #grep("[[:alnum:]]+", ., value=TRUE)
 }
 
-# when collating a single or many files,
-# ensure a collated name (ie ~name) is present,
-# otherwise add it to the character
-.ensure_collated <- function(x, n){
-  missing_collated <- which(sapply(x, function(.) !any(grepl(collated, .))))
-  if (length(missing_collated)==0){
-    return(x)
-  } else {
-    lapply(missing_collated, function(.) x[[.]] <- c(paste0("~", n[.]), x[[.]])) %>%
-      return()
-
-  }
-}
 
 # turns a vector with NAs and non-NAs
 # replace NAs with the last non-NA
