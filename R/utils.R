@@ -22,7 +22,7 @@ patterns_regex <- c("coordinates" = coordinates,
   x %>%
     lapply(function(.) paste(.[-1], collapse=" ")) %>%
     `names<-`(sapply(x, `[`, 1)) %>%
-    as_tibble()
+    tibble::as_tibble()
 }
 
 # turns the first line of a data.frame

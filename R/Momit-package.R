@@ -21,23 +21,13 @@
 #' @name Momit
 NULL
 
-# Import the pipe from dplyr
+# Rexport the forward pipe from dplyr (saves magrittr dependency)
 #' @importFrom dplyr "%>%"
 #' @export
 dplyr::"%>%"
 
-# Import from dplyr
-#' @importFrom dplyr bind_cols filter mutate slice transmute
-
-# Import colors from crayon
-#' @importFrom crayon green red silver
-
 # Import print.tbl_df from tibble
 # #' @importFrom tibble print.tbl_df
-
-#' @importFrom tibble as_tibble
-
-#' @importFrom StereoMorph readShapes
 
 # prevents "no visible binding for global variable"
 # http://stackoverflow.com/questions/9439256/how-can-i-handle-r-cmd-check-no-visible-binding-for-global-variable-notes-when

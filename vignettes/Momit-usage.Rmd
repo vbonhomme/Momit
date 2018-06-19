@@ -17,12 +17,12 @@ editor_options:
 
 files  +--> harvest() +----> from_*() +----> to_*()  +---->   files
 ```
-_classes above functions indicates the R zone, otherwise we talk about files on a machine._
+_classes above functions indicates the R zone, otherwise we talk about files on your machine._
 
 1. You have morphometric data
 2. `from_*()` find, read and parse them to a `mom_df` `data.frame`
 3. `to_*()` translate them to the format you want
-4. `write_*` these files.
+4. `write_*` export these files.
 
 The only mandatory part below is `from_*`, in the case where you would only like to import `{.mom, .tps, .nts, etc.}` files into R (no convert, no export). See the first example below.
 
@@ -32,7 +32,7 @@ The only mandatory part below is `from_*`, in the case where you would only like
 
 * Same but wih `.tps`files and you want to collate them into a single `.mom` file:<br /> `from_tps() %>% to_mom() %>% write_single()`
 
-* You have thousands of outlines of the same object, spread accross a messy subfolders structures (true story and shame and you !). Outlines coordinates represent two views (say lateral and dorsal), and saved as `.mom` files with the appropriate cofactor (say `view dorsal`) and you only want the dorsal outlines to be imported in Momocs:<br />
+* You have thousands of outlines of the same object, spread accross a messy (or neat) subfolders structures. Outlines coordinates represent two views (say lateral and dorsal), and saved as `.mom` files with the appropriate cofactor (say `view dorsal`) and you only want the dorsal outlines to be imported in Momocs:<br />
 `harvest(your_list_of_messy_folders_where_files_are) %>% from_mom() %>% filter(view=="dorsal") %>% to_Out()`
 
 Talking about pipes, all [MomX](https://github.com/MomX) packages use them intensively, so you may want to read [magrittr's vignette](https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html)

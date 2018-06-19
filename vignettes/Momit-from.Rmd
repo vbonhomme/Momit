@@ -80,7 +80,8 @@ x_cleaned %>% parse_mom() %>% momify
 
 We now just need to pack this pipeline into a function and we will have (re)created a `.nts` importer!
 
-```{r}
+<!--
+```{r, eval=FALSE}
 # from_my_tps <- function(x, ...){
 #  if (!is.list(x)){
 #     x <- harvest(x, pattern="nts$", ...)
@@ -93,6 +94,7 @@ We now just need to pack this pipeline into a function and we will have (re)crea
 # }
 ```
 
+
 Compare this with 
 
 ## Wild case: mosquito wings
@@ -101,7 +103,7 @@ Let's take a less trivial example, the _wings outlines_ dataset, from the same p
 
 Download it and inspect it:
 
-```{r}
+```{r, eval=FALSE}
 x <- readLines("http://life.bio.sunysb.edu/morph/data/RohlfArchieWingOutlines.nts")
 head(x)
 tail(x)
@@ -109,7 +111,7 @@ tail(x)
 
 Damned ! 10 coordinates per line, some minus signs touching numbers, some empty lines, individuals are collated but not indicated, etc. To spice a bit our task, the dataset provided is not complete: we expect 2540 lines (each of the 127 individuals has 100 points, so 200 coordinates, so with 10 coordinates per line, 20 lines. We expect `127*20=2540` lines but 8 are missing. We first patch this by copying the last lines. Of course, that's just for the example.
 
-```{r}
+```{r, eval=FALSE}
 coo_per_ind <- brush_get_nts_nb_coo(x) # save the number of coordinates per individuals
 x <- x %>%
   brush_remove_lines('"') %>%          # remove comments
@@ -122,7 +124,7 @@ x <- c(x, x[2525:2532])                # copy the last lines so that it sums up 
 The (continuation of the) long pipe below introduces other brushes which names should be transparent. Dissecate it. 
 
 
-```{r}
+```{r, eval=FALSE}
 x <- x %>%
   brush_add_space_before("-") %>%
   brush_remove_leading_spaces() %>% 
@@ -135,11 +137,11 @@ cat(x[1:5], "[.../...]", x[coo_per_ind + (1:5)],  sep="\n")
 
 It starts to looks like a `.mom`! Let's try to parse it:
 
-```{r}
+```{r, eval=FALSE}
 x %>% parse_mom %>% momify
 ```
-
-So the question is: is it worth the pain to import it using a custom importer? The answer is yes to my opinion. I spent a lot of time answering to Momocs' user questions about importing badly formatted data and this decided me to define `.mom` and write Momit. The hope is now twofold: homoegeneize morphometric data presentation and go around the jungle of existing morphometric formats.
+-->
+So the question is: is it worth the pain to import it using a custom importer? The answer is yes to my opinion. I spent a lot of time answering to Momocs' user questions about importing badly formatted data and this decided me to define `.mom` and write Momit. The hope is now twofold: homogeneize morphometric data presentation and go around the jungle of existing morphometric formats.
 
 Again, if you have some exotic data, wrote an `from_*` function and/or need help to do so, I will be there to help and include it in Momit.
 
