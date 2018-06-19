@@ -5,3 +5,4 @@
 ^CONDUCT\.md$
 tmp/
 foreign/
+^README\.Rmd$
