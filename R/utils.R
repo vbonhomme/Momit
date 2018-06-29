@@ -67,14 +67,13 @@ patterns_regex <- c("coordinates" = coordinates,
   # remove empty lines
   x <- x[nchar(x)>0]
   x %>%
+    # tab(s) to spaces
+    gsub("(\t)+", " ", .) %>%
     # 2+ spaces are converted to a single space
     gsub(" {2, }", " ", .) %>%
     # remove leading and trailing spaces
-    gsub("^ | $", "", .) #%>%
-  # every lines not containing (one or more) (word or number)
-  #grep("[[:alnum:]]+", ., value=TRUE)
+    gsub("^ | $", "", .)
 }
-
 
 # turns a vector with NAs and non-NAs
 # replace NAs with the last non-NA

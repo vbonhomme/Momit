@@ -7,8 +7,6 @@
 \alias{from_nts}
 \alias{from_stv}
 \alias{from_lmk}
-\alias{from_StereoMorph}
-\alias{from_Optimas}
 \alias{from_PAST}
 \title{Convert a parsed filed to a mom_df that can be manipulated and exported}
 \usage{
@@ -21,10 +19,6 @@ from_nts(x, ...)
 from_stv(x, ...)
 
 from_lmk(x, ...)
-
-from_StereoMorph(x, ...)
-
-from_Optimas(x, ...)
 
 from_PAST(x, ...)
 }

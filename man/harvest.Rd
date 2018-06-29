@@ -4,15 +4,12 @@
 \alias{harvest}
 \title{Detect and read files}
 \usage{
-harvest(x = getwd(), pattern = "mom$", prune = TRUE, ...)
+harvest(x = getwd(), pattern = "mom$", ...)
 }
 \arguments{
 \item{x}{\code{character} a list of folders or files (default \code{getwd()})}
 
 \item{pattern}{a \code{\link{regex}} to feed \link{list.files} (default to \code{\\.mom$})}
-
-\item{prune}{whether to use \code{Momit::.prune}, eg clean space
-characters and empty lines. Useful most of the time.}
 
 \item{...}{more arguments to feed \link{list.files}}
 }

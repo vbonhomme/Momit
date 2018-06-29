@@ -6,3 +6,5 @@
 tmp/
 foreign/
 ^README\.Rmd$
+_pkgdown.yaml
+docs/

@@ -20,6 +20,15 @@ test_that("from_tps", {
                    unique(), "mom_df")
 })
 
+test_that("from_tps", {
+  expect_equal(list.files(full=T, pattern="allactaga") %>%
+                 lapply(from_tps) %>%
+                 lapply(class) %>%
+                 sapply(`[`, 1) %>%
+                 unique(), "mom_df")
+
+})
+
 
 test_that("from_nts", {
   expect_is(harvest("tpsDig_XYsusSEAsia.nts")  %>% from_nts(), "mom_df")
@@ -37,21 +46,21 @@ test_that("from_stv", {
   expect_is("meshtools_TRF_01_34.stv" %>% from_stv, "mom_df")
 })
 
-test_that("from_StereoMorph", {
-  expect_equal(list.files(full=T, pattern="Stereo") %>%
-    lapply(from_StereoMorph) %>%
-    lapply(class) %>%
-    sapply(`[`, 1) %>%
-    unique(), "mom_df")
-})
+# test_that("from_StereoMorph", {
+#   expect_equal(list.files(full=T, pattern="Stereo") %>%
+#     lapply(from_StereoMorph) %>%
+#     lapply(class) %>%
+#     sapply(`[`, 1) %>%
+#     unique(), "mom_df")
+# })
 
-test_that("from_Optimas", {
-  expect_equal(lapply(list.files(pattern="Optimas", full.names = T, rec=T),
-                from_Optimas) %>%
-                 lapply(class) %>%
-                 sapply(`[`, 1) %>%
-                 unique(), "mom_df")
-})
+# test_that("from_Optimas", {
+#   expect_equal(lapply(list.files(pattern="Optimas", full.names = T, rec=T),
+#                 from_Optimas) %>%
+#                  lapply(class) %>%
+#                  sapply(`[`, 1) %>%
+#                  unique(), "mom_df")
+# })
 
 test_that("from_PAST", {
   expect_is(harvest("PAST_ontogeny9L.past.txt") %>% from_PAST(), "mom_df")

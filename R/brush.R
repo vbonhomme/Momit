@@ -14,6 +14,7 @@
 #' @param pattern_split `character` where to split collated
 #' @param pattern_on_top `character` which patterned lines to put on top
 #' @param ncol `numeric` how many coordinates to retain
+#' @param ifnotthis `character` used to test whether to replace
 #'
 #' @return a `character`
 #'
@@ -150,7 +151,11 @@ brush_on_top <- function(x, pattern_split, pattern_on_top){
 brush_remove_empty_partition <- function(x){
   partition_pos <- grep(partition, x)
   partition_empty <- partition_pos %>% diff %>% `==`(1) %>% which %>% `[`(partition_pos, .)
-  x[-partition_empty]
+  # no empty partitions case
+  if (length(partition_empty)==0)
+    x
+  else
+    x[-partition_empty]
 }
 
 #' @rdname brush
@@ -184,6 +189,15 @@ brush_rename_partition <- function(x, pattern_split){
 #' @export
 brush_gsub <- function(x, pattern, replacement){
   gsub(pattern, replacement, x)
+}
+
+#' @rdname brush
+#' @export
+brush_gsub_ifnotthis <- function(x, pattern, replacement, ifnotthis){
+  if (length(grep(ifnotthis, x))!=0)
+    x
+  else
+    gsub(pattern, replacement, x)
 }
 
 #' @rdname brush

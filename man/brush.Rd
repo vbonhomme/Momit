@@ -19,6 +19,7 @@
 \alias{brush_remove_empty_partition}
 \alias{brush_rename_partition}
 \alias{brush_gsub}
+\alias{brush_gsub_ifnotthis}
 \alias{brush_get_nts_nrow}
 \alias{brush_remove_coordinates_pattern}
 \alias{brush_get_lines}
@@ -63,6 +64,8 @@ brush_rename_partition(x, pattern_split)
 
 brush_gsub(x, pattern, replacement)
 
+brush_gsub_ifnotthis(x, pattern, replacement, ifnotthis)
+
 brush_get_nts_nrow(x)
 
 brush_remove_coordinates_pattern(x)
@@ -97,6 +100,8 @@ it is inserted every \code{span}. If not provided, dummy names 'shp_NN' are inse
 \item{pattern_on_top}{\code{character} which patterned lines to put on top}
 
 \item{replacement}{a \code{\link{regex}}}
+
+\item{ifnotthis}{\code{character} used to test whether to replace}
 
 \item{ncol}{\code{numeric} how many coordinates to retain}
 

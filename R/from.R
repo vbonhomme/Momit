@@ -35,9 +35,11 @@ from_tps <- function(x, ...){
   # importer for 1
   from_tps1 <- function(.x) {
     .x %>%
+      # sometimes we have ID instead of IMAGE
+      brush_gsub_ifnotthis("ID", "IMAGE", "IMAGE") %>%
       # move IMAGE on top and turn it into a collated
       brush_on_top("LM", "IMAGE") %>%
-      brush_add_tildes("IMAGE=")  %>%
+      brush_add_tildes("IMAGE=") %>%
       # handle covariates (not partitions !)
       brush_gsub("([[:alnum:]]+)=([[:alnum:]]+)", "\\1 \\2") %>%
       brush_gsub("(LM).*", "\\1") %>%
@@ -144,124 +146,124 @@ from_lmk <- function(x, ...){
     parse_mom() %>% momify()
 }
 
-#' @rdname from
-#' @export
-from_StereoMorph <- function(x, ...){
-  if (!is.list(x)){
-    x <- harvest(x, ...)
-  }
-  # importer for 1
-  # what about Filter(Negate(is.null), x)
-  StereoMorph1 <- function(.x){
-    # rewrite file in a tmp file
-    tmp <- paste0(tempfile(), "tmp.txt")
-    writeLines(.x, tmp)
-    # on exit, remove it
-    on.exit(silent <- file.remove(tmp))
-    x <- StereoMorph::readShapes(tmp)
-
-    # to host mom-like lines
-    res <- character()
-
-    # handles image.id if any
-    if (!is.null(x$image.id)){
-      res <- append(res, paste0("~", x$image.id))
-    } else {
-      res <- append(res, paste0("~", "shp"))
-    }
-
-    # handles scaling if any
-    if (!is.null(x$scaling))
-      res <- append(res, paste("scaling", x$scaling))
-
-    # handles landmarks if any - if not scaled try pixel
-    if (!is.null(x$landmarks.scaled)) {
-      x$landmarks.scaled %>% `rownames<-`(NULL) %>%
-        .mtx_2_str() %>% c("landmarks", .) %>% append(res, .) -> res
-    } else {
-      if (!is.null(x$landmarks.pixel)) {
-        x$landmarks.pixel %>% `rownames<-`(NULL) %>%
-          .mtx_2_str() %>% c("landmarks", .) %>% append(res, .) -> res
-      }
-    }
-
-    # handles curves if any - if not scaled try pixel
-    if (!is.null(x$curves.scaled)){
-      curves_names <- paste0("curve_", names(x$curves.scaled))
-      curves_str <- x$curves.scaled %>% lapply(.mtx_2_str)
-      lapply(seq_along(curves_str),
-             function(i) c(curves_names[i], curves_str[[i]])) %>%
-        do.call("c", .) %>% append(res, .) -> res
-    } else {
-      if (!is.null(x$curves.pixel)){
-        curves_names <- paste0("curve_", names(x$curves.pixel))
-        curves_str <- x$curves.pixel %>% lapply(.mtx_2_str)
-        lapply(seq_along(curves_str),
-               function(i) c(curves_names[i], curves_str[[i]])) %>%
-          do.call("c", .) %>% append(res, .) -> res
-      }
-    }
-    res
-  }
-
-  # import and parse them all
-  lapply(x, StereoMorph1) %>%
-    parse_mom() %>% momify()
-}
-
-
-#' @rdname from
-#' @export
-from_Optimas <- function(x, ...){
-  if (!is.list(x)){
-    x <- harvest(x, prune=FALSE, ...)
-  }
-
-  Optimas1 <- function(.x){
-    # add (dummy) names where empty lines are
-    x <- brush_add_names_empty_lines(.x)
-    # x <- .x
-    # find tab separated words
-    grep("(\t[[:alpha:]])+", x, value=TRUE) %>%
-      # remove leading/trainling space characters
-      gsub("(^[[:space:]]*)|([[:space:]]*$)", "", .) %>%
-      # replace space characters (tabs here) with single space
-      brush_replace_space_characters_with_space() %>%
-      # split on single space
-      strsplit(" ") %>%
-      # back to vector
-      unlist() -> cov_names
-
-    # handles Optimas special cases
-    SampledPoints_pos <- grep("ArSampledPoints", cov_names)
-    if (length(SampledPoints_pos)>0)
-      cov_names <- c(cov_names[-SampledPoints_pos], paste0("ArSampledPoints", "_", c("x", "y")))
-
-    # deduce the number of cov
-    cov_nb <- length(cov_names)
-    # remove header line
-    x <- x[-grep("(\t[[:alpha:]])+", x)]
-    # cov lines are now just those after a white space
-    cov_lines <- grep("~", x)+1
-
-    # get rid of multiple tabs and leading/trailing spaces
-    x <- brush_gsub(x, "\t", " ") %>%
-      brush_remove_multiple_spaces() %>%
-      brush_remove_leading_spaces() %>%
-      brush_remove_trailing_spaces()
-
-    # add mom-like cov_names to cov_values
-    cov_ready <- strsplit(x[cov_lines], " ") %>%
-      lapply(function(.x) paste(cov_names, .x))
+# #' @rdname from
+# #' @export
+# from_StereoMorph <- function(x, ...){
+#   if (!is.list(x)){
+#     x <- harvest(x, ...)
+#   }
+#   # importer for 1
+#   # what about Filter(Negate(is.null), x)
+#   StereoMorph1 <- function(.x){
+#     # rewrite file in a tmp file
+#     tmp <- paste0(tempfile(), "tmp.txt")
+#     writeLines(.x, tmp)
+#     # on exit, remove it
+#     on.exit(silent <- file.remove(tmp))
+#     x <- StereoMorph::readShapes(tmp)
+#
+#     # to host mom-like lines
+#     res <- character()
+#
+#     # handles image.id if any
+#     if (!is.null(x$image.id)){
+#       res <- append(res, paste0("~", x$image.id))
+#     } else {
+#       res <- append(res, paste0("~", "shp"))
+#     }
+#
+#     # handles scaling if any
+#     if (!is.null(x$scaling))
+#       res <- append(res, paste("scaling", x$scaling))
+#
+#     # handles landmarks if any - if not scaled try pixel
+#     if (!is.null(x$landmarks.scaled)) {
+#       x$landmarks.scaled %>% `rownames<-`(NULL) %>%
+#         .mtx_2_str() %>% c("landmarks", .) %>% append(res, .) -> res
+#     } else {
+#       if (!is.null(x$landmarks.pixel)) {
+#         x$landmarks.pixel %>% `rownames<-`(NULL) %>%
+#           .mtx_2_str() %>% c("landmarks", .) %>% append(res, .) -> res
+#       }
+#     }
+#
+#     # handles curves if any - if not scaled try pixel
+#     if (!is.null(x$curves.scaled)){
+#       curves_names <- paste0("curve_", names(x$curves.scaled))
+#       curves_str <- x$curves.scaled %>% lapply(.mtx_2_str)
+#       lapply(seq_along(curves_str),
+#              function(i) c(curves_names[i], curves_str[[i]])) %>%
+#         do.call("c", .) %>% append(res, .) -> res
+#     } else {
+#       if (!is.null(x$curves.pixel)){
+#         curves_names <- paste0("curve_", names(x$curves.pixel))
+#         curves_str <- x$curves.pixel %>% lapply(.mtx_2_str)
+#         lapply(seq_along(curves_str),
+#                function(i) c(curves_names[i], curves_str[[i]])) %>%
+#           do.call("c", .) %>% append(res, .) -> res
+#       }
+#     }
+#     res
+#   }
+#
+#   # import and parse them all
+#   lapply(x, StereoMorph1) %>%
+#     parse_mom() %>% momify()
+# }
 
 
-    # add them, replace cov lines and return
-    brush_insert_this_at(x, cov_ready, cov_lines)
-  }
-
-  lapply(x, Optimas1) %>%
-    parse_mom %>% momify
-}
+# #' @rdname from
+# #' @export
+# from_Optimas <- function(x, ...){
+#   if (!is.list(x)){
+#     x <- harvest(x, prune=FALSE, ...)
+#   }
+#
+#   Optimas1 <- function(.x){
+#     # add (dummy) names where empty lines are
+#     x <- brush_add_names_empty_lines(.x)
+#     # x <- .x
+#     # find tab separated words
+#     grep("([[:alpha:]])+", x, value=TRUE) %>%
+#       # remove leading/trailing space characters
+#       gsub("(^[[:space:]]*)|([[:space:]]*$)", "", .) %>%
+#       # replace space characters (tabs here) with single space
+#       brush_replace_space_characters_with_space() %>%
+#       # split on single space
+#       strsplit(" ") %>%
+#       # back to vector
+#       unlist() -> cov_names
+#
+#     # handles Optimas special cases
+#     SampledPoints_pos <- grep("ArSampledPoints", cov_names)
+#     if (length(SampledPoints_pos)>0)
+#       cov_names <- c(cov_names[-SampledPoints_pos], paste0("ArSampledPoints", "_", c("x", "y")))
+#
+#     # deduce the number of cov
+#     cov_nb <- length(cov_names)
+#     # remove header line
+#     x <- x[-grep("([[:alpha:]])+", x)]
+#     # cov lines are those with the same number of covs than words in cov_names
+#     # not perfect but we trimmed tabs before
+#     cov_lines <- strsplit(x, " ") %>% sapply(length) %>% `==`(length(cov_names)) %>% which()
+#
+#     # get rid of multiple tabs and leading/trailing spaces
+#     x <- brush_gsub(x, "\t", " ") %>%
+#       brush_remove_multiple_spaces() %>%
+#       brush_remove_leading_spaces() %>%
+#       brush_remove_trailing_spaces()
+#
+#     # add mom-like cov_names to cov_values
+#     cov_ready <- strsplit(x[cov_lines], " ") %>%
+#       lapply(function(.x) paste(cov_names, .x))
+#
+#     # add them, replace cov lines and return
+#     brush_insert_this_at(x, cov_ready, cov_lines)
+#   }
+#
+#   lapply(x, Optimas1) %>%
+#     parse_mom %>% momify
+# }
 
 
 #' @rdname from

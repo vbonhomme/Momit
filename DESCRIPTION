@@ -7,7 +7,7 @@ Description: A minimalist file format for morphometrics data exchange and conver
        computers. Aimed at being a `pandoc` for morphometrics,
        that is a swiss-army knife for converting files from/to the
        different morphometric markup dialects.
-Depends: R (>= 3.4.1)
+Depends: R (>= 3.4.0)
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true

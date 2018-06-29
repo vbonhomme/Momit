@@ -5,8 +5,6 @@
 #'
 #' @param x `character` a list of folders or files (default `getwd()`)
 #' @param pattern a [`regex`] to feed [list.files] (default to `\\.mom$`)
-#' @param prune whether to use `Momit::.prune`, eg clean space
-#' characters and empty lines. Useful most of the time.
 #' @param ... more arguments to feed [list.files]
 #'
 #' @note `list.files` is passed with `full.names=TRUE, recursive = TRUE`,
@@ -16,7 +14,7 @@
 #' @return `character` lines that can be momified with [parse_mom]
 #'
 #' @export
-harvest <- function(x=getwd(), pattern="mom$", prune=TRUE, ...){
+harvest <- function(x=getwd(), pattern="mom$", ...){
   # if folder(s) path(s) are provided,
   # list all paths to patterned files
   if (all(dir.exists(x))){
@@ -32,9 +30,9 @@ harvest <- function(x=getwd(), pattern="mom$", prune=TRUE, ...){
       lapply(readLines, warn=FALSE) # to prevent "incomplete final line" warning
   }
   # prune whether required
-  if (prune){
+  #if (prune){
     lapply(x, .prune)
-  } else {
-    x
-  }
+  #} else {
+  #  x
+  #}
 }
