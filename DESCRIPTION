@@ -1,6 +1,7 @@
 Package: Momit
 Title: Read, Write, Convert, Handle Morphometric Data using .mom Minimalist File Format
-Version: 0.0.0.9000
+Version: 0.1.0
+Date: 2018-06-25
 Authors@R: person("Vincent", "Bonhomme", email = "bonhomme.vincent@gmail.com", role = c("aut", "cre"))
 Description: A minimalist file format for morphometrics data exchange and conversion, 
        easy to read for humans, and easy to parse for
@@ -13,8 +14,8 @@ Encoding: UTF-8
 LazyData: true
 URL: https://github.com/MomX/Momit
 BugReports: https://github.com/MomX/Momit/issues
-Imports: dplyr, tibble, crayon, StereoMorph
-Suggests: devtools, knitr, rmarkdown, testthat, covr, Momocs
+Imports: cli, dplyr, crayon, Momocs
+Suggests: devtools, knitr, rmarkdown, testthat, covr
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1

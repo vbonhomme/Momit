@@ -7,9 +7,6 @@
     <loc>http://momx.github.io/Momit/reference/Momit.html</loc>
   </url>
   <url>
-    <loc>http://momx.github.io/Momit/reference/brush.html</loc>
-  </url>
-  <url>
     <loc>http://momx.github.io/Momit/reference/from.html</loc>
   </url>
   <url>
@@ -19,27 +16,18 @@
     <loc>http://momx.github.io/Momit/reference/momify.html</loc>
   </url>
   <url>
-    <loc>http://momx.github.io/Momit/reference/parse_mom.html</loc>
-  </url>
-  <url>
-    <loc>http://momx.github.io/Momit/reference/print.premom_df.html</loc>
+    <loc>http://momx.github.io/Momit/reference/parse.html</loc>
   </url>
   <url>
     <loc>http://momx.github.io/Momit/reference/reexports.html</loc>
   </url>
   <url>
-    <loc>http://momx.github.io/Momit/reference/to.html</loc>
+    <loc>http://momx.github.io/Momit/reference/sift.html</loc>
   </url>
   <url>
-    <loc>http://momx.github.io/Momit/reference/write.html</loc>
+    <loc>http://momx.github.io/Momit/reference/to_Coo.html</loc>
   </url>
   <url>
-    <loc>http://momx.github.io/Momit/articles/Momit-from.html</loc>
-  </url>
-  <url>
-    <loc>http://momx.github.io/Momit/articles/Momit-usage.html</loc>
-  </url>
-  <url>
-    <loc>http://momx.github.io/Momit/articles/mom-definition.html</loc>
+    <loc>http://momx.github.io/Momit/articles/Use-Momit.html</loc>
   </url>
 </urlset>

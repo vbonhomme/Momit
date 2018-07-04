@@ -4,27 +4,21 @@
 \alias{from}
 \alias{from_mom}
 \alias{from_tps}
-\alias{from_nts}
-\alias{from_stv}
-\alias{from_lmk}
-\alias{from_PAST}
-\title{Convert a parsed filed to a mom_df that can be manipulated and exported}
+\title{Import morphometric files data}
 \usage{
-from_mom(x, ...)
+from_mom(pattern = "mom$", x = getwd(), encoding = "unknown", ...)
 
-from_tps(x, ...)
-
-from_nts(x, ...)
-
-from_stv(x, ...)
-
-from_lmk(x, ...)
-
-from_PAST(x, ...)
+from_tps(pattern = "tps$", x = getwd(), encoding = "unknown", ...)
 }
 \arguments{
-\item{x}{\code{list} typically what is returned by \link{harvest}; otherwise, if \code{character}
-will be passed to \link{harvest} with appropriate parameters. See the \emph{Momit-usage} vignette.}
+\item{pattern}{a regular expression (see \link{regex} and examples below) to subset the list of
+harvested files. Defaults to \code{filetype$} for each \code{from_filetype} (eg \code{tps$} for \code{from_tps}), etc.}
+
+\item{x}{either path(s) or a \code{list} of \code{character}s typically obtained with \code{harvest} or the raw \code{readLines}.
+By default, \code{setwd()} so that all files somewhere in your current working directory will be
+\code{harvest}ed and imported.}
+
+\item{encoding}{see \link{harvest}}
 
 \item{...}{additional parameters to feed \link{harvest} (and \link{list.files} in the end)}
 }
@@ -32,14 +26,21 @@ will be passed to \link{harvest} with appropriate parameters. See the \emph{Momi
 \code{mom_df} that can be manipulated and exported
 }
 \description{
-Convert a parsed filed to a mom_df that can be manipulated and exported
+Import morphometric files data
+}
+\details{
+\code{from_*} are nothing but shortcuts on top of \link{harvest} and \link{parse}.
+Type for example \code{from_mom} (no brackets) to see it.
 }
 \note{
-When \code{x} is passed as a \code{character},
-\link{harvest} will try to find them based on their extensions.
-Some format do not have their own extension (eg \code{.txt}).
-In the latter case and/or you should first \link{harvest} with proper parameters.
+If you are not yet familiar with regular expression, go learn them, they are
+among the most profitable investment you can make when talking to a computer.
 }
-\seealso{
-Other from functions: \code{\link{to}}
+\section{Currently supported formats}{
+
+\itemize{
+\item \code{.mom} with \code{from_mom}
+\item \code{.tps} with \code{from_tps}
 }
+}
+

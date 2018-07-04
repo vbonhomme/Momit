@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert a tag_df to a mom_df — momify • Momit</title>
+<title>Turns mom_list(s) into mom_df — momify • Momit</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,10 @@
 
 
 
-<meta property="og:title" content="Convert a tag_df to a mom_df — momify" />
+<meta property="og:title" content="Turns mom_list(s) into mom_df — momify" />
 
-<meta property="og:description" content="Convert a tag_df to a mom_df" />
+<meta property="og:description" content="Turns mom_list returned by parsers into data_frames, much easier to handle.
+Most of the time you should not need it directly expect if you write your own parse function." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -61,7 +62,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Momit</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
       </span>
     </div>
 
@@ -84,13 +85,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Momit-from.html">Develop new from_ functions</a>
-    </li>
-    <li>
-      <a href="../articles/Momit-usage.html">Use Momit</a>
-    </li>
-    <li>
-      <a href="../articles/mom-definition.html">`.mom` file format definition</a>
+      <a href="../articles/Use-Momit.html">Use Momit</a>
     </li>
   </ul>
 </li>
@@ -115,27 +110,34 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert a tag_df to a mom_df</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MomX/Momit/blob/master/R/parse_mom.R'><code>R/parse_mom.R</code></a></small>
+    <h1>Turns mom_list(s) into mom_df</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MomX/Momit/blob/master/R/momify.R'><code>R/momify.R</code></a></small>
     <div class="hidden name"><code>momify.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Convert a tag_df to a mom_df</p>
+    <p>Turns <code>mom_list</code> returned by <a href='parse.html'>parse</a>rs into <code>data_frame</code>s, much easier to handle.
+Most of the time you should not need it directly expect if you write your own <a href='parse.html'>parse</a> function.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>momify</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>momify1</span>(<span class='no'>x</span>)
+
+<span class='fu'>momify</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a tag_df</p></td>
+      <td><p><code>character</code>or <code>list</code> of <code>character</code> for <code>momify1</code> and <code>momify</code>, respectively.</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><code>mom_df</code></p>
     
 
   </div>
@@ -143,7 +145,9 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
 
   </div>
 </div>

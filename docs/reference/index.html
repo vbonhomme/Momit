@@ -58,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Momit</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
       </span>
     </div>
 
@@ -81,13 +81,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Momit-from.html">Develop new from_ functions</a>
-    </li>
-    <li>
-      <a href="../articles/Momit-usage.html">Use Momit</a>
-    </li>
-    <li>
-      <a href="../articles/mom-definition.html">`.mom` file format definition</a>
+      <a href="../articles/Use-Momit.html">Use Momit</a>
     </li>
   </ul>
 </li>
@@ -126,29 +120,53 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <h2 id="section-import" class="hasAnchor"><a href="#section-import" class="anchor"></a>Import</h2>
+          <p class="section-desc"><p>Much more to come</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="from.html">from_mom()</a></code> <code><a href="from.html">from_tps()</a></code> </p>
+        </td>
+        <td><p>Import morphometric files data</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-export" class="hasAnchor"><a href="#section-export" class="anchor"></a>Export</h2>
+          <p class="section-desc"><p>More to come</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="to_Coo.html">to_Out()</a></code> <code><a href="to_Coo.html">to_Opn()</a></code> <code><a href="to_Coo.html">to_Ldk()</a></code> </p>
+        </td>
+        <td><p>Export morphometric data</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-parse" class="hasAnchor"><a href="#section-parse" class="anchor"></a>Parse</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
       <tr>
         
         <td>
-          <p><code><a href="Momit.html">Momit</a></code> </p>
+          <p><code><a href="parse.html">parse_mom1()</a></code> <code><a href="parse.html">parse_mom()</a></code> <code><a href="parse.html">parse_tps1()</a></code> <code><a href="parse.html">parse_tps()</a></code> </p>
         </td>
-        <td><p>Momit</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="brush.html">brush_add_comment()</a></code> <code><a href="brush.html">brush_add_tildes()</a></code> <code><a href="brush.html">brush_remove_lines()</a></code> <code><a href="brush.html">brush_remove_nts_dimensions()</a></code> <code><a href="brush.html">brush_get_nts_nb_ind()</a></code> <code><a href="brush.html">brush_get_nts_nb_coo()</a></code> <code><a href="brush.html">brush_remove_multiple_spaces()</a></code> <code><a href="brush.html">brush_remove_empty_lines()</a></code> <code><a href="brush.html">brush_add_space_before()</a></code> <code><a href="brush.html">brush_remove_leading_spaces()</a></code> <code><a href="brush.html">brush_remove_trailing_spaces()</a></code> <code><a href="brush.html">brush_reshape_lines()</a></code> <code><a href="brush.html">brush_insert_every()</a></code> <code><a href="brush.html">brush_on_top()</a></code> <code><a href="brush.html">brush_remove_empty_partition()</a></code> <code><a href="brush.html">brush_rename_partition()</a></code> <code><a href="brush.html">brush_gsub()</a></code> <code><a href="brush.html">brush_get_nts_nrow()</a></code> <code><a href="brush.html">brush_remove_coordinates_pattern()</a></code> <code><a href="brush.html">brush_get_lines()</a></code> <code><a href="brush.html">brush_shorten_coordinates()</a></code> <code><a href="brush.html">brush_add_names_empty_lines()</a></code> <code><a href="brush.html">brush_remove_multiple_pattern()</a></code> <code><a href="brush.html">brush_insert_this_at()</a></code> <code><a href="brush.html">brush_replace_space_characters_with_space()</a></code> </p>
-        </td>
-        <td><p>Helper function to develop new from_* functions</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="from.html">from_mom()</a></code> <code><a href="from.html">from_tps()</a></code> <code><a href="from.html">from_nts()</a></code> <code><a href="from.html">from_stv()</a></code> <code><a href="from.html">from_lmk()</a></code> <code><a href="from.html">from_StereoMorph()</a></code> <code><a href="from.html">from_Optimas()</a></code> <code><a href="from.html">from_PAST()</a></code> </p>
-        </td>
-        <td><p>Convert a parsed filed to a mom_df that can be manipulated and exported</p></td>
-      </tr><tr>
+        <td><p>Parse morphometric file data to a mom_df</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-helpers" class="hasAnchor"><a href="#section-helpers" class="anchor"></a>Helpers</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
         
         <td>
           <p><code><a href="harvest.html">harvest()</a></code> </p>
@@ -157,33 +175,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="momify.html">momify()</a></code> </p>
+          <p><code><a href="sift.html">sift()</a></code> <code><a href="sift.html">sift_name()</a></code> <code><a href="sift.html">sift_cov()</a></code> <code><a href="sift.html">sift_coo()</a></code> </p>
         </td>
-        <td><p>Convert a tag_df to a mom_df</p></td>
+        <td><p>Filter components of morphometric data</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="parse_mom.html">parse_mom()</a></code> <code><a href="parse_mom.html">some_non_valid()</a></code> </p>
+          <p><code><a href="momify.html">momify1()</a></code> <code><a href="momify.html">momify()</a></code> </p>
         </td>
-        <td><p>Parse a mom-like vector of character lines</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="print.premom_df.html">print(<i>&lt;premom_df&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Print method for mom_df</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="to.html">to_mom()</a></code> <code><a href="to.html">to_Out()</a></code> <code><a href="to.html">to_Opn()</a></code> <code><a href="to.html">to_Ldk()</a></code> </p>
-        </td>
-        <td><p>Translate mom to foreign file format</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="write.html">write_single()</a></code> <code><a href="write.html">write_separately()</a></code> </p>
-        </td>
-        <td><p>Write lines to files</p></td>
+        <td><p>Turns mom_list(s) into mom_df</p></td>
       </tr>
     </tbody>
     </table>
@@ -192,7 +192,10 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#section-import">Import</a></li>
+      <li><a href="#section-export">Export</a></li>
+      <li><a href="#section-parse">Parse</a></li>
+      <li><a href="#section-helpers">Helpers</a></li>
     </ul>
   </div>
 </div>

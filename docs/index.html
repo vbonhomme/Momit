@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">Momit</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
       </span>
     </div>
 
@@ -56,13 +56,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/Momit-from.html">Develop new from_ functions</a>
-    </li>
-    <li>
-      <a href="articles/Momit-usage.html">Use Momit</a>
-    </li>
-    <li>
-      <a href="articles/mom-definition.html">`.mom` file format definition</a>
+      <a href="articles/Use-Momit.html">Use Momit</a>
     </li>
   </ul>
 </li>
@@ -99,9 +93,9 @@
 <div id="get-it" class="section level2">
 <h2 class="hasAnchor">
 <a href="#get-it" class="anchor"></a>Get it</h2>
-<p><strong>This package is still in development and will be published on CRAN in spring 2018.</strong></p>
+<p><strong>This package is still in active development.</strong></p>
 <pre><code><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github("MomX/Momit", build_vignettes = TRUE)</a></code></pre>
-<p>Then have a look to vignettes:</p>
+<p>Then have a look to the vignette:</p>
 <pre><code>browseVignettes("Momit")</code></pre>
 </div>
 <div id="rationale" class="section level2">
@@ -114,10 +108,10 @@
 <li><p><code>.mom</code> files are easy to read, for humans, and to parse, for computers.</p></li>
 </ul>
 </div>
-<div id="definition" class="section level2">
+<div id="mom-file-format-definition" class="section level2">
 <h2 class="hasAnchor">
-<a href="#definition" class="anchor"></a>Definition</h2>
-<p><code>.mod</code> files are plain text files whose single line syntax fall within one of the five following rules:</p>
+<a href="#mom-file-format-definition" class="anchor"></a><code>.mom</code> file format definition</h2>
+<p><code>.mom</code> files are plain text files whose single line syntax fall within one of the five following rules:</p>
 <table class="table">
 <thead><tr class="header">
 <th>Rule</th>
@@ -164,11 +158,11 @@
 </tr>
 </tbody>
 </table>
-<p><strong>TODO</strong>: handle units, handle missing data (?)</p>
+<p>Handling of units and of missing data is planned.</p>
 </div>
-<div id="supported-formats" class="section level2">
+<div id="planned-supported-formats" class="section level2">
 <h2 class="hasAnchor">
-<a href="#supported-formats" class="anchor"></a>Supported formats</h2>
+<a href="#planned-supported-formats" class="anchor"></a>Planned Supported formats</h2>
 <table class="table">
 <thead><tr class="header">
 <th>extension</th>
@@ -180,67 +174,76 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><code>.tps</code></td>
-<td>tps series and others</td>
-<td><code>from_tps</code></td>
-<td>planned</td>
+<td><code>.mom</code></td>
+<td>MomX suite</td>
+<td>
+<code>from_mom</code>*</td>
+<td>most</td>
 </tr>
 <tr class="even">
+<td><code>.tps</code></td>
+<td>tps series and others</td>
+<td>
+<code>from_tps</code>*</td>
+<td>of</td>
+</tr>
+<tr class="odd">
 <td><code>.nts</code></td>
 <td>tps series and others</td>
 <td><code>from_nts</code></td>
-<td>planned</td>
+<td>them</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>.lmk</code></td>
 <td>meshtools</td>
 <td><code>from_lmk</code></td>
 <td>planned</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>.stv</code></td>
 <td>meshtools</td>
 <td><code>from_stv</code></td>
-<td>planned</td>
+<td>but</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>.txt</code></td>
 <td>StereoMorph</td>
 <td><code>from_StereoMorph</code></td>
-<td></td>
+<td>none</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>.asc</code></td>
 <td>Optimas</td>
 <td><code>from_Optimas</code></td>
-<td>planned</td>
+<td>yet</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>.txt</code></td>
 <td>PAST</td>
 <td><code>from_PAST</code></td>
-<td>planned</td>
-</tr>
-<tr class="even">
-<td><code>.txt</code></td>
-<td>ImageJ xy (among ot.)</td>
-<td>planned</td>
-<td>planned</td>
-</tr>
-<tr class="odd">
-<td><code>.xml</code></td>
-<td>morphoJ</td>
-<td>planned</td>
 <td></td>
 </tr>
+<tr class="odd">
+<td><code>.txt</code></td>
+<td>ImageJ xy (among ot.)</td>
+<td><code>from_ImageJ</code></td>
+<td>see</td>
+</tr>
 <tr class="even">
+<td><code>.xml</code></td>
+<td>morphoJ</td>
+<td><code>from_morphoJ</code></td>
+<td>vignette</td>
+</tr>
+<tr class="odd">
 <td><code>.txt</code></td>
 <td>morphologika</td>
-<td>planned</td>
+<td><code>from_morphologika</code></td>
 <td></td>
 </tr>
 </tbody>
 </table>
+<p><code>*</code> = available</p>
 <p><strong>Any suggestion of additional formats/softs, along with example datasets are more than welcome.</strong></p>
 </div>
 <div id="examples" class="section level2">

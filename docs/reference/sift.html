@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Write lines to files — write • Momit</title>
+<title>Filter components of morphometric data — sift • Momit</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,12 @@
 
 
 
-<meta property="og:title" content="Write lines to files — write" />
+<meta property="og:title" content="Filter components of morphometric data — sift" />
 
-<meta property="og:description" content="Given the lines returned by to_*, write file(s)." />
+<meta property="og:description" content="For a single individual, morphometric data can be: name, coordinates or associated covariates.
+All can be present, some (or even all) can be absent. This function takes such a single individual,
+as polished lines of text that stick to .mom file format definition, typically prepared by parse, and
+filter existing components. You should not need it directly unless you write your own parse/from functions." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -61,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Momit</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
       </span>
     </div>
 
@@ -84,13 +87,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Momit-from.html">Develop new from_ functions</a>
-    </li>
-    <li>
-      <a href="../articles/Momit-usage.html">Use Momit</a>
-    </li>
-    <li>
-      <a href="../articles/mom-definition.html">`.mom` file format definition</a>
+      <a href="../articles/Use-Momit.html">Use Momit</a>
     </li>
   </ul>
 </li>
@@ -115,42 +112,51 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Write lines to files</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MomX/Momit/blob/master/R/write.R'><code>R/write.R</code></a></small>
-    <div class="hidden name"><code>write.Rd</code></div>
+    <h1>Filter components of morphometric data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MomX/Momit/blob/master/R/sift.R'><code>R/sift.R</code></a></small>
+    <div class="hidden name"><code>sift.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Given the lines returned by <a href='to.html'>to</a><code>_*</code>, write file(s).</p>
+    <p>For a single individual, morphometric data can be: name, coordinates or associated covariates.
+All can be present, some (or even all) can be absent. This function takes such a single individual,
+as polished lines of text that stick to <code>.mom</code> file format definition, typically prepared by <a href='parse.html'>parse</a>, and
+filter existing components. You should not need it directly unless you write your own <code>parse/from</code> functions.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>write_single</span>(<span class='no'>x</span>, <span class='no'>path</span>)
+    <pre class="usage"><span class='fu'>sift</span>(<span class='no'>x</span>)
 
-<span class='fu'>write_separately</span>(<span class='no'>x</span>, <span class='kw'>folder</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>extension</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
+<span class='fu'>sift_name</span>(<span class='no'>x</span>)
+
+<span class='fu'>sift_cov</span>(<span class='no'>x</span>)
+
+<span class='fu'>sift_coo</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code>character</code> lines, typically from one of <a href='to.html'>to</a><code>_*</code> functions</p></td>
-    </tr>
-    <tr>
-      <th>path</th>
-      <td><p><code>character</code>, where to write the file(s)</p></td>
-    </tr>
-    <tr>
-      <th>folder</th>
-      <td><p><code>character</code>, where to write the file(s) (default ``, ie root of the working directory)</p></td>
-    </tr>
-    <tr>
-      <th>extension</th>
-      <td><p><code>character</code>, the extension to use, with or
-without a <code>.</code> before extension (default <code>mom</code>)</p></td>
+      <td><p>lines of text, typically in the <code>.mom</code> format and prepared by <a href='parse.html'>parse</a></p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><code>sift</code> returns a <code>mom_list</code>, a list with these components:</p><ul>
+<li><p><code>$name</code> <code>character</code> or <code>NA</code> if not provided</p></li>
+<li><p><code>$coo</code> a list of partitions, that are matrices of coordinates (aka shapes) or <code>NA</code> if not provided</p></li>
+<li><p><code>$cov</code> a named vector of covariates or <code>NA</code> if not provided</p></li>
+</ul>
+
+<p><code>mom_list</code> can be turned into a <code>mom_df</code> with momify.</p>
+<p><code>sift_{name, coo, cov}</code> each return a <code>list</code> with two components:</p><ul>
+<li><p><code>$x</code>, which is the provided <code>x</code> minus the extracted information (if any)...</p></li>
+<li><p>now in the proper format in <code>$y</code></p></li>
+</ul>
+
     
 
   </div>
@@ -158,7 +164,9 @@ without a <code>.</code> before extension (default <code>mom</code>)</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
 
   </div>
 </div>

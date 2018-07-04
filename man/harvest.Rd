@@ -4,25 +4,32 @@
 \alias{harvest}
 \title{Detect and read files}
 \usage{
-harvest(x = getwd(), pattern = "mom$", ...)
+harvest(pattern = "", where = getwd(), encoding = "UTF-8", ...)
 }
 \arguments{
-\item{x}{\code{character} a list of folders or files (default \code{getwd()})}
+\item{pattern}{a \code{\link{regex}} to feed \link{list.files} (default to `` no subsetting)}
 
-\item{pattern}{a \code{\link{regex}} to feed \link{list.files} (default to \code{\\.mom$})}
+\item{where}{\code{character} a list of folders or files (default \code{getwd()})}
+
+\item{encoding}{one of \code{UTF-8} (default) or \code{latin1}}
 
 \item{...}{more arguments to feed \link{list.files}}
 }
 \value{
-\code{character} lines that can be momified with \link{parse_mom}
+a \code{list} of \code{character} lines
 }
 \description{
 A convenient wrapper around \link{list.files} and \link{readLines} that
 also prepare files for the momification.
 }
 \note{
-\code{list.files} is passed with \code{full.names=TRUE, recursive = TRUE},
+\code{from_*} importers harvest internally so most of the time you should not need
+\code{harvest} alone. Internally, \code{list.files} is passed with \code{full.names=TRUE, recursive = TRUE},
 so that full names are returned and all subfolders (if any) will be scrapped.
-If you do not want this behaviour, \code{list.files} manually then continue with one
-of \code{from_*} function.
+If you do not want this behaviour, you can still harvest directly after the proper list (or single)
+of paths, typically obtained with \code{list.files}.
+
+Also, some problems with encoding may occur, particularly with \code{latin1}.
+\code{from_*} importers, when used directly, should message you with "see ?harvest".
+In taht case, try changing the \code{encoding} parameter (see \link{readLines}).
 }

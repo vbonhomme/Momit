@@ -1,9 +1,10 @@
 context("domestic functions")
 
 test_that(".prune", {
-  x <- readLines("3parts.mom") %>%  .prune()
+  x <- harvest("3parts.mom")[[1]] %>%  .prune()
   expect_length(x %>% grep("^ | $| {2,}", .), 0)
   expect_length(grep("[[:alnum:]]+", x), length(x))
+  expect_length(which(nchar(x)==0), 0)
 })
 
 test_that(".str_2_mtx", {
@@ -15,44 +16,28 @@ test_that(".mtx_2_str", {
   expect_true(matrix(1:12, 6, 2) %>% .mtx_2_str %>% is.character)
 })
 
-test_that(".str_2_df", {
-  x <- c("plop plip", "plup 45", "plap p l o p") %>% .str_2_df()
-  expect_true(is.data.frame(x) && ncol(x)==3)
-})
-
-test_that(".df_2_str", {
-  x <- data.frame(plop=1, plip="ee 56 ff") %>% .df_2_str()
-  expect_true(is.character(x))
-  expect_length(x, 2)
-})
-
-test_that(".mom_df_2_mom", {
-  mom_df <- from_mom("bot_lite")
-  expect_is(mom_df[1, ] %>% .mom_df_2_mom(), "character")
-  re_mom <- mom_df[2, ] %>% .mom_df_2_mom() %>% parse_mom()
-  expect_equal(sum(re_mom[, 2]=="non_valid"), 0)
-})
-
-.ensure_collated <- function(x, n){
-  missing_collated <- which(sapply(x, function(.) !any(grepl(collated, .))))
-  if (length(missing_collated)==0){
-    return(x)
-  } else {
-    lapply(missing_collated, function(.) x[[.]] <- c(paste0("~", n[.]), x[[.]])) %>%
-      return()
-
-  }
-}
-
-test_that(".replace_na_with_last", {
-  x <- c("3", NA, NA, NA, "4", NA)
-  expect_equal(sum(is.na(.replace_na_with_last(x))), 0)
-})
 
 test_that(".splitting_vector", {
   expect_equal(c("a", "b", "ab", "ac", "b") %>% .splitting_vector("a"),
-                   c(1, 1, 2, 3, 3))
+               c(1, 1, 2, 3, 3))
 })
+
+test_that(".split_on", {
+  x <- c("56 76", "45 32")
+  expect_output(.split_on(x, "plop"))
+  expect_is(.split_on(x, "plop"), "list")
+  expect_length(.split_on(x, "plop"), 1)
+
+  x <- c("plop", x)
+  expect_is(.split_on(x, "plop"), "list")
+  expect_length(.split_on(x, "plop"), 1)
+
+  x <- c(x, x, x)
+  expect_is(.split_on(x, "plop"), "list")
+  expect_length(.split_on(x, "plop"), 3)
+
+})
+
 
 test_that(".name_list_from_first_and_remove", {
   x <- list(c("plop", "1", "2", "3"), c("plip", "4", "5", "6")) %>% .name_list_from_first_and_remove()
@@ -61,14 +46,35 @@ test_that(".name_list_from_first_and_remove", {
   expect_equal(x[[2]], c("4", "5", "6"))
 })
 
-test_that(".split_collated", {
-  lf <- list.files("bot_lite", full=T)
-  x <- lf %>% lapply(readLines) %>% parse_mom %>% .split_collated()
-  expect_is(x, "list")
-  expect_equal(length(x), length(lf))
+test_that(".name_if_none", {
+  x <- c("56 76", "45 32")
+  expect_false(any(grep("~", x)))
+  expect_true(any(grep("~", .name_if_none(x))))
 })
 
-test_that(".trim_path_and_extension", {
-  x <- "plop/plip/myfile.txt" %>% .trim_path_and_extension()
-  expect_equal(x, "myfile")
+test_that(".messages", {
+  expect_output(.message_ok("yopiyo"))
+  expect_output(.message_ok("yopiyo", letters[1:5]))
+
+  expect_output(.message_warning("yopiyo"))
+  expect_output(.message_warning("yopiyo", letters[1:5]))
+
+  expect_output(.message_error("yopiyo"))
+  expect_output(.message_error("yopiyo", letters[1:5]))
 })
+
+test_that(".make_unique", {
+  is_unique <- function(x){
+    length(x) == length(unique(x))
+  }
+  expect_true(is_unique(.make_unique(letters[1])))
+  expect_true(is_unique(.make_unique(letters[1:5])))
+  expect_true(is_unique(.make_unique(rep(letters[1], 100))))
+  expect_true(is_unique(.make_unique(rep(letters[1:5], 10))))
+})
+
+
+# test_that(".trim_path_and_extension", {
+#   x <- "plop/plip/myfile.txt" %>% .trim_path_and_extension()
+#   expect_equal(x, "myfile")
+# })

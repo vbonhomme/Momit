@@ -64,8 +64,14 @@ patterns_regex <- c("coordinates" = coordinates,
 
 # removes on a string all non valid lines
 .prune <- function(x){
-  # remove empty lines
-  x <- x[nchar(x)>0]
+  # check for encoding problems, then remove empty lines
+  nx <- try(nchar(x))
+  # check
+    if (class(nx)=="try-error"){
+      .message_error("possible encoding problem, see ?harvest")
+      stop()
+    }
+  x <- x[nx>0]
   x %>%
     # tab(s) to spaces
     gsub("(\t)+", " ", .) %>%

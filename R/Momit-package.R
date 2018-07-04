@@ -26,9 +26,6 @@ NULL
 #' @export
 dplyr::"%>%"
 
-# Import print.tbl_df from tibble
-# #' @importFrom tibble print.tbl_df
 
 # prevents "no visible binding for global variable"
-# http://stackoverflow.com/questions/9439256/how-can-i-handle-r-cmd-check-no-visible-binding-for-global-variable-notes-when
-globalVariables(c(".", "what"))
+globalVariables(c(".", "partition"))

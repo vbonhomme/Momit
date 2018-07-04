@@ -14,12 +14,11 @@ status](https://www.r-pkg.org/badges/version/Momit)](https://cran.r-project.org/
 
 ## Get it
 
-**This package is still in development and will be published on CRAN in
-spring 2018.**
+**This package is still in active development.**
 
     devtools::install_github("MomX/Momit", build_vignettes = TRUE)
 
-Then have a look to vignettes:
+Then have a look to the vignette:
 
     browseVignettes("Momit")
 
@@ -38,9 +37,9 @@ Then have a look to vignettes:
   - `.mom` files are easy to read, for humans, and to parse, for
     computers.
 
-## Definition
+## `.mom` file format definition
 
-`.mod` files are plain text files whose single line syntax fall within
+`.mom` files are plain text files whose single line syntax fall within
 one of the five following
 rules:
 
@@ -52,23 +51,26 @@ rules:
 | 4    | tilde and word          | shape name when collated      | `~iris150` ; `~H. sapiens` |
 | 5    | anything else           | ignored                       | `#a comment`               |
 
-**TODO**: handle units, handle missing data
-(?)
+Handling of units and of missing data is
+planned.
 
-## Supported formats
+## Planned Supported formats
 
-| extension | software              | `from_*` function  | `to_*` function |
-| --------- | --------------------- | ------------------ | --------------- |
-| `.tps`    | tps series and others | `from_tps`         | planned         |
-| `.nts`    | tps series and others | `from_nts`         | planned         |
-| `.lmk`    | meshtools             | `from_lmk`         | planned         |
-| `.stv`    | meshtools             | `from_stv`         | planned         |
-| `.txt`    | StereoMorph           | `from_StereoMorph` |                 |
-| `.asc`    | Optimas               | `from_Optimas`     | planned         |
-| `.txt`    | PAST                  | `from_PAST`        | planned         |
-| `.txt`    | ImageJ xy (among ot.) | planned            | planned         |
-| `.xml`    | morphoJ               | planned            |                 |
-| `.txt`    | morphologika          | planned            |                 |
+| extension | software              | `from_*` function   | `to_*` function |
+| --------- | --------------------- | ------------------- | --------------- |
+| `.mom`    | MomX suite            | `from_mom`\*        | most            |
+| `.tps`    | tps series and others | `from_tps`\*        | of              |
+| `.nts`    | tps series and others | `from_nts`          | them            |
+| `.lmk`    | meshtools             | `from_lmk`          | planned         |
+| `.stv`    | meshtools             | `from_stv`          | but             |
+| `.txt`    | StereoMorph           | `from_StereoMorph`  | none            |
+| `.asc`    | Optimas               | `from_Optimas`      | yet             |
+| `.txt`    | PAST                  | `from_PAST`         |                 |
+| `.txt`    | ImageJ xy (among ot.) | `from_ImageJ`       | see             |
+| `.xml`    | morphoJ               | `from_morphoJ`      | vignette        |
+| `.txt`    | morphologika          | `from_morphologika` |                 |
+
+`*` = available
 
 **Any suggestion of additional formats/softs, along with example
 datasets are more than welcome.**

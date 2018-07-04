@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Translate mom to foreign file format — to • Momit</title>
+<title>Export morphometric data — to_Coo • Momit</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,10 +30,9 @@
 
 
 
-<meta property="og:title" content="Translate mom to foreign file format — to" />
+<meta property="og:title" content="Export morphometric data — to_Coo" />
 
-<meta property="og:description" content="Given a mom_df, translate it into a foreign file format
-that can be written later on with write." />
+<meta property="og:description" content="Only Momocs is supported so far." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -62,7 +61,7 @@ that can be written later on with write." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Momit</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
       </span>
     </div>
 
@@ -85,13 +84,7 @@ that can be written later on with write." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Momit-from.html">Develop new from_ functions</a>
-    </li>
-    <li>
-      <a href="../articles/Momit-usage.html">Use Momit</a>
-    </li>
-    <li>
-      <a href="../articles/mom-definition.html">`.mom` file format definition</a>
+      <a href="../articles/Use-Momit.html">Use Momit</a>
     </li>
   </ul>
 </li>
@@ -116,42 +109,49 @@ that can be written later on with write." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Translate mom to foreign file format</h1>
+    <h1>Export morphometric data</h1>
     <small class="dont-index">Source: <a href='https://github.com/MomX/Momit/blob/master/R/to.R'><code>R/to.R</code></a></small>
-    <div class="hidden name"><code>to.Rd</code></div>
+    <div class="hidden name"><code>to_Coo.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Given a <code>mom_df</code>, translate it into a foreign file format
-that can be written later on with <a href='write.html'>write</a>.</p>
+    <p>Only Momocs is supported so far.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>to_mom</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>to_Out</span>(<span class='no'>x</span>, <span class='kw'>coo</span> <span class='kw'>=</span> <span class='st'>"coo"</span>, <span class='no'>fac</span>, <span class='no'>...</span>)
 
-<span class='fu'>to_Out</span>(<span class='no'>x</span>)
+<span class='fu'>to_Opn</span>(<span class='no'>x</span>, <span class='kw'>coo</span> <span class='kw'>=</span> <span class='st'>"coo"</span>, <span class='no'>fac</span>, <span class='no'>...</span>)
 
-<span class='fu'>to_Opn</span>(<span class='no'>x</span>)
-
-<span class='fu'>to_Ldk</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>to_Ldk</span>(<span class='no'>x</span>, <span class='kw'>coo</span> <span class='kw'>=</span> <span class='st'>"coo"</span>, <span class='no'>fac</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>`mom_df`` to convert</p></td>
+      <td><p><code>mom_df</code> object, typically returned by one of <a href='from.html'>from</a></p></td>
+    </tr>
+    <tr>
+      <th>coo</th>
+      <td><p><code>character</code> column<code>to use for</code>$coo<code>(default to</code>coo`)</p></td>
+    </tr>
+    <tr>
+      <th>fac</th>
+      <td><p><code>data.frame</code> to use for <code>$fac</code> (default to everything minus <code>coo</code>)</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>addtional parameters to feed Momocs's builders see
+<code><a href='http://www.rdocumentation.org/packages/Momocs/topics/Out'>Momocs::Out()</a></code>, <code><a href='http://www.rdocumentation.org/packages/Momocs/topics/Opn'>Momocs::Opn()</a></code>, <code><a href='http://www.rdocumentation.org/packages/Momocs/topics/Ldk'>Momocs::Ldk()</a></code></p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>character</code> lines that can be written with <a href='write.html'>write</a></p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Other from functions: <code><a href='from.html'>from</a></code></p></div>
+    <p>It's probably easy enough to build Momocs' objects (and others) from the <code>mom_df</code>
+to not need many exporters. See vignette.</p>
     
 
   </div>
@@ -160,9 +160,7 @@ that can be written later on with <a href='write.html'>write</a>.</p>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
+      <li><a href="#details">Details</a></li>
           </ul>
 
   </div>

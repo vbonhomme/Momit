@@ -1,0 +1,45 @@
+~0001-cPastor_O10VD
+var Pastor
+domes cult
+view VD
+ind O10
+size 2.23
+-0.5000 0.00000
+-0.4967 0.01035
+-0.4935 0.02414
+~0001-cPastor_O10VL 
+var Pastor
+domes cult
+view VL
+ind O10
+size 2.43
+-0.5000 0.00000
+-0.4995 0.01018
+-0.4957 0.02022
+~0001-cIvorra_O11VL 
+var Ivorra
+domes wild
+view VL
+ind O11
+size 2.56
+-0.5000 0.00000
+-0.4985 0.0112
+-0.4845 0.021
+~0001-cIvorra_O11VD 
+var Ivorra
+domes wild
+view VD
+ind O11
+size 2.74
+-0.5000 0.00000
+-0.4995 0.011
+-0.49 0.0198
+~0005-cBonhomme_O11VD 
+var Bonhomme
+domes wild
+view VD
+ind O11
+size 2.55
+-0.5000 0.00000
+-0.499 0.012
+-0.49 0.0186

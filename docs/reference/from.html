@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert a parsed filed to a mom_df that can be manipulated and exported — from • Momit</title>
+<title>Import morphometric files data — from • Momit</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Convert a parsed filed to a mom_df that can be manipulated and exported — from" />
+<meta property="og:title" content="Import morphometric files data — from" />
 
-<meta property="og:description" content="Convert a parsed filed to a mom_df that can be manipulated and exported" />
+<meta property="og:description" content="Import morphometric files data" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Momit</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
       </span>
     </div>
 
@@ -84,13 +84,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Momit-from.html">Develop new from_ functions</a>
-    </li>
-    <li>
-      <a href="../articles/Momit-usage.html">Use Momit</a>
-    </li>
-    <li>
-      <a href="../articles/mom-definition.html">`.mom` file format definition</a>
+      <a href="../articles/Use-Momit.html">Use Momit</a>
     </li>
   </ul>
 </li>
@@ -115,40 +109,38 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert a parsed filed to a mom_df that can be manipulated and exported</h1>
+    <h1>Import morphometric files data</h1>
     <small class="dont-index">Source: <a href='https://github.com/MomX/Momit/blob/master/R/from.R'><code>R/from.R</code></a></small>
     <div class="hidden name"><code>from.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Convert a parsed filed to a mom_df that can be manipulated and exported</p>
+    <p>Import morphometric files data</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>from_mom</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>from_mom</span>(<span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"mom$"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>getwd</span>(), <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='no'>...</span>)
 
-<span class='fu'>from_tps</span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='fu'>from_nts</span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='fu'>from_stv</span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='fu'>from_lmk</span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='fu'>from_StereoMorph</span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='fu'>from_Optimas</span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='fu'>from_PAST</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>from_tps</span>(<span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"tps$"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>getwd</span>(), <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>pattern</th>
+      <td><p>a regular expression (see regex and examples below) to subset the list of
+harvested files. Defaults to <code>filetype$</code> for each <code>from_filetype</code> (eg <code>tps$</code> for <code>from_tps</code>), etc.</p></td>
+    </tr>
+    <tr>
       <th>x</th>
-      <td><p><code>list</code> typically what is returned by <a href='harvest.html'>harvest</a>; otherwise, if <code>character</code>
-will be passed to <a href='harvest.html'>harvest</a> with appropriate parameters. See the <em>Momit-usage</em> vignette.</p></td>
+      <td><p>either path(s) or a <code>list</code> of <code>character</code>s typically obtained with <code>harvest</code> or the raw <code>readLines</code>.
+By default, <code>setwd()</code> so that all files somewhere in your current working directory will be
+<code>harvest</code>ed and imported.</p></td>
+    </tr>
+    <tr>
+      <th>encoding</th>
+      <td><p>see <a href='harvest.html'>harvest</a></p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -160,16 +152,23 @@ will be passed to <a href='harvest.html'>harvest</a> with appropriate parameters
 
     <p><code>mom_df</code> that can be manipulated and exported</p>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p><code>from_*</code> are nothing but shortcuts on top of <a href='harvest.html'>harvest</a> and <a href='parse.html'>parse</a>.
+Type for example <code>from_mom</code> (no brackets) to see it.</p>
+    
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>When <code>x</code> is passed as a <code>character</code>,
-<a href='harvest.html'>harvest</a> will try to find them based on their extensions.
-Some format do not have their own extension (eg <code>.txt</code>).
-In the latter case and/or you should first <a href='harvest.html'>harvest</a> with proper parameters.</p>
+    <p>If you are not yet familiar with regular expression, go learn them, they are
+among the most profitable investment you can make when talking to a computer.</p>
     
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="currently-supported-formats"><a class="anchor" href="#currently-supported-formats"></a>Currently supported formats</h2>
 
-    <div class='dont-index'><p>Other from functions: <code><a href='to.html'>to</a></code></p></div>
+    
+    <ul>
+<li><p><code>.mom</code> with <code>from_mom</code></p></li>
+<li><p><code>.tps</code> with <code>from_tps</code></p></li>
+</ul>
     
 
   </div>
@@ -180,9 +179,11 @@ In the latter case and/or you should first <a href='harvest.html'>harvest</a> wi
       
       <li><a href="#value">Value</a></li>
 
+      <li><a href="#details">Details</a></li>
+
       <li><a href="#note">Note</a></li>
 
-      <li><a href="#see-also">See also</a></li>
+      <li><a href="#currently-supported-formats">Currently supported formats</a></li>
           </ul>
 
   </div>

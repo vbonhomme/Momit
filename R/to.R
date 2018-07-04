@@ -1,35 +1,41 @@
-#' Translate mom to foreign file format
+#' Export morphometric data
 #'
-#' Given a `mom_df`, translate it into a foreign file format
-#' that can be written later on with [write].
+#' Only Momocs is supported so far.
 #'
-#' @param x `mom_df`` to convert
-#' @return `character` lines that can be written with [write]
+#' It's probably easy enough to build Momocs' objects (and others) from the `mom_df`
+#' to not need many exporters. See vignette.
 #'
-#' @family from functions
-#' @name to
-#' @rdname to
+#' @param x `mom_df` object, typically returned by one of [from]
+#' @param coo `character` column` to use for `$coo` (default to `coo`)
+#' @param fac `data.frame` to use for `$fac` (default to everything minus `coo`)
+#' @param ... addtional parameters to feed Momocs's builders see
+#' [Momocs::Out()], [Momocs::Opn()], [Momocs::Ldk()]
 #'
+#' @aliases to_Momocs
+#' @name to_Coo
+#' @rdname to_Coo
 #' @export
-to_mom <- function(x){
-  lapply(1:nrow(x), function(i) x[i, ] %>% .mom_df_2_mom) %>%
-    `names<-`(x$name)
+to_Out <- function(x, coo="coo", fac, ...){
+  if (missing(fac))
+    fac <- x[, grep(coo, colnames(x), invert=TRUE, value=TRUE)]
+  Momocs::Out(x[, coo, drop=TRUE],
+              fac=fac, ...)
 }
 
-#' @rdname to
+#' @rdname to_Coo
 #' @export
-to_Out <- function(x){
-  Momocs::Out(x$coo, fac=x[, -(1:2)])
+to_Opn <- function(x, coo="coo", fac, ...){
+  if (missing(fac))
+    fac <- x[, grep(coo, colnames(x), invert=TRUE, value=TRUE)]
+  Momocs::Opn(x[, coo, drop=TRUE],
+              fac=fac, ...)
 }
 
-#' @rdname to
+#' @rdname to_Coo
 #' @export
-to_Opn <- function(x){
-  Momocs::Opn(x$coo, fac=x[, -(1:2)])
-}
-
-#' @rdname to
-#' @export
-to_Ldk <- function(x){
-  Momocs::Ldk(x$coo, fac=x[, -(1:2)])
+to_Ldk <- function(x, coo="coo", fac, ...){
+  if (missing(fac))
+    fac <- x[, grep(coo, colnames(x), invert=TRUE, value=TRUE)]
+  Momocs::Ldk(x[, coo, drop=TRUE],
+              fac=fac, ...)
 }

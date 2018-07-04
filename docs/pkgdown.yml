@@ -2,9 +2,7 @@ pandoc: 2.2.1
 pkgdown: 1.1.0
 pkgdown_sha: ~
 articles:
-  Momit-from: Momit-from.html
-  Momit-usage: Momit-usage.html
-  mom-definition: mom-definition.html
+  Use-Momit: Use-Momit.html
 urls:
   reference: http://momx.github.io/Momit/reference
   article: http://momx.github.io/Momit/articles

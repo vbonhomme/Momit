@@ -160,8 +160,9 @@ momify <- function(x){
   # debug
   # return(list(name=name, coo=coo, cov=cov))
   res <- dplyr::data_frame(name=name)
-  if (!is.null(coo))
-    res$coo <- coo
+  if (!is.null(coo)){
+    res <- dplyr::bind_cols(res, coo)
+  }
   if (!is.null(cov))
     res <- dplyr::bind_cols(res, cov)
 

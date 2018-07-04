@@ -1,4 +1,4 @@
 library(testthat)
 library(Momit)
 
-test_check("Momit")
+#test_check("Momit")

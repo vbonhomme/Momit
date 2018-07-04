@@ -16,3 +16,26 @@ navbar:
 authors:
   Vincent Bonhomme:
     href: http://www.vincentbonhomme.fr
+
+reference:
+- title: Import
+  desc: Much more to come
+  contents:
+  - from
+
+- title: Export
+  desc: More to come
+  contents:
+  - to_Coo
+  
+- title: Parse
+  desc: 
+  contents:
+  - parse
+
+- title: Helpers
+  desc: 
+  contents:
+  - harvest
+  - sift
+  - momify

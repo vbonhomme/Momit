@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Print method for mom_df — print.premom_df • Momit</title>
+<title>Parse morphometric file data to a mom_df — parse • Momit</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,10 @@
 
 
 
-<meta property="og:title" content="Print method for mom_df — print.premom_df" />
+<meta property="og:title" content="Parse morphometric file data to a mom_df — parse" />
 
-<meta property="og:description" content="Print method for mom_df" />
+<meta property="og:description" content="Parse, eg polish and analyse the syntax of, morphometric file data.
+Most of the time you should prefer from" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -61,7 +62,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Momit</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
       </span>
     </div>
 
@@ -84,13 +85,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Momit-from.html">Develop new from_ functions</a>
-    </li>
-    <li>
-      <a href="../articles/Momit-usage.html">Use Momit</a>
-    </li>
-    <li>
-      <a href="../articles/mom-definition.html">`.mom` file format definition</a>
+      <a href="../articles/Use-Momit.html">Use Momit</a>
     </li>
   </ul>
 </li>
@@ -115,36 +110,44 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Print method for mom_df</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MomX/Momit/blob/master/R/parse_mom.R'><code>R/parse_mom.R</code></a></small>
-    <div class="hidden name"><code>print.premom_df.Rd</code></div>
+    <h1>Parse morphometric file data to a mom_df</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MomX/Momit/blob/master/R/parse.R'><code>R/parse.R</code></a></small>
+    <div class="hidden name"><code>parse.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Print method for mom_df</p>
+    <p>Parse, eg polish and analyse the syntax of, morphometric file data.
+Most of the time you should prefer <a href='from.html'>from</a></p>
     
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for premom_df</span>
-<span class='fu'>print</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>parse_mom1</span>(<span class='no'>x</span>)
+
+<span class='fu'>parse_mom</span>(<span class='no'>x</span>)
+
+<span class='fu'>parse_tps1</span>(<span class='no'>x</span>)
+
+<span class='fu'>parse_tps</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code>premom_df</code> typically obtained with <a href='parse_mom.html'>parse_mom</a></p></td>
-    </tr>
-    <tr>
-      <th>n</th>
-      <td><p><code>numeric</code> number of rows to show (or <code>all</code>)</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>optionnal arguments to stick with print generic</p></td>
+      <td><p><code>vector</code> or <code>list</code> (for <code>parse_*1</code> and <code>parse_*</code>) of lines to parse</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><code>mom_list</code> or <code>mom_df</code> (for <code>parse_*1</code> and <code>parse_*</code>)</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The <code>parse_*1</code> and <code>parse_*</code> dichotomy is not redundant:
+depending on formatting and/or the possible collated nature of the data,
+some polishing steps must be done before or after these individual files are splitted.</p>
     
 
   </div>
@@ -152,7 +155,11 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>

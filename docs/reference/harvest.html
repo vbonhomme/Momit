@@ -62,7 +62,7 @@ also prepare files for the momification." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Momit</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
       </span>
     </div>
 
@@ -85,13 +85,7 @@ also prepare files for the momification." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Momit-from.html">Develop new from_ functions</a>
-    </li>
-    <li>
-      <a href="../articles/Momit-usage.html">Use Momit</a>
-    </li>
-    <li>
-      <a href="../articles/mom-definition.html">`.mom` file format definition</a>
+      <a href="../articles/Use-Momit.html">Use Momit</a>
     </li>
   </ul>
 </li>
@@ -128,23 +122,22 @@ also prepare files for the momification.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>harvest</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>getwd</span>(), <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"mom$"</span>, <span class='kw'>prune</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>harvest</span>(<span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>where</span> <span class='kw'>=</span> <span class='fu'>getwd</span>(), <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"UTF-8"</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
+      <th>pattern</th>
+      <td><p>a <code>regex</code> to feed list.files (default to `` no subsetting)</p></td>
+    </tr>
+    <tr>
+      <th>where</th>
       <td><p><code>character</code> a list of folders or files (default <code>getwd()</code>)</p></td>
     </tr>
     <tr>
-      <th>pattern</th>
-      <td><p>a <code>regex</code> to feed list.files (default to <code>\.mom$</code>)</p></td>
-    </tr>
-    <tr>
-      <th>prune</th>
-      <td><p>whether to use <code>Momit::.prune</code>, eg clean space
-characters and empty lines. Useful most of the time.</p></td>
+      <th>encoding</th>
+      <td><p>one of <code>UTF-8</code> (default) or <code>latin1</code></p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -154,14 +147,18 @@ characters and empty lines. Useful most of the time.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>character</code> lines that can be momified with <a href='parse_mom.html'>parse_mom</a></p>
+    <p>a <code>list</code> of <code>character</code> lines</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p><code>list.files</code> is passed with <code>full.names=TRUE, recursive = TRUE</code>,
+    <p><code>from_*</code> importers harvest internally so most of the time you should not need
+<code>harvest</code> alone. Internally, <code>list.files</code> is passed with <code>full.names=TRUE, recursive = TRUE</code>,
 so that full names are returned and all subfolders (if any) will be scrapped.
-If you do not want this behaviour, <code>list.files</code> manually then continue with one
-of <code>from_*</code> function.</p>
+If you do not want this behaviour, you can still harvest directly after the proper list (or single)
+of paths, typically obtained with <code>list.files</code>.</p>
+<p>Also, some problems with encoding may occur, particularly with <code>latin1</code>.
+<code>from_*</code> importers, when used directly, should message you with "see ?harvest".
+In taht case, try changing the <code>encoding</code> parameter (see readLines).</p>
     
 
   </div>
