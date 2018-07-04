@@ -326,7 +326,7 @@ Ldk(x$coo, fac=select(x, -coo))
 ```
 
 Once you have a `Coo` object, you enter the `Momocs` zone, eg:
-```{r Momocs2}
+```{r Momocs2, eval=FALSE}
 Ldk(x$coo, fac=select(x, -coo)) %>% # build the Ldl
   fgProcrustes(tol=0.1) %T>%        # high tol, save trees
   LDA(~domes) %>%                   # discriminant analysis then continue to PCA
