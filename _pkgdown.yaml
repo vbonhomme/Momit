@@ -27,15 +27,17 @@ reference:
   desc: More to come
   contents:
   - to_Coo
-  
+
 - title: Parse
-  desc: 
+  desc:
   contents:
   - parse
 
 - title: Helpers
-  desc: 
+  desc:
   contents:
   - harvest
   - sift
   - momify
+  - example_data
+

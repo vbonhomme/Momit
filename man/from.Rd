@@ -6,15 +6,15 @@
 \alias{from_tps}
 \title{Import morphometric files data}
 \usage{
-from_mom(pattern = "mom$", x = getwd(), encoding = "unknown", ...)
+from_mom(pattern = "mom$", where = getwd(), encoding = "unknown", ...)
 
-from_tps(pattern = "tps$", x = getwd(), encoding = "unknown", ...)
+from_tps(pattern = "tps$", where = getwd(), encoding = "unknown", ...)
 }
 \arguments{
 \item{pattern}{a regular expression (see \link{regex} and examples below) to subset the list of
 harvested files. Defaults to \code{filetype$} for each \code{from_filetype} (eg \code{tps$} for \code{from_tps}), etc.}
 
-\item{x}{either path(s) or a \code{list} of \code{character}s typically obtained with \code{harvest} or the raw \code{readLines}.
+\item{where}{either path(s) or a \code{list} of \code{character}s typically obtained with \code{harvest} or the raw \code{readLines}.
 By default, \code{setwd()} so that all files somewhere in your current working directory will be
 \code{harvest}ed and imported.}
 
@@ -44,3 +44,27 @@ among the most profitable investment you can make when talking to a computer.
 }
 }
 
+\examples{
+# See ?example_data (you should not need the `where` argument below)
+
+# grab all files containing `mom` in the directory
+# of course we have some NAs below since we are merging "different" .mom
+# with different cov, etc. components
+from_mom("mom", example_dir())
+
+# grab all files within the 'bot_lite'  folder
+# this one works like a charm
+from_mom("bot_lite/", example_dir())
+
+
+# same for tps, all files that begin with tpsDig_allo
+from_tps("tpsDig_allo", example_dir())
+
+# more restrictively
+from_tps("tpsDig_allowen1", example_dir())
+
+# or if you prefer a real path rather than a matching pattern
+# (again, you should not need 'example_data()'), see ?example_data
+harvest(example_data("tpsDig_allowen1.tps")) \%>\%
+  parse_tps()
+}

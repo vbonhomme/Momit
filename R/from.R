@@ -12,7 +12,7 @@
 #'
 #' @param pattern a regular expression (see [regex] and examples below) to subset the list of
 #' harvested files. Defaults to `filetype$` for each `from_filetype` (eg `tps$` for `from_tps`), etc.
-#' @param x either path(s) or a `list` of `character`s typically obtained with `harvest` or the raw `readLines`.
+#' @param where either path(s) or a `list` of `character`s typically obtained with `harvest` or the raw `readLines`.
 #' By default, `setwd()` so that all files somewhere in your current working directory will be
 #' `harvest`ed and imported.
 #' @param encoding see [harvest]
@@ -24,20 +24,46 @@
 #' @name from
 #' @rdname from
 #' @family from functions
+#' @examples
+#' # See ?example_data (you should not need the `where` argument below)
 #'
+#' # grab all files containing `mom` in the directory
+#' # of course we have some NAs below since we are merging "different" .mom
+#' # with different cov, etc. components
+#' from_mom("mom", example_dir())
+#'
+#' # grab all files within the 'bot_lite'  folder
+#' # this one works like a charm
+#' from_mom("bot_lite/", example_dir())
+#'
+#'
+#' # same for tps, all files that begin with tpsDig_allo
+#' from_tps("tpsDig_allo", example_dir())
+#'
+#' # more restrictively
+#' from_tps("tpsDig_allowen1", example_dir())
+#'
+#' # or if you prefer a real path rather than a matching pattern
+#' # (again, you should not need 'example_data()'), see ?example_data
+#' harvest(example_data("tpsDig_allowen1.tps")) %>%
+#'   parse_tps()
 #' @export
-from_mom <- function(pattern="mom$", x=getwd(), encoding="unknown", ...){
-  if (!is.list(x))
-    x <- harvest(pattern=pattern, where=x, encoding=encoding, ...)
+from_mom <- function(pattern="mom$", where=getwd(), encoding="unknown", ...){
+  if (!is.list(where))
+    x <- harvest(pattern=pattern, where=where, encoding=encoding, ...)
+  else
+    x <- where
   x %>% parse_mom()
 }
 
 # tps* ------------------------------------------------
 #' @rdname from
 #' @export
-from_tps <- function(pattern="tps$", x=getwd(), encoding="unknown", ...){
-  if (!is.list(x))
-    x <- harvest(pattern=pattern, where=x, encoding=encoding, ...)
+from_tps <- function(pattern="tps$", where=getwd(), encoding="unknown", ...){
+  if (!is.list(where))
+    x <- harvest(pattern=pattern, where=where, encoding=encoding, ...)
+  else
+    x <- where
   x %>% parse_tps
 }
 

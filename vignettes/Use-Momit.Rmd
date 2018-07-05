@@ -4,13 +4,22 @@ author: "Vincent Bonhomme"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{momit-usage}
+  %\VignetteIndexEntry{use-momit}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
   chunk_output_type: console
 ---
-## Rationale
+This vignette consists in two parts: 
+
+1. a word on the rationale, definition and case studies around the mimimalist `.mom` file format for morphometric data;
+2. examples on using Momit, how it works and what it brings to the often boring and time-consuming task of importing such data into R or converting them to another format.
+
+Momit is still in active development, as part of [MomX](http://momx.online).
+
+## `.mom` file format for morphometrics
+
+#### Rationale
  * Morphometrics data essentially consist of coordinates and, if any, associated covariates.
 
 * Existing morphometrics file format, eg `.tps`, `.nts`, `.xml`, etc. are not fully generic and/or explicitely defined/consistent, etc.
@@ -19,7 +28,7 @@ editor_options:
 
 * `.mom` files are easy to read, for humans, and to parse, for computers.
 
-## `.mom` Definition
+#### Definition
 `.mom` files are plain text files whose single line syntax fall within one of the five following rules:
 
 Rule | Pattern                 | What                          | Examples
@@ -32,7 +41,7 @@ Rule | Pattern                 | What                          | Examples
  
 Handling of units and of missing data is planned.
 
-### Examples
+#### Examples
 
 A single shape with one covariate:
 
@@ -99,8 +108,9 @@ A shape with nothing else but coordinates:
 ```
 Examples adapted from [Momocs](https://github.com/vbonhomme/Momocs/): `bot[1]`, `olea[1]`, `charring[1]`, `shapes[1]`.
 
-## General workflow of Momit
+## Use Momit
 
+#### General workflow
 If you're here, you probably have morphometric data that you want to import into R and/or convert to another format. Momit aims at making this easy. Actually, most of the time, you will only need two (or even one) function to do this:
 1. `from_*()`, that will find, read and parse them to a ``data_frame`
 2. `to_*()` translate them and write to the format you want
@@ -125,7 +135,7 @@ Below `from`, I detailed the main steps that happen behind the curtain.
 
 The only mandatory part below is `from_*`, in the case where you would only like to import `{.mom, .tps, .nts, etc.}` files into R (no convert, no export). See the first example below.
 
-## Examples
+#### Case studies where it may saves time and enthusiasm
 
 * You have `.mom` files in the folder "data", and want to import them into R:<br /> `from_mom("data/")`
 
@@ -140,7 +150,7 @@ Talking about pipes, all [MomX](https://github.com/MomX) packages use them inten
 <!-- `from_tps` and `to_tps` -->
 <!-- `from_nts` and `to_nps` -->
 
-## Behind the curtain
+#### Behind the curtain
 We will follow all the thing that happen along the path schematized above. You do not really need to understand (or even read) this section if you just want to convert your files. But in case you need to custom something, here is the long story.
 
 Let's create a `.mom` file from scratch. It contains four individuals with some coordinates (we don't care whether they are outlines, curves, landmarks, etc. here they're truncated anyway) and four covariates: `var`iety, `domes`tication status, `view`,  `ind`ividual name and `size`.
@@ -153,7 +163,7 @@ library(Momocs) # same, and order matters since Momocs hacks some dplyr methods
 ```
 
 Then I have a file named `foo.mom` in a folder named `mom_files` that I (both) created using:
-```{r create_dummy, eval=T}
+```{r create_dummy, eval=FALSE}
 dir.create("mom_files")
 "~0001-cPastor_O10VD
 var Pastor
@@ -204,7 +214,7 @@ size 2.55
 ```
 
 We can now read this file:
-```{r read_dummy, eval=TRUE}
+```{r read_dummy, eval=FALSE}
 readLines("mom_files/foo.mom")
 ```
 
@@ -212,10 +222,23 @@ readLines("mom_files/foo.mom")
 
 A list of files, read as lines, is returned. In most cases, `from_*` functions will harvest files for you, and a list of folders/files can also be passed directly to `from_*` functions. See those examples.
 
-```{r parse_dummy}
+If you actually created the file and folder this should work now:
+```{r parse_dummy1, eval=FALSE}
 x <- from_mom("mom_files/foo.mom")
+```
+
+Otherwise just use `example_data` (see `?example_data`):
+```{r, eval=TRUE}
+x <- from_mom("mom_files/foo.mom", where=example_dir())
 x
-# Some equivalents:
+```
+
+We now have a `mom_df`: a `data.frame` containing:
+ * several individuals
+ * each with names, covariates and coordinates
+
+Some equivalent of this importing step follows. They may be useful to understand should you want to write your own importers. As long as your format is used by others, I will be happy to write it myself and include it in Momocs. Just drop me a line.
+```{r, eval=FALSE}
 # from_mom("mom_files") # will find all .mom files in "mom_files/"
 # from_mom()            # will find all .mom files in the working 
                         # directory (I can't myself because I have 
@@ -235,7 +258,7 @@ from_mom
 
 `harvest` itself eases the passing of selected files. All `from_*` functions have the same skeleton. You can dissecate it with `harvest` (again, no quotes). Note that this is not peculiar to Momit, it would work with all R functions. For methods, you will need to add the concerned class (eg `print.data.frame`).
 
-## Handling imported data: data.frame is life, data.frame is love
+#### Handling imported data: data.frame is life, data.frame is love
 
 Because once you started to like, you will love it. Particularly if you do some "modern R". If you never heard of it or if you do not think it's worth the pain, let me disagree with you and please read the [dplyr's introduction](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html) (5 min), and [_R for data science_](http://r4ds.had.co.nz/) (from 2 days to 2 years). 
 
@@ -243,7 +266,7 @@ Alternatively, just keep reading this vignette.
 
 Did you ever need to filter some data to retain only some, say species; or to transforms some variables? Of course you did. With `dplyr` handling data becomes easy. All operations that follow depends on `dplyr`'s verbs that work just like exemplified in the vignette mentionned above since `mom_df` (what is returned by the `from_` importers is _also_ a `data.frame`).
 
-### Selecting columns
+##### Selecting columns
 You can use `select` to select, reorder, rename some columns:
 ```{r select}
 select(x, name, coo, size)
@@ -251,7 +274,7 @@ select(x, -view, author=var)
 select(x, 1:2, coo)
 ```
 
-### Creating new columns
+##### Creating new columns
 `mutate` is your friend. 
 
 As you may have noticed, all columns but coordinates partitions are of class `character`. __You should explicitely redeclare the class of each covariate columns__. This seems boring at the first glance but I want you to a lot of time/enthusiasm in the end. The good news is that you can do it easily with `mutate`:
@@ -281,7 +304,7 @@ mutate(x,
        view=factor(substr(view, 2, 2)))
 ```
 
-### Filtering
+##### Filtering
 ```{r}
 # only pictures by Ivorra
 x 
@@ -300,7 +323,7 @@ x %>% filter(size < 2.5)
 x %>% filter(size >= median(size))
 ```
 
-### Selectiong by rows
+##### Selectiong by rows
 If you need to select individuals by their positions, yet usually that's not a good idea, you can use `slice`:
 
 ```{r slice}
@@ -341,20 +364,26 @@ TODO
 
 
 -----
-Don't forget to remove these files and folder!
+If you created the files, don't forget to remove them!
 ```{r}
 file.remove("mom_files/foo.mom")
 unlink("mom_files", recursive=TRUE, force=TRUE)
 ```
 
 ## Final word
- * I will add `from_*` and `to_*` functions asap in spring 2018.
+ * I will add more `from_*` and `to_*` functions asap
  * I also still need to implement missing values handling and units.
  * All of this is pretty experimental so all comments are welcome.
  * Please use GitHub issues for bugs/ideas. If you'd like to get in touch privately or send me some exotic data to be included in Momit, you can email me at: `bonhomme.vincent@gmail.com`.
  * More to come.
  
- 
+----
+With these following packages/versions, this vignette compiles properly:
+
+```{r}
+sessionInfo()
+```
+
 
 
 

@@ -18,6 +18,17 @@
 #' `from_*` importers, when used directly, should message you with "see ?harvest".
 #' In taht case, try changing the `encoding` parameter (see [readLines]).
 #' @return a `list` of `character` lines
+#' @examples
+#' # See ?example_data (you should not need the `where` argument below)
+#'
+#' # grab all files containing `mom` in the directory
+#' harvest("mom", example_dir())
+#'
+#' # same for tps, all files that have the .tps extension
+#' harvest("\\.tps$", example_dir())
+#'
+#' # grab all files within the 'bot_lite'  folder
+#' harvest("bot_lite/", example_dir())
 #' @export
 harvest <- function(pattern="", where=getwd(), encoding="UTF-8", ...){
   # if folder(s) path(s) are provided,

@@ -20,3 +20,34 @@ momify(x)
 Turns \code{mom_list} returned by \link{parse}rs into \code{data_frame}s, much easier to handle.
 Most of the time you should not need it directly expect if you write your own \link{parse} function.
 }
+\examples{
+\dontrun{
+# a glimpse at what occurs behind the curtain
+x <- harvest(example_data("bot_lite.mom")) # harvest bot_lite.mom
+x[[1]] \%>\%
+ Momit:::.split_on("~") \%>\% # here we do not have so much polish as we have a mom
+ lapply(parse_mom1) -> moms
+ # we now have a list of 'mom_list's
+ class(moms[[1]])
+ # that can be momify-ed to mom_df
+ momify1(moms[[1]])
+ # all of them now
+ lapply(moms, momify1)
+ # now we just have to rbind them all
+ do.call("rbind", lapply(moms, momify1)) # we now have the full mom_df
+ #
+ dplyr::bind_rows(lapply(moms, momify1)) # better since it allows column heterogeneity
+ # that is actually what momify (no 1) does with more checks
+ momify(moms)
+
+ # and from_mom wraps all of these steps (with additional benefits in terms of checking)
+ m1 <- harvest(example_data("bot_lite.mom")) \%>\%
+         `[[`(1) \%>\%
+         Momit:::.split_on("~") \%>\% # this one is not exported (yet usable)
+         lapply(parse_mom1) \%>\%
+         lapply(momify1) \%>\%
+         dplyr::bind_rows()
+ m2 <- from_mom(example_data("bot_lite.mom"))
+ identical(m1, m2)
+ }
+}

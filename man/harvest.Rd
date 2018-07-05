@@ -33,3 +33,15 @@ Also, some problems with encoding may occur, particularly with \code{latin1}.
 \code{from_*} importers, when used directly, should message you with "see ?harvest".
 In taht case, try changing the \code{encoding} parameter (see \link{readLines}).
 }
+\examples{
+# See ?example_data (you should not need the `where` argument below)
+
+# grab all files containing `mom` in the directory
+harvest("mom", example_dir())
+
+# same for tps, all files that have the .tps extension
+harvest("\\\\.tps$", example_dir())
+
+# grab all files within the 'bot_lite'  folder
+harvest("bot_lite/", example_dir())
+}
