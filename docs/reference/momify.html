@@ -140,6 +140,37 @@ Most of the time you should not need it directly expect if you write your own <a
     <p><code>mom_df</code></p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='co'># a glimpse at what occurs behind the curtain</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='harvest.html'>harvest</a></span>(<span class='fu'>example_data</span>(<span class='st'>"bot_lite.mom"</span>)) <span class='co'># harvest bot_lite.mom</span>
+<span class='no'>x</span><span class='kw'>[[</span><span class='fl'>1</span>]] <span class='kw'>%&gt;%</span>
+ <span class='kw pkg'>Momit</span><span class='kw ns'>:::</span><span class='fu'>.split_on</span>(<span class='st'>"~"</span>) <span class='kw'>%&gt;%</span> <span class='co'># here we do not have so much polish as we have a mom</span>
+ <span class='fu'>lapply</span>(<span class='no'>parse_mom1</span>) <span class='kw'>-&gt;</span> <span class='no'>moms</span>
+ <span class='co'># we now have a list of 'mom_list's</span>
+ <span class='fu'>class</span>(<span class='no'>moms</span><span class='kw'>[[</span><span class='fl'>1</span>]])
+ <span class='co'># that can be momify-ed to mom_df</span>
+ <span class='fu'>momify1</span>(<span class='no'>moms</span><span class='kw'>[[</span><span class='fl'>1</span>]])
+ <span class='co'># all of them now</span>
+ <span class='fu'>lapply</span>(<span class='no'>moms</span>, <span class='no'>momify1</span>)
+ <span class='co'># now we just have to rbind them all</span>
+ <span class='fu'>do.call</span>(<span class='st'>"rbind"</span>, <span class='fu'>lapply</span>(<span class='no'>moms</span>, <span class='no'>momify1</span>)) <span class='co'># we now have the full mom_df</span>
+ <span class='co'>#</span>
+ <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></span>(<span class='fu'>lapply</span>(<span class='no'>moms</span>, <span class='no'>momify1</span>)) <span class='co'># better since it allows column heterogeneity</span>
+ <span class='co'># that is actually what momify (no 1) does with more checks</span>
+ <span class='fu'>momify</span>(<span class='no'>moms</span>)
+
+ <span class='co'># and from_mom wraps all of these steps (with additional benefits in terms of checking)</span>
+ <span class='no'>m1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='harvest.html'>harvest</a></span>(<span class='fu'>example_data</span>(<span class='st'>"bot_lite.mom"</span>)) <span class='kw'>%&gt;%</span>
+         <span class='fu'>`[[`</span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span>
+         <span class='kw pkg'>Momit</span><span class='kw ns'>:::</span><span class='fu'>.split_on</span>(<span class='st'>"~"</span>) <span class='kw'>%&gt;%</span> <span class='co'># this one is not exported (yet usable)</span>
+         <span class='fu'>lapply</span>(<span class='no'>parse_mom1</span>) <span class='kw'>%&gt;%</span>
+         <span class='fu'>lapply</span>(<span class='no'>momify1</span>) <span class='kw'>%&gt;%</span>
+         <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></span>()
+ <span class='no'>m2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='from.html'>from_mom</a></span>(<span class='fu'>example_data</span>(<span class='st'>"bot_lite.mom"</span>))
+ <span class='fu'>identical</span>(<span class='no'>m1</span>, <span class='no'>m2</span>)
+
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -147,7 +178,9 @@ Most of the time you should not need it directly expect if you write your own <a
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

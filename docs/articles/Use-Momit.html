@@ -79,7 +79,7 @@
       <h1>Use Momit</h1>
                         <h4 class="author">Vincent Bonhomme</h4>
             
-            <h4 class="date">2018-07-04</h4>
+            <h4 class="date">2018-07-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MomX/Momit/blob/master/vignettes/Use-Momit.Rmd"><code>vignettes/Use-Momit.Rmd</code></a></small>
       <div class="hidden name"><code>Use-Momit.Rmd</code></div>
@@ -88,9 +88,18 @@
 
     
     
-<div id="rationale" class="section level2">
+<p>This vignette consists in two parts:</p>
+<ol style="list-style-type: decimal">
+<li>a word on the rationale, definition and case studies around the mimimalist <code>.mom</code> file format for morphometric data;</li>
+<li>examples on using Momit, how it works and what it brings to the often boring and time-consuming task of importing such data into R or converting them to another format.</li>
+</ol>
+<p>Momit is still in active development, as part of <a href="http://momx.online">MomX</a>.</p>
+<div id="mom-file-format-for-morphometrics" class="section level2">
 <h2 class="hasAnchor">
-<a href="#rationale" class="anchor"></a>Rationale</h2>
+<a href="#mom-file-format-for-morphometrics" class="anchor"></a><code>.mom</code> file format for morphometrics</h2>
+<div id="rationale" class="section level4">
+<h4 class="hasAnchor">
+<a href="#rationale" class="anchor"></a>Rationale</h4>
 <ul>
 <li><p>Morphometrics data essentially consist of coordinates and, if any, associated covariates.</p></li>
 <li><p>Existing morphometrics file format, eg <code>.tps</code>, <code>.nts</code>, <code>.xml</code>, etc. are not fully generic and/or explicitely defined/consistent, etc.</p></li>
@@ -98,9 +107,9 @@
 <li><p><code>.mom</code> files are easy to read, for humans, and to parse, for computers.</p></li>
 </ul>
 </div>
-<div id="mom-definition" class="section level2">
-<h2 class="hasAnchor">
-<a href="#mom-definition" class="anchor"></a><code>.mom</code> Definition</h2>
+<div id="definition" class="section level4">
+<h4 class="hasAnchor">
+<a href="#definition" class="anchor"></a>Definition</h4>
 <p><code>.mom</code> files are plain text files whose single line syntax fall within one of the five following rules:</p>
 <table class="table">
 <thead><tr class="header">
@@ -149,9 +158,10 @@
 </tbody>
 </table>
 <p>Handling of units and of missing data is planned.</p>
-<div id="examples" class="section level3">
-<h3 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h3>
+</div>
+<div id="examples" class="section level4">
+<h4 class="hasAnchor">
+<a href="#examples" class="anchor"></a>Examples</h4>
 <p>A single shape with one covariate:</p>
 <pre><code>name brahma
 type beer
@@ -204,9 +214,12 @@ sl2
 <p>Examples adapted from <a href="https://github.com/vbonhomme/Momocs/">Momocs</a>: <code>bot[1]</code>, <code>olea[1]</code>, <code>charring[1]</code>, <code>shapes[1]</code>.</p>
 </div>
 </div>
-<div id="general-workflow-of-momit" class="section level2">
+<div id="use-momit" class="section level2">
 <h2 class="hasAnchor">
-<a href="#general-workflow-of-momit" class="anchor"></a>General workflow of Momit</h2>
+<a href="#use-momit" class="anchor"></a>Use Momit</h2>
+<div id="general-workflow" class="section level4">
+<h4 class="hasAnchor">
+<a href="#general-workflow" class="anchor"></a>General workflow</h4>
 <p>If you’re here, you probably have morphometric data that you want to import into R and/or convert to another format. Momit aims at making this easy. Actually, most of the time, you will only need two (or even one) function to do this: 1. <code>from_*()</code>, that will find, read and parse them to a `<code>data_frame</code> 2. <code>to_*()</code> translate them and write to the format you want</p>
 <p>The general workflow from (and possibly to) files on your machine and R’s memory follows:</p>
 <pre><code>files  +--&gt; from_*() +--------&gt; to_*()  +----&gt;   files
@@ -224,9 +237,9 @@ sl2
 <p>Below <code>from</code>, I detailed the main steps that happen behind the curtain.</p>
 <p>The only mandatory part below is <code>from_*</code>, in the case where you would only like to import <code>{.mom, .tps, .nts, etc.}</code> files into R (no convert, no export). See the first example below.</p>
 </div>
-<div id="examples-1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#examples-1" class="anchor"></a>Examples</h2>
+<div id="case-studies-where-it-may-saves-time-and-enthusiasm" class="section level4">
+<h4 class="hasAnchor">
+<a href="#case-studies-where-it-may-saves-time-and-enthusiasm" class="anchor"></a>Case studies where it may saves time and enthusiasm</h4>
 <ul>
 <li>You have <code>.mom</code> files in the folder “data”, and want to import them into R:<br><code><a href="../reference/from.html">from_mom("data/")</a></code>
 </li>
@@ -240,9 +253,9 @@ sl2
 <!-- `from_tps` and `to_tps` -->
 <!-- `from_nts` and `to_nps` -->
 </div>
-<div id="behind-the-curtain" class="section level2">
-<h2 class="hasAnchor">
-<a href="#behind-the-curtain" class="anchor"></a>Behind the curtain</h2>
+<div id="behind-the-curtain" class="section level4">
+<h4 class="hasAnchor">
+<a href="#behind-the-curtain" class="anchor"></a>Behind the curtain</h4>
 <p>We will follow all the thing that happen along the path schematized above. You do not really need to understand (or even read) this section if you just want to convert your files. But in case you need to custom something, here is the long story.</p>
 <p>Let’s create a <code>.mom</code> file from scratch. It contains four individuals with some coordinates (we don’t care whether they are outlines, curves, landmarks, etc. here they’re truncated anyway) and four covariates: <code>var</code>iety, <code>domes</code>tication status, <code>view</code>, <code>ind</code>ividual name and <code>size</code>.</p>
 <p>We first load Momit (that re-exports magrittr’s pipe), and friends.</p>
@@ -317,32 +330,12 @@ sl2
 <a class="sourceLine" id="cb15-47" data-line-number="47"><span class="st">  </span><span class="kw">writeLines</span>(<span class="st">"mom_files/foo.mom"</span>)</a></code></pre></div>
 <p>We can now read this file:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">readLines</span>(<span class="st">"mom_files/foo.mom"</span>)</a></code></pre></div>
-<pre><code>##  [1] "~0001-cPastor_O10VD"    "var Pastor"            
-##  [3] "domes cult"             "view VD"               
-##  [5] "ind O10"                "size 2.23"             
-##  [7] "-0.5000 0.00000"        "-0.4967 0.01035"       
-##  [9] "-0.4935 0.02414"        "~0001-cPastor_O10VL "  
-## [11] "var Pastor"             "domes cult"            
-## [13] "view VL"                "ind O10"               
-## [15] "size 2.43"              "-0.5000 0.00000"       
-## [17] "-0.4995 0.01018"        "-0.4957 0.02022"       
-## [19] "~0001-cIvorra_O11VL "   "var Ivorra"            
-## [21] "domes wild"             "view VL"               
-## [23] "ind O11"                "size 2.56"             
-## [25] "-0.5000 0.00000"        "-0.4985 0.0112"        
-## [27] "-0.4845 0.021"          "~0001-cIvorra_O11VD "  
-## [29] "var Ivorra"             "domes wild"            
-## [31] "view VD"                "ind O11"               
-## [33] "size 2.74"              "-0.5000 0.00000"       
-## [35] "-0.4995 0.011"          "-0.49 0.0198"          
-## [37] "~0005-cBonhomme_O11VD " "var Bonhomme"          
-## [39] "domes wild"             "view VD"               
-## [41] "ind O11"                "size 2.55"             
-## [43] "-0.5000 0.00000"        "-0.499 0.012"          
-## [45] "-0.49 0.0186"</code></pre>
 <p><code><a href="../reference/harvest.html">harvest()</a></code> function will find all the files, when provided containing folder(s) or, better, a pattern which is a regular expression. If you are not yet familiar with regular expression, go learn them, they are among the most profitable investment you can make when talking to a computer.</p>
 <p>A list of files, read as lines, is returned. In most cases, <code>from_*</code> functions will harvest files for you, and a list of folders/files can also be passed directly to <code>from_*</code> functions. See those examples.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/from.html">from_mom</a></span>(<span class="st">"mom_files/foo.mom"</span>)</a>
+<p>If you actually created the file and folder this should work now:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/from.html">from_mom</a></span>(<span class="st">"mom_files/foo.mom"</span>)</a></code></pre></div>
+<p>Otherwise just use <code>example_data</code> (see <code>?example_data</code>):</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/from.html">from_mom</a></span>(<span class="st">"mom_files/foo.mom"</span>, <span class="dt">where=</span><span class="kw"><a href="../reference/example_data.html">example_dir</a></span>())</a>
 <a class="sourceLine" id="cb18-2" data-line-number="2">x</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 7
 ##   name                 var      domes view  ind   size  coo      
@@ -352,36 +345,39 @@ sl2
 ## 3 0001-cIvorra_O11VL   Ivorra   wild  VL    O11   2.56  &lt;S3: coo&gt;
 ## 4 0001-cIvorra_O11VD   Ivorra   wild  VD    O11   2.74  &lt;S3: coo&gt;
 ## 5 0005-cBonhomme_O11VD Bonhomme wild  VD    O11   2.55  &lt;S3: coo&gt;</code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="co"># Some equivalents:</span></a>
-<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="co"># from_mom("mom_files") # will find all .mom files in "mom_files/"</span></a>
-<a class="sourceLine" id="cb20-3" data-line-number="3"><span class="co"># from_mom()            # will find all .mom files in the working </span></a>
-<a class="sourceLine" id="cb20-4" data-line-number="4">                        <span class="co"># directory (I can't myself because I have </span></a>
-<a class="sourceLine" id="cb20-5" data-line-number="5">                        <span class="co"># more than one in my Momit folder)</span></a>
-<a class="sourceLine" id="cb20-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb20-7" data-line-number="7"><span class="co"># Below, what's done by from_mom()</span></a>
-<a class="sourceLine" id="cb20-8" data-line-number="8"><span class="co"># list.files("mom_files/", full.names=TRUE) %&gt;% </span></a>
-<a class="sourceLine" id="cb20-9" data-line-number="9"><span class="co">#  lapply(readLines) %&gt;% </span></a>
-<a class="sourceLine" id="cb20-10" data-line-number="10"><span class="co">#  parse_mom()</span></a></code></pre></div>
+<p>We now have a <code>mom_df</code>: a <code>data.frame</code> containing: * several individuals * each with names, covariates and coordinates</p>
+<p>Some equivalent of this importing step follows. They may be useful to understand should you want to write your own importers. As long as your format is used by others, I will be happy to write it myself and include it in Momocs. Just drop me a line.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="co"># from_mom("mom_files") # will find all .mom files in "mom_files/"</span></a>
+<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="co"># from_mom()            # will find all .mom files in the working </span></a>
+<a class="sourceLine" id="cb20-3" data-line-number="3">                        <span class="co"># directory (I can't myself because I have </span></a>
+<a class="sourceLine" id="cb20-4" data-line-number="4">                        <span class="co"># more than one in my Momit folder)</span></a>
+<a class="sourceLine" id="cb20-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb20-6" data-line-number="6"><span class="co"># Below, what's done by from_mom()</span></a>
+<a class="sourceLine" id="cb20-7" data-line-number="7"><span class="co"># list.files("mom_files/", full.names=TRUE) %&gt;% </span></a>
+<a class="sourceLine" id="cb20-8" data-line-number="8"><span class="co">#  lapply(readLines) %&gt;% </span></a>
+<a class="sourceLine" id="cb20-9" data-line-number="9"><span class="co">#  parse_mom()</span></a></code></pre></div>
 <p>The last lines reproduce what is internally done by <code>from_mom</code>. Let’s see what it contains. Note the absence of parentheses, that prints the definition of the function.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">from_mom</a></code></pre></div>
-<pre><code>## function(pattern="mom$", x=getwd(), encoding="unknown", ...){
-##   if (!is.list(x))
-##     x &lt;- harvest(pattern=pattern, where=x, encoding=encoding, ...)
+<pre><code>## function(pattern="mom$", where=getwd(), encoding="unknown", ...){
+##   if (!is.list(where))
+##     x &lt;- harvest(pattern=pattern, where=where, encoding=encoding, ...)
+##   else
+##     x &lt;- where
 ##   x %&gt;% parse_mom()
 ## }
-## &lt;bytecode: 0x7ff0748802e0&gt;
+## &lt;bytecode: 0x7f9002a23fb8&gt;
 ## &lt;environment: namespace:Momit&gt;</code></pre>
 <p><code>harvest</code> itself eases the passing of selected files. All <code>from_*</code> functions have the same skeleton. You can dissecate it with <code>harvest</code> (again, no quotes). Note that this is not peculiar to Momit, it would work with all R functions. For methods, you will need to add the concerned class (eg <code>print.data.frame</code>).</p>
 </div>
-<div id="handling-imported-data-data-frame-is-life-data-frame-is-love" class="section level2">
-<h2 class="hasAnchor">
-<a href="#handling-imported-data-data-frame-is-life-data-frame-is-love" class="anchor"></a>Handling imported data: data.frame is life, data.frame is love</h2>
+<div id="handling-imported-data-data-frame-is-life-data-frame-is-love" class="section level4">
+<h4 class="hasAnchor">
+<a href="#handling-imported-data-data-frame-is-life-data-frame-is-love" class="anchor"></a>Handling imported data: data.frame is life, data.frame is love</h4>
 <p>Because once you started to like, you will love it. Particularly if you do some “modern R”. If you never heard of it or if you do not think it’s worth the pain, let me disagree with you and please read the <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html">dplyr’s introduction</a> (5 min), and <a href="http://r4ds.had.co.nz/"><em>R for data science</em></a> (from 2 days to 2 years).</p>
 <p>Alternatively, just keep reading this vignette.</p>
 <p>Did you ever need to filter some data to retain only some, say species; or to transforms some variables? Of course you did. With <code>dplyr</code> handling data becomes easy. All operations that follow depends on <code>dplyr</code>’s verbs that work just like exemplified in the vignette mentionned above since <code>mom_df</code> (what is returned by the <code>from_</code> importers is <em>also</em> a <code>data.frame</code>).</p>
-<div id="selecting-columns" class="section level3">
-<h3 class="hasAnchor">
-<a href="#selecting-columns" class="anchor"></a>Selecting columns</h3>
+<div id="selecting-columns" class="section level5">
+<h5 class="hasAnchor">
+<a href="#selecting-columns" class="anchor"></a>Selecting columns</h5>
 <p>You can use <code>select</code> to select, reorder, rename some columns:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/select">select</a></span>(x, name, coo, size)</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 3
@@ -411,9 +407,9 @@ sl2
 ## 4 0001-cIvorra_O11VD   Ivorra   &lt;S3: coo&gt;
 ## 5 0005-cBonhomme_O11VD Bonhomme &lt;S3: coo&gt;</code></pre>
 </div>
-<div id="creating-new-columns" class="section level3">
-<h3 class="hasAnchor">
-<a href="#creating-new-columns" class="anchor"></a>Creating new columns</h3>
+<div id="creating-new-columns" class="section level5">
+<h5 class="hasAnchor">
+<a href="#creating-new-columns" class="anchor"></a>Creating new columns</h5>
 <p><code>mutate</code> is your friend.</p>
 <p>As you may have noticed, all columns but coordinates partitions are of class <code>character</code>. <strong>You should explicitely redeclare the class of each covariate columns</strong>. This seems boring at the first glance but I want you to a lot of time/enthusiasm in the end. The good news is that you can do it easily with <code>mutate</code>:</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">sapply</span>(x, class)</a></code></pre></div>
@@ -454,9 +450,9 @@ sl2
 ## 4 0001-cIvorra_… Ivorra  Ivorra D     O11    2.74 &lt;S3: c…   7.51      1.66
 ## 5 0005-cBonhomm… Bonhom… Bonho… D     O11    2.55 &lt;S3: c…   6.50      1.60</code></pre>
 </div>
-<div id="filtering" class="section level3">
-<h3 class="hasAnchor">
-<a href="#filtering" class="anchor"></a>Filtering</h3>
+<div id="filtering" class="section level5">
+<h5 class="hasAnchor">
+<a href="#filtering" class="anchor"></a>Filtering</h5>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="co"># only pictures by Ivorra</span></a>
 <a class="sourceLine" id="cb35-2" data-line-number="2">x </a></code></pre></div>
 <pre><code>## # A tibble: 5 x 7
@@ -512,9 +508,9 @@ sl2
 ## 2 0001-cIvorra_O11VD   Ivorra   Ivorra   VD    O11    2.74 &lt;S3: coo&gt;
 ## 3 0005-cBonhomme_O11VD Bonhomme Bonhomme VD    O11    2.55 &lt;S3: coo&gt;</code></pre>
 </div>
-<div id="selectiong-by-rows" class="section level3">
-<h3 class="hasAnchor">
-<a href="#selectiong-by-rows" class="anchor"></a>Selectiong by rows</h3>
+<div id="selectiong-by-rows" class="section level5">
+<h5 class="hasAnchor">
+<a href="#selectiong-by-rows" class="anchor"></a>Selectiong by rows</h5>
 <p>If you need to select individuals by their positions, yet usually that’s not a good idea, you can use <code>slice</code>:</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">x</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 7
@@ -536,6 +532,7 @@ sl2
 ##   &lt;chr&gt;              &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;list&gt;   
 ## 1 0001-cPastor_O10VD Pastor Pastor VD    O10    2.23 &lt;S3: coo&gt;
 ## 2 0001-cPastor_O10VL Pastor Pastor VL    O10    2.43 &lt;S3: coo&gt;</code></pre>
+</div>
 </div>
 </div>
 <div id="continue-with-momocs" class="section level2">
@@ -591,31 +588,65 @@ sl2
 <a class="sourceLine" id="cb62-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/PCA">PCA</a></span>() <span class="op">%T&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb62-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/plot_PCA">plot_PCA</a></span>(<span class="op">~</span>size) <span class="op">%&gt;%</span><span class="st">               </span><span class="co"># plotting vs a numeric</span></a>
 <a class="sourceLine" id="cb62-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/plot_PCA">plot_PCA</a></span>(<span class="op">~</span>var)                    <span class="co"># and versus a factor</span></a></code></pre></div>
-<pre><code>## iteration: 1 gain:14.445</code></pre>
-<pre><code>## iteration: 2 gain:0.10905</code></pre>
-<pre><code>## iteration: 3 gain:0.027716</code></pre>
-<p><img src="Use-Momit_files/figure-html/Momocs2-1.png" width="700"><img src="Use-Momit_files/figure-html/Momocs2-2.png" width="700"></p>
 </div>
 <div id="convert-and-write-files" class="section level2">
 <h2 class="hasAnchor">
 <a href="#convert-and-write-files" class="anchor"></a>Convert and write files</h2>
 <p>TODO</p>
-<hr>
-<p>Don’t forget to remove these files and folder!</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1"><span class="kw">file.remove</span>(<span class="st">"mom_files/foo.mom"</span>)</a></code></pre></div>
-<pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1"><span class="kw">unlink</span>(<span class="st">"mom_files"</span>, <span class="dt">recursive=</span><span class="ot">TRUE</span>, <span class="dt">force=</span><span class="ot">TRUE</span>)</a></code></pre></div>
-</div>
-<div id="final-word" class="section level2">
-<h2 class="hasAnchor">
-<a href="#final-word" class="anchor"></a>Final word</h2>
-<ul>
-<li>I will add <code>from_*</code> and <code>to_*</code> functions asap in spring 2018.</li>
-<li>I also still need to implement missing values handling and units.</li>
-<li>All of this is pretty experimental so all comments are welcome.</li>
-<li>Please use GitHub issues for bugs/ideas. If you’d like to get in touch privately or send me some exotic data to be included in Momit, you can email me at: <code>bonhomme.vincent@gmail.com</code>.</li>
-<li>More to come.</li>
-</ul>
+<table style="width:8%;" class="table">
+<colgroup><col width="8%"></colgroup>
+<tbody>
+<tr class="odd">
+<td>If you created the files, don’t forget to remove them!</td>
+</tr>
+<tr class="even">
+<td><code>r file.remove("mom_files/foo.mom")</code></td>
+</tr>
+<tr class="odd">
+<td><code>## Warning in file.remove("mom_files/foo.mom"): impossible d'effacer le ## fichier 'mom_files/foo.mom', à cause de 'No such file or directory'</code></td>
+</tr>
+<tr class="even">
+<td><code>## [1] FALSE</code></td>
+</tr>
+<tr class="odd">
+<td><code>r unlink("mom_files", recursive=TRUE, force=TRUE)</code></td>
+</tr>
+<tr class="even">
+<td>## Final word * I will add more <code>from_*</code> and <code>to_*</code> functions asap * I also still need to implement missing values handling and units. * All of this is pretty experimental so all comments are welcome. * Please use GitHub issues for bugs/ideas. If you’d like to get in touch privately or send me some exotic data to be included in Momit, you can email me at: <code>bonhomme.vincent@gmail.com</code>. * More to come.</td>
+</tr>
+</tbody>
+</table>
+<p>With these following packages/versions, this vignette compiles properly:</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+<pre><code>## R version 3.5.0 (2018-04-23)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS High Sierra 10.13.4
+## 
+## Matrix products: default
+## BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] fr_FR.UTF-8/fr_FR.UTF-8/fr_FR.UTF-8/C/fr_FR.UTF-8/fr_FR.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] bindrcpp_0.2.2 Momocs_1.2.9.3 Momit_0.1.0    dplyr_0.7.5   
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_0.12.17     plyr_1.8.4       compiler_3.5.0   pillar_1.2.3    
+##  [5] bindr_0.1.1      tools_3.5.0      digest_0.6.15    evaluate_0.10.1 
+##  [9] memoise_1.1.0    tibble_1.4.2     gtable_0.2.0     pkgconfig_2.0.1 
+## [13] rlang_0.2.1      cli_1.0.0        rstudioapi_0.7   commonmark_1.5  
+## [17] yaml_2.1.19      pkgdown_1.1.0    stringr_1.3.1    roxygen2_6.0.1  
+## [21] xml2_1.2.0       knitr_1.20       desc_1.2.0       fs_1.2.3        
+## [25] rprojroot_1.3-2  grid_3.5.0       tidyselect_0.2.4 glue_1.2.0      
+## [29] R6_2.2.2         rmarkdown_1.9    purrr_0.2.4      ggplot2_2.2.1   
+## [33] magrittr_1.5     backports_1.1.2  scales_0.5.0     htmltools_0.3.6 
+## [37] MASS_7.3-49      assertthat_0.2.0 colorspace_1.3-2 utf8_1.1.4      
+## [41] stringi_1.2.2    lazyeval_0.2.1   munsell_0.4.3    crayon_1.3.4</code></pre>
 </div>
   </div>
 
@@ -624,15 +655,10 @@ sl2
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#rationale">Rationale</a></li>
-      <li><a href="#mom-definition"><code>.mom</code> Definition</a></li>
-      <li><a href="#general-workflow-of-momit">General workflow of Momit</a></li>
-      <li><a href="#examples-1">Examples</a></li>
-      <li><a href="#behind-the-curtain">Behind the curtain</a></li>
-      <li><a href="#handling-imported-data-data-frame-is-life-data-frame-is-love">Handling imported data: data.frame is life, data.frame is love</a></li>
+<li><a href="#mom-file-format-for-morphometrics"><code>.mom</code> file format for morphometrics</a></li>
+      <li><a href="#use-momit">Use Momit</a></li>
       <li><a href="#continue-with-momocs">Continue with Momocs</a></li>
       <li><a href="#convert-and-write-files">Convert and write files</a></li>
-      <li><a href="#final-word">Final word</a></li>
       </ul>
 </div>
       </div>

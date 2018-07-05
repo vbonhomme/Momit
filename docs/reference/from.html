@@ -120,9 +120,9 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>from_mom</span>(<span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"mom$"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>getwd</span>(), <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>from_mom</span>(<span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"mom$"</span>, <span class='kw'>where</span> <span class='kw'>=</span> <span class='fu'>getwd</span>(), <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='no'>...</span>)
 
-<span class='fu'>from_tps</span>(<span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"tps$"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>getwd</span>(), <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>from_tps</span>(<span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"tps$"</span>, <span class='kw'>where</span> <span class='kw'>=</span> <span class='fu'>getwd</span>(), <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -133,7 +133,7 @@
 harvested files. Defaults to <code>filetype$</code> for each <code>from_filetype</code> (eg <code>tps$</code> for <code>from_tps</code>), etc.</p></td>
     </tr>
     <tr>
-      <th>x</th>
+      <th>where</th>
       <td><p>either path(s) or a <code>list</code> of <code>character</code>s typically obtained with <code>harvest</code> or the raw <code>readLines</code>.
 By default, <code>setwd()</code> so that all files somewhere in your current working directory will be
 <code>harvest</code>ed and imported.</p></td>
@@ -171,6 +171,82 @@ among the most profitable investment you can make when talking to a computer.</p
 </ul>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># See ?example_data (you should not need the `where` argument below)</span>
+
+<span class='co'># grab all files containing `mom` in the directory</span>
+<span class='co'># of course we have some NAs below since we are merging "different" .mom</span>
+<span class='co'># with different cov, etc. components</span>
+<span class='fu'>from_mom</span>(<span class='st'>"mom"</span>, <span class='fu'><a href='example_data.html'>example_dir</a></span>())</div><div class='output co'>#&gt; ❯ some components were not found everywhere:
+#&gt; 	coo
+#&gt; 	cur
+#&gt; 	domes
+#&gt; 	id
+#&gt; 	ind
+#&gt; 	ldk
+#&gt; 	out
+#&gt; 	size
+#&gt; 	sp
+#&gt; 	taxa
+#&gt; 	type
+#&gt; 	var
+#&gt; 	view</div><div class='output co'>#&gt; # A tibble: 49 x 14
+#&gt;    name   id    sp    taxa  out    ldk    cur    type  size   coo   var   domes
+#&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;list&gt; &lt;list&gt; &lt;list&gt; &lt;chr&gt; &lt;chr&gt;  &lt;lis&gt; &lt;chr&gt; &lt;chr&gt;
+#&gt;  1 plop   1     plip  plup  &lt;S3: … &lt;S3: … &lt;S3: … &lt;NA&gt;  &lt;NA&gt;   &lt;NUL… &lt;NA&gt;  &lt;NA&gt; 
+#&gt;  2 plup   2     plup  plup  &lt;S3: … &lt;S3: … &lt;S3: … &lt;NA&gt;  &lt;NA&gt;   &lt;NUL… &lt;NA&gt;  &lt;NA&gt; 
+#&gt;  3 brahma &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NULL&gt; &lt;NULL&gt; &lt;NULL&gt; 2     333.7… &lt;S3:… &lt;NA&gt;  &lt;NA&gt; 
+#&gt;  4 caney  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NULL&gt; &lt;NULL&gt; &lt;NULL&gt; 2     306.4… &lt;S3:… &lt;NA&gt;  &lt;NA&gt; 
+#&gt;  5 chimay &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NULL&gt; &lt;NULL&gt; &lt;NULL&gt; 2     220.9… &lt;S3:… &lt;NA&gt;  &lt;NA&gt; 
+#&gt;  6 corona &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NULL&gt; &lt;NULL&gt; &lt;NULL&gt; 2     244.8… &lt;S3:… &lt;NA&gt;  &lt;NA&gt; 
+#&gt;  7 deusv… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NULL&gt; &lt;NULL&gt; &lt;NULL&gt; 2     279.2… &lt;S3:… &lt;NA&gt;  &lt;NA&gt; 
+#&gt;  8 amrut  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NULL&gt; &lt;NULL&gt; &lt;NULL&gt; 1     266.0… &lt;S3:… &lt;NA&gt;  &lt;NA&gt; 
+#&gt;  9 balla… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NULL&gt; &lt;NULL&gt; &lt;NULL&gt; 1     248.3… &lt;S3:… &lt;NA&gt;  &lt;NA&gt; 
+#&gt; 10 bushm… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NULL&gt; &lt;NULL&gt; &lt;NULL&gt; 1     275.3… &lt;S3:… &lt;NA&gt;  &lt;NA&gt; 
+#&gt; # ... with 39 more rows, and 2 more variables: view &lt;chr&gt;, ind &lt;chr&gt;</div><div class='input'>
+<span class='co'># grab all files within the 'bot_lite'  folder</span>
+<span class='co'># this one works like a charm</span>
+<span class='fu'>from_mom</span>(<span class='st'>"bot_lite/"</span>, <span class='fu'><a href='example_data.html'>example_dir</a></span>())</div><div class='output co'>#&gt; # A tibble: 10 x 4
+#&gt;    name        type  size             coo      
+#&gt;    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;            &lt;list&gt;   
+#&gt;  1 amrut       1     266.024847921009 &lt;S3: coo&gt;
+#&gt;  2 ballantines 1     248.353306740193 &lt;S3: coo&gt;
+#&gt;  3 brahma      2     333.794465725393 &lt;S3: coo&gt;
+#&gt;  4 bushmills   1     275.325270268995 &lt;S3: coo&gt;
+#&gt;  5 caney       2     306.484290886628 &lt;S3: coo&gt;
+#&gt;  6 chimay      2     220.98557993466  &lt;S3: coo&gt;
+#&gt;  7 chivas      1     268.609789073204 &lt;S3: coo&gt;
+#&gt;  8 corona      2     244.834254654269 &lt;S3: coo&gt;
+#&gt;  9 dalmore     1     234.419221812847 &lt;S3: coo&gt;
+#&gt; 10 deusventrue 2     279.25940916688  &lt;S3: coo&gt;</div><div class='input'>
+
+<span class='co'># same for tps, all files that begin with tpsDig_allo</span>
+<span class='fu'>from_tps</span>(<span class='st'>"tpsDig_allo"</span>, <span class='fu'><a href='example_data.html'>example_dir</a></span>())</div><div class='output co'>#&gt; ❯ some components were not found everywhere:
+#&gt; 	POINTS_1
+#&gt; 	POINTS_2
+#&gt; 	POINTS_3
+#&gt; 	POINTS_4</div><div class='output co'>#&gt; # A tibble: 8 x 8
+#&gt;   name             ID    SCALE    LM        POINTS_1 POINTS_2 POINTS_3 POINTS_4
+#&gt;   &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;    &lt;list&gt;    &lt;list&gt;   &lt;list&gt;   &lt;list&gt;   &lt;list&gt;  
+#&gt; 1 nhm-11684R-4.jpg 0     0.003890 &lt;S3: coo&gt; &lt;S3: co… &lt;S3: co… &lt;S3: co… &lt;S3: co…
+#&gt; 2 nhm-17357R-4.jpg 2     0.003662 &lt;S3: coo&gt; &lt;S3: co… &lt;S3: co… &lt;S3: co… &lt;S3: co…
+#&gt; 3 nhm-11684R-4.jpg 0     0.003890 &lt;S3: coo&gt; &lt;S3: co… &lt;S3: co… &lt;S3: co… &lt;S3: co…
+#&gt; 4 nhm-17357R-4.jpg 2     0.003662 &lt;S3: coo&gt; &lt;S3: co… &lt;S3: co… &lt;S3: co… &lt;NULL&gt;  
+#&gt; 5 nhm-11684R-4.jpg 0     0.003890 &lt;S3: coo&gt; &lt;S3: co… &lt;S3: co… &lt;S3: co… &lt;S3: co…
+#&gt; 6 nhm-17357R-4.jpg 2     0.003662 &lt;S3: coo&gt; &lt;S3: co… &lt;S3: co… &lt;S3: co… &lt;S3: co…
+#&gt; 7 nhm-11684R-4.jpg 0     0.003890 &lt;S3: coo&gt; &lt;NULL&gt;   &lt;NULL&gt;   &lt;NULL&gt;   &lt;NULL&gt;  
+#&gt; 8 nhm-17357R-4.jpg 2     0.003662 &lt;S3: coo&gt; &lt;S3: co… &lt;S3: co… &lt;S3: co… &lt;S3: co…</div><div class='input'>
+<span class='co'># more restrictively</span>
+<span class='fu'>from_tps</span>(<span class='st'>"tpsDig_allowen1"</span>, <span class='fu'><a href='example_data.html'>example_dir</a></span>())</div><div class='output co'>#&gt; # A tibble: 2 x 8
+#&gt;   name             ID    SCALE    LM        POINTS_1 POINTS_2 POINTS_3 POINTS_4
+#&gt;   &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;    &lt;list&gt;    &lt;list&gt;   &lt;list&gt;   &lt;list&gt;   &lt;list&gt;  
+#&gt; 1 nhm-11684R-4.jpg 0     0.003890 &lt;S3: coo&gt; &lt;S3: co… &lt;S3: co… &lt;S3: co… &lt;S3: co…
+#&gt; 2 nhm-17357R-4.jpg 2     0.003662 &lt;S3: coo&gt; &lt;S3: co… &lt;S3: co… &lt;S3: co… &lt;S3: co…</div><div class='input'>
+<span class='co'># or if you prefer a real path rather than a matching pattern</span>
+<span class='co'># (again, you should not need 'example_data()'), see ?example_data</span>
+<span class='fu'><a href='harvest.html'>harvest</a></span>(<span class='fu'>example_data</span>(<span class='st'>"tpsDig_allowen1.tps"</span>)) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='parse.html'>parse_tps</a></span>()</div><div class='output co'>#&gt; <span class='error'>Error in harvest(example_data("tpsDig_allowen1.tps")): </span>
+#&gt; <span class='error'>✖ all files were found empty</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -184,7 +260,9 @@ among the most profitable investment you can make when talking to a computer.</p
       <li><a href="#note">Note</a></li>
 
       <li><a href="#currently-supported-formats">Currently supported formats</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
