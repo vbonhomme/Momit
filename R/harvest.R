@@ -23,8 +23,8 @@ harvest <- function(pattern="", where=getwd(), encoding="UTF-8", ...){
   # if folder(s) path(s) are provided,
   # list all paths to patterned files
   if (all(dir.exists(where))){
-    x <- where %>%
-      lapply(function(.) list.files(., full.names=TRUE, recursive = TRUE, ...) %>%
+    x <-  lapply(where,
+                 function(.where) list.files(.where, full.names=TRUE, recursive = TRUE, ...) %>%
                grep(pattern=pattern, ., value=TRUE)) %>% # strange but otherwise doesnt work on folders
       do.call("c", .) %>%
       gsub("//", "/", .)
