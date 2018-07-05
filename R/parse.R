@@ -5,7 +5,7 @@
 #'
 #' @details The `parse_*1` and `parse_*` dichotomy is not redundant:
 #' depending on formatting and/or the possible collated nature of the data,
-#' some polishing steps must be done before or after these individual files are splitted.
+#' some polishing steps must be done before or after these individual files are split.
 #'
 #' @param x `vector` or `list` (for `parse_*1` and `parse_*`) of lines to parse
 #' @return `mom_list` or `mom_df` (for `parse_*1` and `parse_*`)

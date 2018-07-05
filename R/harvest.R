@@ -16,7 +16,7 @@
 #'
 #' Also, some problems with encoding may occur, particularly with `latin1`.
 #' `from_*` importers, when used directly, should message you with "see ?harvest".
-#' In taht case, try changing the `encoding` parameter (see [readLines]).
+#' In that case, try changing the `encoding` parameter (see [readLines]).
 #' @return a `list` of `character` lines
 #' @examples
 #' # See ?example_data (you should not need the `where` argument below)

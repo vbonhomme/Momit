@@ -21,7 +21,7 @@ to_Ldk(x, coo = "coo", fac, ...)
 
 \item{fac}{\code{data.frame} to use for \code{$fac} (default to everything minus \code{coo})}
 
-\item{...}{addtional parameters to feed Momocs's builders see
+\item{...}{additional parameters to feed Momocs's builders see
 \code{\link[Momocs:Out]{Momocs::Out()}}, \code{\link[Momocs:Opn]{Momocs::Opn()}}, \code{\link[Momocs:Ldk]{Momocs::Ldk()}}}
 }
 \description{

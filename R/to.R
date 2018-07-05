@@ -8,7 +8,7 @@
 #' @param x `mom_df` object, typically returned by one of [from]
 #' @param coo `character` column` to use for `$coo` (default to `coo`)
 #' @param fac `data.frame` to use for `$fac` (default to everything minus `coo`)
-#' @param ... addtional parameters to feed Momocs's builders see
+#' @param ... additional parameters to feed Momocs's builders see
 #' [Momocs::Out()], [Momocs::Opn()], [Momocs::Ldk()]
 #'
 #' @aliases to_Momocs

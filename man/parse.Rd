@@ -29,5 +29,5 @@ Most of the time you should prefer \link{from}
 \details{
 The \code{parse_*1} and \code{parse_*} dichotomy is not redundant:
 depending on formatting and/or the possible collated nature of the data,
-some polishing steps must be done before or after these individual files are splitted.
+some polishing steps must be done before or after these individual files are split.
 }

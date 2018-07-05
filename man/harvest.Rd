@@ -31,7 +31,7 @@ of paths, typically obtained with \code{list.files}.
 
 Also, some problems with encoding may occur, particularly with \code{latin1}.
 \code{from_*} importers, when used directly, should message you with "see ?harvest".
-In taht case, try changing the \code{encoding} parameter (see \link{readLines}).
+In that case, try changing the \code{encoding} parameter (see \link{readLines}).
 }
 \examples{
 # See ?example_data (you should not need the `where` argument below)
