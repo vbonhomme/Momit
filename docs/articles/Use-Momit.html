@@ -56,6 +56,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -79,7 +82,7 @@
       <h1>Use Momit</h1>
                         <h4 class="author">Vincent Bonhomme</h4>
             
-            <h4 class="date">2018-07-05</h4>
+            <h4 class="date">2018-07-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MomX/Momit/blob/master/vignettes/Use-Momit.Rmd"><code>vignettes/Use-Momit.Rmd</code></a></small>
       <div class="hidden name"><code>Use-Momit.Rmd</code></div>
@@ -244,12 +247,12 @@ sl2
 <li>You have <code>.mom</code> files in the folder “data”, and want to import them into R:<br><code><a href="../reference/from.html">from_mom("data/")</a></code>
 </li>
 </ul>
-<p>__ Below, not yet implemented __ * Same but wih <code>.tps</code>files and you want to collate them into a single <code>.mom</code> file:<br><code>from_tps() %&gt;% to_mom() %&gt;% write_single()</code></p>
+<p>__ Below, not yet implemented __</p>
 <ul>
-<li>You have thousands of outlines of the same object, spread accross a messy (or neat) subfolders structures. Outlines coordinates represent two views (say lateral and dorsal), and saved as <code>.mom</code> files with the appropriate cofactor (say <code>view dorsal</code>) and you only want the dorsal outlines to be imported in Momocs:<br><code>from_mom() %&gt;% filter(view=="dorsal") %&gt;% to_Out()</code>
-</li>
+<li><p>Same but wih <code>.tps</code>files and you want to collate them into a single <code>.mom</code> file:<br><code>from_tps() %&gt;% to_mom() %&gt;% write_single()</code></p></li>
+<li><p>You have thousands of outlines of the same object, spread accross a messy (or neat) subfolders structures. Outlines coordinates represent two views (say lateral and dorsal), and saved as <code>.mom</code> files with the appropriate cofactor (say <code>view dorsal</code>) and you only want the dorsal outlines to be imported in Momocs:<br><code>from_mom() %&gt;% filter(view=="dorsal") %&gt;% to_Out()</code></p></li>
 </ul>
-<p>Talking about pipes, all <a href="https://github.com/MomX">MomX</a> packages use them intensively, so you may want to read <a href="https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html">magrittr’s vignette</a></p>
+<p>Talking about pipes, all <a href="https://github.com/MomX">MomX</a> packages use them intensively, so you may want to read <a href="https://cran.r-project.org/package=magrittr/vignettes/magrittr.html">magrittr’s vignette</a></p>
 <!-- `from_tps` and `to_tps` -->
 <!-- `from_nts` and `to_nps` -->
 </div>
@@ -259,84 +262,66 @@ sl2
 <p>We will follow all the thing that happen along the path schematized above. You do not really need to understand (or even read) this section if you just want to convert your files. But in case you need to custom something, here is the long story.</p>
 <p>Let’s create a <code>.mom</code> file from scratch. It contains four individuals with some coordinates (we don’t care whether they are outlines, curves, landmarks, etc. here they’re truncated anyway) and four covariates: <code>var</code>iety, <code>domes</code>tication status, <code>view</code>, <code>ind</code>ividual name and <code>size</code>.</p>
 <p>We first load Momit (that re-exports magrittr’s pipe), and friends.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">library</span>(dplyr) <span class="co"># we will need it after</span></a></code></pre></div>
-<pre><code>## 
-## Attachement du package : 'dplyr'</code></pre>
-<pre><code>## The following objects are masked from 'package:stats':
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">library</span>(Momit)</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw">library</span>(Momocs) <span class="co"># same, and order matters since Momocs hacks some dplyr methods</span></a></code></pre></div>
-<pre><code>## This is Momocs 1.2.9.3</code></pre>
-<pre><code>## 
-## Attachement du package : 'Momocs'</code></pre>
-<pre><code>## The following objects are masked from 'package:dplyr':
-## 
-##     arrange, combine, filter, mutate, rename, sample_frac,
-##     sample_n, select, slice</code></pre>
-<pre><code>## The following object is masked from 'package:stats':
-## 
-##     filter</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">library</span>(dplyr) <span class="co"># we will need it after</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">library</span>(Momit)</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw">library</span>(Momocs) <span class="co"># same, and order matters since Momocs hacks some dplyr methods</span></a></code></pre></div>
 <p>Then I have a file named <code>foo.mom</code> in a folder named <code>mom_files</code> that I (both) created using:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">dir.create</span>(<span class="st">"mom_files"</span>)</a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="st">"~0001-cPastor_O10VD</span></a>
-<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="st">var Pastor</span></a>
-<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="st">domes cult</span></a>
-<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="st">view VD</span></a>
-<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="st">ind O10</span></a>
-<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="st">size 2.23</span></a>
-<a class="sourceLine" id="cb15-8" data-line-number="8"><span class="st">-0.5000 0.00000</span></a>
-<a class="sourceLine" id="cb15-9" data-line-number="9"><span class="st">-0.4967 0.01035</span></a>
-<a class="sourceLine" id="cb15-10" data-line-number="10"><span class="st">-0.4935 0.02414</span></a>
-<a class="sourceLine" id="cb15-11" data-line-number="11"><span class="st">~0001-cPastor_O10VL </span></a>
-<a class="sourceLine" id="cb15-12" data-line-number="12"><span class="st">var Pastor</span></a>
-<a class="sourceLine" id="cb15-13" data-line-number="13"><span class="st">domes cult</span></a>
-<a class="sourceLine" id="cb15-14" data-line-number="14"><span class="st">view VL</span></a>
-<a class="sourceLine" id="cb15-15" data-line-number="15"><span class="st">ind O10</span></a>
-<a class="sourceLine" id="cb15-16" data-line-number="16"><span class="st">size 2.43</span></a>
-<a class="sourceLine" id="cb15-17" data-line-number="17"><span class="st">-0.5000 0.00000</span></a>
-<a class="sourceLine" id="cb15-18" data-line-number="18"><span class="st">-0.4995 0.01018</span></a>
-<a class="sourceLine" id="cb15-19" data-line-number="19"><span class="st">-0.4957 0.02022</span></a>
-<a class="sourceLine" id="cb15-20" data-line-number="20"><span class="st">~0001-cIvorra_O11VL </span></a>
-<a class="sourceLine" id="cb15-21" data-line-number="21"><span class="st">var Ivorra</span></a>
-<a class="sourceLine" id="cb15-22" data-line-number="22"><span class="st">domes wild</span></a>
-<a class="sourceLine" id="cb15-23" data-line-number="23"><span class="st">view VL</span></a>
-<a class="sourceLine" id="cb15-24" data-line-number="24"><span class="st">ind O11</span></a>
-<a class="sourceLine" id="cb15-25" data-line-number="25"><span class="st">size 2.56</span></a>
-<a class="sourceLine" id="cb15-26" data-line-number="26"><span class="st">-0.5000 0.00000</span></a>
-<a class="sourceLine" id="cb15-27" data-line-number="27"><span class="st">-0.4985 0.0112</span></a>
-<a class="sourceLine" id="cb15-28" data-line-number="28"><span class="st">-0.4845 0.021</span></a>
-<a class="sourceLine" id="cb15-29" data-line-number="29"><span class="st">~0001-cIvorra_O11VD </span></a>
-<a class="sourceLine" id="cb15-30" data-line-number="30"><span class="st">var Ivorra</span></a>
-<a class="sourceLine" id="cb15-31" data-line-number="31"><span class="st">domes wild</span></a>
-<a class="sourceLine" id="cb15-32" data-line-number="32"><span class="st">view VD</span></a>
-<a class="sourceLine" id="cb15-33" data-line-number="33"><span class="st">ind O11</span></a>
-<a class="sourceLine" id="cb15-34" data-line-number="34"><span class="st">size 2.74</span></a>
-<a class="sourceLine" id="cb15-35" data-line-number="35"><span class="st">-0.5000 0.00000</span></a>
-<a class="sourceLine" id="cb15-36" data-line-number="36"><span class="st">-0.4995 0.011</span></a>
-<a class="sourceLine" id="cb15-37" data-line-number="37"><span class="st">-0.49 0.0198</span></a>
-<a class="sourceLine" id="cb15-38" data-line-number="38"><span class="st">~0005-cBonhomme_O11VD </span></a>
-<a class="sourceLine" id="cb15-39" data-line-number="39"><span class="st">var Bonhomme</span></a>
-<a class="sourceLine" id="cb15-40" data-line-number="40"><span class="st">domes wild</span></a>
-<a class="sourceLine" id="cb15-41" data-line-number="41"><span class="st">view VD</span></a>
-<a class="sourceLine" id="cb15-42" data-line-number="42"><span class="st">ind O11</span></a>
-<a class="sourceLine" id="cb15-43" data-line-number="43"><span class="st">size 2.55</span></a>
-<a class="sourceLine" id="cb15-44" data-line-number="44"><span class="st">-0.5000 0.00000</span></a>
-<a class="sourceLine" id="cb15-45" data-line-number="45"><span class="st">-0.499 0.012</span></a>
-<a class="sourceLine" id="cb15-46" data-line-number="46"><span class="st">-0.49 0.0186"</span> <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb15-47" data-line-number="47"><span class="st">  </span><span class="kw">writeLines</span>(<span class="st">"mom_files/foo.mom"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">dir.create</span>(<span class="st">"mom_files"</span>)</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">"~0001-cPastor_O10VD</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">var Pastor</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="st">domes cult</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="st">view VD</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="st">ind O10</span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="st">size 2.23</span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="st">-0.5000 0.00000</span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="st">-0.4967 0.01035</span></a>
+<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="st">-0.4935 0.02414</span></a>
+<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="st">~0001-cPastor_O10VL </span></a>
+<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="st">var Pastor</span></a>
+<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="st">domes cult</span></a>
+<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="st">view VL</span></a>
+<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="st">ind O10</span></a>
+<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="st">size 2.43</span></a>
+<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="st">-0.5000 0.00000</span></a>
+<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="st">-0.4995 0.01018</span></a>
+<a class="sourceLine" id="cb7-19" data-line-number="19"><span class="st">-0.4957 0.02022</span></a>
+<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="st">~0001-cIvorra_O11VL </span></a>
+<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="st">var Ivorra</span></a>
+<a class="sourceLine" id="cb7-22" data-line-number="22"><span class="st">domes wild</span></a>
+<a class="sourceLine" id="cb7-23" data-line-number="23"><span class="st">view VL</span></a>
+<a class="sourceLine" id="cb7-24" data-line-number="24"><span class="st">ind O11</span></a>
+<a class="sourceLine" id="cb7-25" data-line-number="25"><span class="st">size 2.56</span></a>
+<a class="sourceLine" id="cb7-26" data-line-number="26"><span class="st">-0.5000 0.00000</span></a>
+<a class="sourceLine" id="cb7-27" data-line-number="27"><span class="st">-0.4985 0.0112</span></a>
+<a class="sourceLine" id="cb7-28" data-line-number="28"><span class="st">-0.4845 0.021</span></a>
+<a class="sourceLine" id="cb7-29" data-line-number="29"><span class="st">~0001-cIvorra_O11VD </span></a>
+<a class="sourceLine" id="cb7-30" data-line-number="30"><span class="st">var Ivorra</span></a>
+<a class="sourceLine" id="cb7-31" data-line-number="31"><span class="st">domes wild</span></a>
+<a class="sourceLine" id="cb7-32" data-line-number="32"><span class="st">view VD</span></a>
+<a class="sourceLine" id="cb7-33" data-line-number="33"><span class="st">ind O11</span></a>
+<a class="sourceLine" id="cb7-34" data-line-number="34"><span class="st">size 2.74</span></a>
+<a class="sourceLine" id="cb7-35" data-line-number="35"><span class="st">-0.5000 0.00000</span></a>
+<a class="sourceLine" id="cb7-36" data-line-number="36"><span class="st">-0.4995 0.011</span></a>
+<a class="sourceLine" id="cb7-37" data-line-number="37"><span class="st">-0.49 0.0198</span></a>
+<a class="sourceLine" id="cb7-38" data-line-number="38"><span class="st">~0005-cBonhomme_O11VD </span></a>
+<a class="sourceLine" id="cb7-39" data-line-number="39"><span class="st">var Bonhomme</span></a>
+<a class="sourceLine" id="cb7-40" data-line-number="40"><span class="st">domes wild</span></a>
+<a class="sourceLine" id="cb7-41" data-line-number="41"><span class="st">view VD</span></a>
+<a class="sourceLine" id="cb7-42" data-line-number="42"><span class="st">ind O11</span></a>
+<a class="sourceLine" id="cb7-43" data-line-number="43"><span class="st">size 2.55</span></a>
+<a class="sourceLine" id="cb7-44" data-line-number="44"><span class="st">-0.5000 0.00000</span></a>
+<a class="sourceLine" id="cb7-45" data-line-number="45"><span class="st">-0.499 0.012</span></a>
+<a class="sourceLine" id="cb7-46" data-line-number="46"><span class="st">-0.49 0.0186"</span> <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-47" data-line-number="47"><span class="st">  </span><span class="kw">writeLines</span>(<span class="st">"mom_files/foo.mom"</span>)</a></code></pre></div>
 <p>We can now read this file:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">readLines</span>(<span class="st">"mom_files/foo.mom"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">readLines</span>(<span class="st">"mom_files/foo.mom"</span>)</a></code></pre></div>
 <p><code><a href="../reference/harvest.html">harvest()</a></code> function will find all the files, when provided containing folder(s) or, better, a pattern which is a regular expression. If you are not yet familiar with regular expression, go learn them, they are among the most profitable investment you can make when talking to a computer.</p>
 <p>A list of files, read as lines, is returned. In most cases, <code>from_*</code> functions will harvest files for you, and a list of folders/files can also be passed directly to <code>from_*</code> functions. See those examples.</p>
 <p>If you actually created the file and folder this should work now:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/from.html">from_mom</a></span>(<span class="st">"mom_files/foo.mom"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/from.html">from_mom</a></span>(<span class="st">"mom_files/foo.mom"</span>)</a></code></pre></div>
 <p>Otherwise just use <code>example_data</code> (see <code>?example_data</code>):</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/from.html">from_mom</a></span>(<span class="st">"mom_files/foo.mom"</span>, <span class="dt">where=</span><span class="kw"><a href="../reference/example_data.html">example_dir</a></span>())</a>
-<a class="sourceLine" id="cb18-2" data-line-number="2">x</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/from.html">from_mom</a></span>(<span class="st">"mom_files/foo.mom"</span>, <span class="dt">where=</span><span class="kw"><a href="../reference/example_data.html">example_dir</a></span>())</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">x</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 7
 ##   name                 var      domes view  ind   size  coo      
 ##   &lt;chr&gt;                &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;list&gt;   
@@ -347,17 +332,17 @@ sl2
 ## 5 0005-cBonhomme_O11VD Bonhomme wild  VD    O11   2.55  &lt;S3: coo&gt;</code></pre>
 <p>We now have a <code>mom_df</code>: a <code>data.frame</code> containing: * several individuals * each with names, covariates and coordinates</p>
 <p>Some equivalent of this importing step follows. They may be useful to understand should you want to write your own importers. As long as your format is used by others, I will be happy to write it myself and include it in Momocs. Just drop me a line.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="co"># from_mom("mom_files") # will find all .mom files in "mom_files/"</span></a>
-<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="co"># from_mom()            # will find all .mom files in the working </span></a>
-<a class="sourceLine" id="cb20-3" data-line-number="3">                        <span class="co"># directory (I can't myself because I have </span></a>
-<a class="sourceLine" id="cb20-4" data-line-number="4">                        <span class="co"># more than one in my Momit folder)</span></a>
-<a class="sourceLine" id="cb20-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb20-6" data-line-number="6"><span class="co"># Below, what's done by from_mom()</span></a>
-<a class="sourceLine" id="cb20-7" data-line-number="7"><span class="co"># list.files("mom_files/", full.names=TRUE) %&gt;% </span></a>
-<a class="sourceLine" id="cb20-8" data-line-number="8"><span class="co">#  lapply(readLines) %&gt;% </span></a>
-<a class="sourceLine" id="cb20-9" data-line-number="9"><span class="co">#  parse_mom()</span></a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="co"># from_mom("mom_files") # will find all .mom files in "mom_files/"</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co"># from_mom()            # will find all .mom files in the working </span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">                        <span class="co"># directory (I can't myself because I have </span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4">                        <span class="co"># more than one in my Momit folder)</span></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co"># Below, what's done by from_mom()</span></a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="co"># list.files("mom_files/", full.names=TRUE) %&gt;% </span></a>
+<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="co">#  lapply(readLines) %&gt;% </span></a>
+<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="co">#  parse_mom()</span></a></code></pre></div>
 <p>The last lines reproduce what is internally done by <code>from_mom</code>. Let’s see what it contains. Note the absence of parentheses, that prints the definition of the function.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">from_mom</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">from_mom</a></code></pre></div>
 <pre><code>## function(pattern="mom$", where=getwd(), encoding="unknown", ...){
 ##   if (!is.list(where))
 ##     x &lt;- harvest(pattern=pattern, where=where, encoding=encoding, ...)
@@ -365,21 +350,21 @@ sl2
 ##     x &lt;- where
 ##   x %&gt;% parse_mom()
 ## }
-## &lt;bytecode: 0x7f9002a23fb8&gt;
+## &lt;bytecode: 0x7f8bba2da8f8&gt;
 ## &lt;environment: namespace:Momit&gt;</code></pre>
 <p><code>harvest</code> itself eases the passing of selected files. All <code>from_*</code> functions have the same skeleton. You can dissecate it with <code>harvest</code> (again, no quotes). Note that this is not peculiar to Momit, it would work with all R functions. For methods, you will need to add the concerned class (eg <code>print.data.frame</code>).</p>
 </div>
 <div id="handling-imported-data-data-frame-is-life-data-frame-is-love" class="section level4">
 <h4 class="hasAnchor">
 <a href="#handling-imported-data-data-frame-is-life-data-frame-is-love" class="anchor"></a>Handling imported data: data.frame is life, data.frame is love</h4>
-<p>Because once you started to like, you will love it. Particularly if you do some “modern R”. If you never heard of it or if you do not think it’s worth the pain, let me disagree with you and please read the <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html">dplyr’s introduction</a> (5 min), and <a href="http://r4ds.had.co.nz/"><em>R for data science</em></a> (from 2 days to 2 years).</p>
+<p>Because once you started to like, you will love it. Particularly if you do some “modern R”. If you never heard of it or if you do not think it’s worth the pain, let me disagree with you and please read the <a href="https://cran.r-project.org/package=dplyr/vignettes/dplyr.html">dplyr’s introduction</a> (5 min), and <a href="http://r4ds.had.co.nz/"><em>R for data science</em></a> (from 2 days to 2 years).</p>
 <p>Alternatively, just keep reading this vignette.</p>
 <p>Did you ever need to filter some data to retain only some, say species; or to transforms some variables? Of course you did. With <code>dplyr</code> handling data becomes easy. All operations that follow depends on <code>dplyr</code>’s verbs that work just like exemplified in the vignette mentionned above since <code>mom_df</code> (what is returned by the <code>from_</code> importers is <em>also</em> a <code>data.frame</code>).</p>
 <div id="selecting-columns" class="section level5">
 <h5 class="hasAnchor">
 <a href="#selecting-columns" class="anchor"></a>Selecting columns</h5>
 <p>You can use <code>select</code> to select, reorder, rename some columns:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/select">select</a></span>(x, name, coo, size)</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(x, name, coo, size)</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 3
 ##   name                 coo       size 
 ##   &lt;chr&gt;                &lt;list&gt;    &lt;chr&gt;
@@ -388,7 +373,7 @@ sl2
 ## 3 0001-cIvorra_O11VL   &lt;S3: coo&gt; 2.56 
 ## 4 0001-cIvorra_O11VD   &lt;S3: coo&gt; 2.74 
 ## 5 0005-cBonhomme_O11VD &lt;S3: coo&gt; 2.55</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/select">select</a></span>(x, <span class="op">-</span>view, <span class="dt">author=</span>var)</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(x, <span class="op">-</span>view, <span class="dt">author=</span>var)</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 6
 ##   name                 author   domes ind   size  coo      
 ##   &lt;chr&gt;                &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;list&gt;   
@@ -397,7 +382,7 @@ sl2
 ## 3 0001-cIvorra_O11VL   Ivorra   wild  O11   2.56  &lt;S3: coo&gt;
 ## 4 0001-cIvorra_O11VD   Ivorra   wild  O11   2.74  &lt;S3: coo&gt;
 ## 5 0005-cBonhomme_O11VD Bonhomme wild  O11   2.55  &lt;S3: coo&gt;</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/select">select</a></span>(x, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, coo)</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(x, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, coo)</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 3
 ##   name                 var      coo      
 ##   &lt;chr&gt;                &lt;chr&gt;    &lt;list&gt;   
@@ -412,22 +397,22 @@ sl2
 <a href="#creating-new-columns" class="anchor"></a>Creating new columns</h5>
 <p><code>mutate</code> is your friend.</p>
 <p>As you may have noticed, all columns but coordinates partitions are of class <code>character</code>. <strong>You should explicitely redeclare the class of each covariate columns</strong>. This seems boring at the first glance but I want you to a lot of time/enthusiasm in the end. The good news is that you can do it easily with <code>mutate</code>:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">sapply</span>(x, class)</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">sapply</span>(x, class)</a></code></pre></div>
 <pre><code>##        name         var       domes        view         ind        size 
 ## "character" "character" "character" "character" "character" "character" 
 ##         coo 
 ##      "list"</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/mutate">mutate</a></span>(x,</a>
-<a class="sourceLine" id="cb31-2" data-line-number="2">           <span class="dt">var=</span>   <span class="kw">as.factor</span>(var),</a>
-<a class="sourceLine" id="cb31-3" data-line-number="3">           <span class="dt">domes=</span> <span class="kw">as.factor</span>(var),</a>
-<a class="sourceLine" id="cb31-4" data-line-number="4">           <span class="dt">view=</span>  <span class="kw">as.factor</span>(view),</a>
-<a class="sourceLine" id="cb31-5" data-line-number="5">           <span class="dt">ind=</span>   <span class="kw">as.factor</span>(ind),</a>
-<a class="sourceLine" id="cb31-6" data-line-number="6">           <span class="dt">size=</span>  <span class="kw">as.numeric</span>(size))</a>
-<a class="sourceLine" id="cb31-7" data-line-number="7"><span class="co"># If you have many columns, you can try one of mutate variants.</span></a>
-<a class="sourceLine" id="cb31-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb31-9" data-line-number="9"><span class="co"># see how the labels below column names have changed.</span></a>
-<a class="sourceLine" id="cb31-10" data-line-number="10"><span class="co"># below is the x, you shoud use for further analyses (mostly if you stay in R)</span></a>
-<a class="sourceLine" id="cb31-11" data-line-number="11">x </a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(x,</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2">           <span class="dt">var=</span>   <span class="kw">as.factor</span>(var),</a>
+<a class="sourceLine" id="cb23-3" data-line-number="3">           <span class="dt">domes=</span> <span class="kw">as.factor</span>(var),</a>
+<a class="sourceLine" id="cb23-4" data-line-number="4">           <span class="dt">view=</span>  <span class="kw">as.factor</span>(view),</a>
+<a class="sourceLine" id="cb23-5" data-line-number="5">           <span class="dt">ind=</span>   <span class="kw">as.factor</span>(ind),</a>
+<a class="sourceLine" id="cb23-6" data-line-number="6">           <span class="dt">size=</span>  <span class="kw">as.numeric</span>(size))</a>
+<a class="sourceLine" id="cb23-7" data-line-number="7"><span class="co"># If you have many columns, you can try one of mutate variants.</span></a>
+<a class="sourceLine" id="cb23-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb23-9" data-line-number="9"><span class="co"># see how the labels below column names have changed.</span></a>
+<a class="sourceLine" id="cb23-10" data-line-number="10"><span class="co"># below is the x, you shoud use for further analyses (mostly if you stay in R)</span></a>
+<a class="sourceLine" id="cb23-11" data-line-number="11">x </a></code></pre></div>
 <pre><code>## # A tibble: 5 x 7
 ##   name                 var      domes    view  ind    size coo      
 ##   &lt;chr&gt;                &lt;fct&gt;    &lt;fct&gt;    &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;list&gt;   
@@ -437,10 +422,10 @@ sl2
 ## 4 0001-cIvorra_O11VD   Ivorra   Ivorra   VD    O11    2.74 &lt;S3: coo&gt;
 ## 5 0005-cBonhomme_O11VD Bonhomme Bonhomme VD    O11    2.55 &lt;S3: coo&gt;</code></pre>
 <p><code>mutate</code> can also be used to create new columns on the fly:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/mutate">mutate</a></span>(x,</a>
-<a class="sourceLine" id="cb33-2" data-line-number="2">       <span class="dt">size_2=</span>size<span class="op">^</span><span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb33-3" data-line-number="3">       <span class="dt">size_sqrt=</span><span class="kw">sqrt</span>(size),</a>
-<a class="sourceLine" id="cb33-4" data-line-number="4">       <span class="dt">view=</span><span class="kw">factor</span>(<span class="kw">substr</span>(view, <span class="dv">2</span>, <span class="dv">2</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(x,</a>
+<a class="sourceLine" id="cb25-2" data-line-number="2">       <span class="dt">size_2=</span>size<span class="op">^</span><span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb25-3" data-line-number="3">       <span class="dt">size_sqrt=</span><span class="kw">sqrt</span>(size),</a>
+<a class="sourceLine" id="cb25-4" data-line-number="4">       <span class="dt">view=</span><span class="kw">factor</span>(<span class="kw">substr</span>(view, <span class="dv">2</span>, <span class="dv">2</span>)))</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 9
 ##   name           var     domes  view  ind    size coo     size_2 size_sqrt
 ##   &lt;chr&gt;          &lt;fct&gt;   &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;list&gt;   &lt;dbl&gt;     &lt;dbl&gt;
@@ -453,8 +438,8 @@ sl2
 <div id="filtering" class="section level5">
 <h5 class="hasAnchor">
 <a href="#filtering" class="anchor"></a>Filtering</h5>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="co"># only pictures by Ivorra</span></a>
-<a class="sourceLine" id="cb35-2" data-line-number="2">x </a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="co"># only pictures by Ivorra</span></a>
+<a class="sourceLine" id="cb27-2" data-line-number="2">x </a></code></pre></div>
 <pre><code>## # A tibble: 5 x 7
 ##   name                 var      domes    view  ind    size coo      
 ##   &lt;chr&gt;                &lt;fct&gt;    &lt;fct&gt;    &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;list&gt;   
@@ -463,14 +448,14 @@ sl2
 ## 3 0001-cIvorra_O11VL   Ivorra   Ivorra   VL    O11    2.56 &lt;S3: coo&gt;
 ## 4 0001-cIvorra_O11VD   Ivorra   Ivorra   VD    O11    2.74 &lt;S3: coo&gt;
 ## 5 0005-cBonhomme_O11VD Bonhomme Bonhomme VD    O11    2.55 &lt;S3: coo&gt;</code></pre>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/filter">filter</a></span>(x, var<span class="op">==</span><span class="st">"Ivorra"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(x, var<span class="op">==</span><span class="st">"Ivorra"</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 2 x 7
 ##   name               var    domes  view  ind    size coo      
 ##   &lt;chr&gt;              &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;list&gt;   
 ## 1 0001-cIvorra_O11VL Ivorra Ivorra VL    O11    2.56 &lt;S3: coo&gt;
 ## 2 0001-cIvorra_O11VD Ivorra Ivorra VD    O11    2.74 &lt;S3: coo&gt;</code></pre>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="co"># remove those by Bonhomme</span></a>
-<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/filter">filter</a></span>(x, var<span class="op">!=</span><span class="st">"Bonhomme"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="co"># remove those by Bonhomme</span></a>
+<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(x, var<span class="op">!=</span><span class="st">"Bonhomme"</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 4 x 7
 ##   name               var    domes  view  ind    size coo      
 ##   &lt;chr&gt;              &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;list&gt;   
@@ -478,8 +463,8 @@ sl2
 ## 2 0001-cPastor_O10VL Pastor Pastor VL    O10    2.43 &lt;S3: coo&gt;
 ## 3 0001-cIvorra_O11VL Ivorra Ivorra VL    O11    2.56 &lt;S3: coo&gt;
 ## 4 0001-cIvorra_O11VD Ivorra Ivorra VD    O11    2.74 &lt;S3: coo&gt;</code></pre>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="co"># alternatively</span></a>
-<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/filter">filter</a></span>(x, var <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">"Ivorra"</span>, <span class="st">"Pastor"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="co"># alternatively</span></a>
+<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(x, var <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">"Ivorra"</span>, <span class="st">"Pastor"</span>))</a></code></pre></div>
 <pre><code>## # A tibble: 4 x 7
 ##   name               var    domes  view  ind    size coo      
 ##   &lt;chr&gt;              &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;list&gt;   
@@ -487,20 +472,20 @@ sl2
 ## 2 0001-cPastor_O10VL Pastor Pastor VL    O10    2.43 &lt;S3: coo&gt;
 ## 3 0001-cIvorra_O11VL Ivorra Ivorra VL    O11    2.56 &lt;S3: coo&gt;
 ## 4 0001-cIvorra_O11VD Ivorra Ivorra VD    O11    2.74 &lt;S3: coo&gt;</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="co"># more conditions</span></a>
-<a class="sourceLine" id="cb43-2" data-line-number="2">x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/filter">filter</a></span>(var<span class="op">==</span><span class="st">"Ivorra"</span>, view<span class="op">==</span><span class="st">"VL"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="co"># more conditions</span></a>
+<a class="sourceLine" id="cb35-2" data-line-number="2">x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(var<span class="op">==</span><span class="st">"Ivorra"</span>, view<span class="op">==</span><span class="st">"VL"</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 1 x 7
 ##   name               var    domes  view  ind    size coo      
 ##   &lt;chr&gt;              &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;list&gt;   
 ## 1 0001-cIvorra_O11VL Ivorra Ivorra VL    O11    2.56 &lt;S3: coo&gt;</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="co"># or filtering on numeric values</span></a>
-<a class="sourceLine" id="cb45-2" data-line-number="2">x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/filter">filter</a></span>(size <span class="op">&lt;</span><span class="st"> </span><span class="fl">2.5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="co"># or filtering on numeric values</span></a>
+<a class="sourceLine" id="cb37-2" data-line-number="2">x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(size <span class="op">&lt;</span><span class="st"> </span><span class="fl">2.5</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 2 x 7
 ##   name               var    domes  view  ind    size coo      
 ##   &lt;chr&gt;              &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;list&gt;   
 ## 1 0001-cPastor_O10VD Pastor Pastor VD    O10    2.23 &lt;S3: coo&gt;
 ## 2 0001-cPastor_O10VL Pastor Pastor VL    O10    2.43 &lt;S3: coo&gt;</code></pre>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/filter">filter</a></span>(size <span class="op">&gt;=</span><span class="st"> </span><span class="kw">median</span>(size))</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(size <span class="op">&gt;=</span><span class="st"> </span><span class="kw">median</span>(size))</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 7
 ##   name                 var      domes    view  ind    size coo      
 ##   &lt;chr&gt;                &lt;fct&gt;    &lt;fct&gt;    &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;list&gt;   
@@ -512,7 +497,7 @@ sl2
 <h5 class="hasAnchor">
 <a href="#selectiong-by-rows" class="anchor"></a>Selectiong by rows</h5>
 <p>If you need to select individuals by their positions, yet usually that’s not a good idea, you can use <code>slice</code>:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">x</a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">x</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 7
 ##   name                 var      domes    view  ind    size coo      
 ##   &lt;chr&gt;                &lt;fct&gt;    &lt;fct&gt;    &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;list&gt;   
@@ -521,12 +506,12 @@ sl2
 ## 3 0001-cIvorra_O11VL   Ivorra   Ivorra   VL    O11    2.56 &lt;S3: coo&gt;
 ## 4 0001-cIvorra_O11VD   Ivorra   Ivorra   VD    O11    2.74 &lt;S3: coo&gt;
 ## 5 0005-cBonhomme_O11VD Bonhomme Bonhomme VD    O11    2.55 &lt;S3: coo&gt;</code></pre>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/slice">slice</a></span>(x, <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw"><a href="http://dplyr.tidyverse.org/reference/slice.html">slice</a></span>(x, <span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 1 x 7
 ##   name               var    domes  view  ind    size coo      
 ##   &lt;chr&gt;              &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;list&gt;   
 ## 1 0001-cPastor_O10VD Pastor Pastor VD    O10    2.23 &lt;S3: coo&gt;</code></pre>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/slice">slice</a></span>(x, <span class="op">-</span>(<span class="dv">3</span><span class="op">:</span><span class="dv">5</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw"><a href="http://dplyr.tidyverse.org/reference/slice.html">slice</a></span>(x, <span class="op">-</span>(<span class="dv">3</span><span class="op">:</span><span class="dv">5</span>))</a></code></pre></div>
 <pre><code>## # A tibble: 2 x 7
 ##   name               var    domes  view  ind    size coo      
 ##   &lt;chr&gt;              &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;list&gt;   
@@ -539,8 +524,8 @@ sl2
 <h2 class="hasAnchor">
 <a href="#continue-with-momocs" class="anchor"></a>Continue with Momocs</h2>
 <p>Whether you just want an overview of your data or do all the analyses with Momocs, going there from Momit is straightforward.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">library</span>(Momocs)</a>
-<a class="sourceLine" id="cb55-2" data-line-number="2">x</a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">library</span>(Momocs)</a>
+<a class="sourceLine" id="cb47-2" data-line-number="2">x</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 7
 ##   name                 var      domes    view  ind    size coo      
 ##   &lt;chr&gt;                &lt;fct&gt;    &lt;fct&gt;    &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;list&gt;   
@@ -549,12 +534,12 @@ sl2
 ## 3 0001-cIvorra_O11VL   Ivorra   Ivorra   VL    O11    2.56 &lt;S3: coo&gt;
 ## 4 0001-cIvorra_O11VD   Ivorra   Ivorra   VD    O11    2.74 &lt;S3: coo&gt;
 ## 5 0005-cBonhomme_O11VD Bonhomme Bonhomme VD    O11    2.55 &lt;S3: coo&gt;</code></pre>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">x <span class="op">%$%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/Out">Out</a></span>(coo) <span class="op">%&gt;%</span><span class="st"> </span>panel <span class="co"># just a panel plot (ugly but data were dummy)</span></a></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">x <span class="op">%$%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/Out">Out</a></span>(coo) <span class="op">%&gt;%</span><span class="st"> </span>panel <span class="co"># just a panel plot (ugly but data were dummy)</span></a></code></pre></div>
 <p><img src="Use-Momit_files/figure-html/Momocs-1.png" width="700"></p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="co"># equivalent to</span></a>
-<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="co"># Out(x$coo) %&gt;% panel</span></a>
-<a class="sourceLine" id="cb58-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb58-4" data-line-number="4"><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/Out">Out</a></span>(x<span class="op">$</span>coo, <span class="dt">fac=</span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/select">select</a></span>(x, <span class="op">-</span>coo))</a></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="co"># equivalent to</span></a>
+<a class="sourceLine" id="cb50-2" data-line-number="2"><span class="co"># Out(x$coo) %&gt;% panel</span></a>
+<a class="sourceLine" id="cb50-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb50-4" data-line-number="4"><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/Out">Out</a></span>(x<span class="op">$</span>coo, <span class="dt">fac=</span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/select">select</a></span>(x, <span class="op">-</span>coo))</a></code></pre></div>
 <pre><code>## Out (outlines)
 ##   - 5 outlines, 3 +/- 0 coords (in $coo)
 ##   - 6 classifiers (in $fac): 
@@ -567,8 +552,8 @@ sl2
 ## 4 0001-cIvorra_O11VD   Ivorra   Ivorra   VD    O11    2.74
 ## 5 0005-cBonhomme_O11VD Bonhomme Bonhomme VD    O11    2.55
 ##   - also: $ldk</code></pre>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="co"># or if this is not outlines but landmarks:</span></a>
-<a class="sourceLine" id="cb60-2" data-line-number="2"><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/Ldk">Ldk</a></span>(x<span class="op">$</span>coo, <span class="dt">fac=</span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/select">select</a></span>(x, <span class="op">-</span>coo))</a></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="co"># or if this is not outlines but landmarks:</span></a>
+<a class="sourceLine" id="cb52-2" data-line-number="2"><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/Ldk">Ldk</a></span>(x<span class="op">$</span>coo, <span class="dt">fac=</span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/select">select</a></span>(x, <span class="op">-</span>coo))</a></code></pre></div>
 <pre><code>## Ldk (landmarks)
 ##   - 5 landmarks, 3 +/- 0 coords (in $coo)
 ##   - 6 classifiers (in $fac): 
@@ -582,12 +567,12 @@ sl2
 ## 5 0005-cBonhomme_O11VD Bonhomme Bonhomme VD    O11    2.55
 ##   - also: $links   - also: $slidings</code></pre>
 <p>Once you have a <code>Coo</code> object, you enter the <code>Momocs</code> zone, eg:</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/Ldk">Ldk</a></span>(x<span class="op">$</span>coo, <span class="dt">fac=</span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/select">select</a></span>(x, <span class="op">-</span>coo)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># build the Ldl</span></a>
-<a class="sourceLine" id="cb62-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/fgProcrustes">fgProcrustes</a></span>(<span class="dt">tol=</span><span class="fl">0.1</span>) <span class="op">%T&gt;%</span><span class="st">        </span><span class="co"># high tol, save trees</span></a>
-<a class="sourceLine" id="cb62-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/LDA">LDA</a></span>(<span class="op">~</span>domes) <span class="op">%&gt;%</span><span class="st">                   </span><span class="co"># discriminant analysis then continue to PCA</span></a>
-<a class="sourceLine" id="cb62-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/PCA">PCA</a></span>() <span class="op">%T&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb62-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/plot_PCA">plot_PCA</a></span>(<span class="op">~</span>size) <span class="op">%&gt;%</span><span class="st">               </span><span class="co"># plotting vs a numeric</span></a>
-<a class="sourceLine" id="cb62-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/plot_PCA">plot_PCA</a></span>(<span class="op">~</span>var)                    <span class="co"># and versus a factor</span></a></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/Ldk">Ldk</a></span>(x<span class="op">$</span>coo, <span class="dt">fac=</span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/select">select</a></span>(x, <span class="op">-</span>coo)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># build the Ldl</span></a>
+<a class="sourceLine" id="cb54-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/fgProcrustes">fgProcrustes</a></span>(<span class="dt">tol=</span><span class="fl">0.1</span>) <span class="op">%T&gt;%</span><span class="st">        </span><span class="co"># high tol, save trees</span></a>
+<a class="sourceLine" id="cb54-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/LDA">LDA</a></span>(<span class="op">~</span>domes) <span class="op">%&gt;%</span><span class="st">                   </span><span class="co"># discriminant analysis then continue to PCA</span></a>
+<a class="sourceLine" id="cb54-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/PCA">PCA</a></span>() <span class="op">%T&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb54-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/plot_PCA">plot_PCA</a></span>(<span class="op">~</span>size) <span class="op">%&gt;%</span><span class="st">               </span><span class="co"># plotting vs a numeric</span></a>
+<a class="sourceLine" id="cb54-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/plot_PCA">plot_PCA</a></span>(<span class="op">~</span>var)                    <span class="co"># and versus a factor</span></a></code></pre></div>
 </div>
 <div id="convert-and-write-files" class="section level2">
 <h2 class="hasAnchor">
@@ -617,7 +602,7 @@ sl2
 </tbody>
 </table>
 <p>With these following packages/versions, this vignette compiles properly:</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
 <pre><code>## R version 3.5.0 (2018-04-23)
 ## Platform: x86_64-apple-darwin15.6.0 (64-bit)
 ## Running under: macOS High Sierra 10.13.4

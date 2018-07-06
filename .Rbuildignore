@@ -9,3 +9,4 @@ foreign/
 _pkgdown.yaml
 docs/
 fridge/
+^cran-comments\.md$

@@ -9,7 +9,7 @@ Description: A minimalist file format for morphometrics data exchange and conver
        that is a swiss-army knife for converting files from/to the
        different morphometric markup dialects.
 Depends: R (>= 3.4.0)
-License: GPL-3 + file LICENSE
+License: GPL-2 | GPL-3
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/MomX/Momit

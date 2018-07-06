@@ -140,12 +140,13 @@ The only mandatory part below is `from_*`, in the case where you would only like
 * You have `.mom` files in the folder "data", and want to import them into R:<br /> `from_mom("data/")`
 
 __ Below, not yet implemented __
+
 * Same but wih `.tps`files and you want to collate them into a single `.mom` file:<br /> `from_tps() %>% to_mom() %>% write_single()`
 
 * You have thousands of outlines of the same object, spread accross a messy (or neat) subfolders structures. Outlines coordinates represent two views (say lateral and dorsal), and saved as `.mom` files with the appropriate cofactor (say `view dorsal`) and you only want the dorsal outlines to be imported in Momocs:<br />
 `from_mom() %>% filter(view=="dorsal") %>% to_Out()`
 
-Talking about pipes, all [MomX](https://github.com/MomX) packages use them intensively, so you may want to read [magrittr's vignette](https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html)
+Talking about pipes, all [MomX](https://github.com/MomX) packages use them intensively, so you may want to read [magrittr's vignette](https://cran.r-project.org/package=magrittr/vignettes/magrittr.html)
 
 <!-- `from_tps` and `to_tps` -->
 <!-- `from_nts` and `to_nps` -->
@@ -156,7 +157,7 @@ We will follow all the thing that happen along the path schematized above. You d
 Let's create a `.mom` file from scratch. It contains four individuals with some coordinates (we don't care whether they are outlines, curves, landmarks, etc. here they're truncated anyway) and four covariates: `var`iety, `domes`tication status, `view`,  `ind`ividual name and `size`.
 
 We first load Momit (that re-exports magrittr's pipe), and friends. 
-```{r dependencies}
+```{r dependencies, message=FALSE}
 library(dplyr) # we will need it after
 library(Momit)
 library(Momocs) # same, and order matters since Momocs hacks some dplyr methods
@@ -260,7 +261,7 @@ from_mom
 
 #### Handling imported data: data.frame is life, data.frame is love
 
-Because once you started to like, you will love it. Particularly if you do some "modern R". If you never heard of it or if you do not think it's worth the pain, let me disagree with you and please read the [dplyr's introduction](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html) (5 min), and [_R for data science_](http://r4ds.had.co.nz/) (from 2 days to 2 years). 
+Because once you started to like, you will love it. Particularly if you do some "modern R". If you never heard of it or if you do not think it's worth the pain, let me disagree with you and please read the [dplyr's introduction](https://cran.r-project.org/package=dplyr/vignettes/dplyr.html) (5 min), and [_R for data science_](http://r4ds.had.co.nz/) (from 2 days to 2 years). 
 
 Alternatively, just keep reading this vignette.
 
