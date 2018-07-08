@@ -1,13 +1,13 @@
 Package: Momit
 Title: Read, Write, Convert, Handle Morphometric Data using .mom Minimalist File Format
 Version: 0.1.0
-Date: 2018-06-25
+Date: 2018-07-07
 Authors@R: person("Vincent", "Bonhomme", email = "bonhomme.vincent@gmail.com", role = c("aut", "cre"))
 Description: A minimalist file format for morphometrics data exchange and conversion, 
        easy to read for humans, and easy to parse for
        computers. Aimed at being a `pandoc` for morphometrics,
-       that is a swiss-army knife for converting files from/to the
-       different morphometric markup dialects.
+       that is a Swiss-army knife for converting files from/to the
+       different morphometrics markup dialects.
 Depends: R (>= 3.4.0)
 License: GPL-2 | GPL-3
 Encoding: UTF-8

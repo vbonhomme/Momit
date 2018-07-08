@@ -146,7 +146,7 @@ __ Below, not yet implemented __
 * You have thousands of outlines of the same object, spread accross a messy (or neat) subfolders structures. Outlines coordinates represent two views (say lateral and dorsal), and saved as `.mom` files with the appropriate cofactor (say `view dorsal`) and you only want the dorsal outlines to be imported in Momocs:<br />
 `from_mom() %>% filter(view=="dorsal") %>% to_Out()`
 
-Talking about pipes, all [MomX](https://github.com/MomX) packages use them intensively, so you may want to read [magrittr's vignette](https://cran.r-project.org/package=magrittr/vignettes/magrittr.html)
+Talking about pipes, all [MomX](https://github.com/MomX) packages use them intensively, so you may want to read [some introduction to magrittr's](https://magrittr.tidyverse.org/articles/magrittr.html).
 
 <!-- `from_tps` and `to_tps` -->
 <!-- `from_nts` and `to_nps` -->
@@ -261,7 +261,7 @@ from_mom
 
 #### Handling imported data: data.frame is life, data.frame is love
 
-Because once you started to like, you will love it. Particularly if you do some "modern R". If you never heard of it or if you do not think it's worth the pain, let me disagree with you and please read the [dplyr's introduction](https://cran.r-project.org/package=dplyr/vignettes/dplyr.html) (5 min), and [_R for data science_](http://r4ds.had.co.nz/) (from 2 days to 2 years). 
+Because once you started to like, you will love it. Particularly if you do some "modern R". If you never heard of it or if you do not think it's worth the pain, let me disagree with you and please read the [dplyr's introduction](https://dplyr.tidyverse.org/articles/dplyr.html) (5 min), and [_R for data science_](http://r4ds.had.co.nz/) (from 2 days to 2 years). 
 
 Alternatively, just keep reading this vignette.
 

@@ -24,11 +24,6 @@
 #'  # path to one of them
 #'  example_data("bot_lite.mom")
 #'
-#'  # parse it
-#'  example_data("bot_lite.mom") %>% harvest() %>% parse_mom()
-#'
-#' # or shorter:
-#' from_mom(example_data("bot_lite.mom"))
 #' @name example_data
 #' @export
 example_data <- function(x){

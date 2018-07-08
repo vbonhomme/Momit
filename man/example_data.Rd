@@ -37,11 +37,6 @@ just like in the vignette.
  # path to one of them
  example_data("bot_lite.mom")
 
- # parse it
- example_data("bot_lite.mom") \%>\% harvest() \%>\% parse_mom()
-
-# or shorter:
-from_mom(example_data("bot_lite.mom"))
 }
 \references{
 Adapted from \href{http://r-pkgs.had.co.nz/data.html#data-extdata}{R-pkg} by Hadley Wickham.
