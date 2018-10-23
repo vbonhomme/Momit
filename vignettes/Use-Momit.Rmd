@@ -2,9 +2,13 @@
 title: "Use Momit"
 author: "Vincent Bonhomme"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 3
+   
 vignette: >
-  %\VignetteIndexEntry{use-momit}
+  %\VignetteIndexEntry{Momit_intro}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
@@ -112,6 +116,7 @@ Examples adapted from [Momocs](https://github.com/vbonhomme/Momocs/): `bot[1]`, 
 
 #### General workflow
 If you're here, you probably have morphometric data that you want to import into R and/or convert to another format. Momit aims at making this easy. Actually, most of the time, you will only need two (or even one) function to do this:
+
 1. `from_*()`, that will find, read and parse them to a ``data_frame`
 2. `to_*()` translate them and write to the format you want
 
@@ -336,17 +341,20 @@ slice(x, -(3:5))
 ## Continue with Momocs
 Whether you just want an overview of your data or do all the analyses with Momocs, going there from Momit is straightforward.
 
-```{r Momocs}
+```{r, Momocs}
 library(Momocs)
 x
-x %$% Out(coo) %>% panel # just a panel plot (ugly but data were dummy)
+Out(x) # equivalent to Out(x$coo, dplyr::select(x, -coo))
+Out(x) %>% panel # just a panel plot (ugly but we used dummy data)
 # equivalent to
 # Out(x$coo) %>% panel
 
 Out(x$coo, fac=select(x, -coo))
 
 # or if this is not outlines but landmarks:
-Ldk(x$coo, fac=select(x, -coo))
+Ldk(x)
+# or curves, again, dead simple
+Opn(x)
 ```
 
 Once you have a `Coo` object, you enter the `Momocs` zone, eg:
