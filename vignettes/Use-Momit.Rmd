@@ -341,7 +341,7 @@ slice(x, -(3:5))
 ## Continue with Momocs
 Whether you just want an overview of your data or do all the analyses with Momocs, going there from Momit is straightforward.
 
-```{r Momocs}
+```{r Momocs, eval=FALSE}
 library(Momocs)
 x
 Out(x) # equivalent to Out(x$coo, dplyr::select(x, -coo))
