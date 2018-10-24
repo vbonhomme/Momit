@@ -341,16 +341,13 @@ slice(x, -(3:5))
 ## Continue with Momocs
 Whether you just want an overview of your data or do all the analyses with Momocs, going there from Momit is straightforward.
 
-```{r, Momocs}
+```{r Momocs}
 library(Momocs)
 x
 Out(x) # equivalent to Out(x$coo, dplyr::select(x, -coo))
 Out(x) %>% panel # just a panel plot (ugly but we used dummy data)
 # equivalent to
 # Out(x$coo) %>% panel
-
-Out(x$coo, fac=select(x, -coo))
-
 # or if this is not outlines but landmarks:
 Ldk(x)
 # or curves, again, dead simple
