@@ -11,10 +11,10 @@
 #' @return `mom_list` or `mom_df` (for `parse_*1` and `parse_*`)
 #'
 #' @name parse
-#' @rdname parse
+NULL
 
 # mom -----------------------------------------------------
-#' @rdname parse
+#' @describeIn parse pase one
 #' @export
 parse_mom1 <- function(x){
   x %>%
@@ -23,7 +23,7 @@ parse_mom1 <- function(x){
     sift()
 }
 
-#' @rdname parse
+#' @describeIn parse parse many
 #' @export
 parse_mom <- function(x){
   # prune, split and lapply parse1
@@ -38,7 +38,7 @@ parse_mom <- function(x){
 
 
 # tps -----------
-#' @rdname parse
+#' @describeIn parse tps1
 #' @export
 parse_tps1 <- function(x){
   x %>%
@@ -56,7 +56,7 @@ parse_tps1 <- function(x){
     sift()
 }
 
-#' @rdname parse
+#' @describeIn parse tps
 #' @export
 parse_tps <- function(x){
   # prune, split and lapply parse1

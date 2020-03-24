@@ -31,3 +31,14 @@ The \code{parse_*1} and \verb{parse_*} dichotomy is not redundant:
 depending on formatting and/or the possible collated nature of the data,
 some polishing steps must be done before or after these individual files are split.
 }
+\section{Functions}{
+\itemize{
+\item \code{parse_mom1}: pase one
+
+\item \code{parse_mom}: parse many
+
+\item \code{parse_tps1}: tps1
+
+\item \code{parse_tps}: tps
+}}
+
