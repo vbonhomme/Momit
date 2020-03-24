@@ -12,13 +12,9 @@ print.yaml <- function(x, ...){
 #'
 #' @param x any object
 #'
-#' @name yaml
 #' @examples
 #' chivas %>% to_yaml()
 #'
-NULL
-
-#' @rdname yaml
 #' @export
 to_yaml <- function(x){
   x %>%
