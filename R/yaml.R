@@ -31,9 +31,10 @@ from_yaml <- function(x){
   x %>%
     yaml::yaml.load() %>%
     # turn into a tibble
-    tibble::as_tibble() %>%
+    tibble::as_tibble() #%>%
     # no idea why rownmaes in as_tibble doesnt work
-    `rownames<-`(NULL)
+    # tibble::remove_rownames()
+    # `attr<-`("row.names", NULL)
 }
 
 
