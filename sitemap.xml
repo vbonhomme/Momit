@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>http://momx.github.io/Momit/index.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momit/reference/Momit.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momit/reference/example_data.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momit/reference/from.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momit/reference/harvest.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momit/reference/momify.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momit/reference/parse.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momit/reference/reexports.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momit/reference/sift.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momit/reference/to.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momit/articles/Use-Momit.html</loc>
+  </url>
+</urlset>
