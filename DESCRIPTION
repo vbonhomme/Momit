@@ -1,7 +1,7 @@
 Package: Momit
 Title: Read, Write, Convert, Handle Morphometric Data using .mom Minimalist File Format
-Version: 0.1.0
-Date: 2018-10-26
+Version: 0.9.0.0000
+Date: 2020-03-24
 Authors@R: person("Vincent", "Bonhomme", email = "bonhomme.vincent@gmail.com", role = c("aut", "cre"))
 Description: Aimed at being a `pandoc` for morphometrics,
        that is a Swiss-army knife for converting files from/to the
@@ -19,7 +19,8 @@ Imports:
     dplyr,
     crayon,
     tibble,
-    yaml
+    yaml,
+    stringr
 Suggests: devtools, knitr, rmarkdown, testthat, covr
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
