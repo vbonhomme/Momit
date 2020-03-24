@@ -13,3 +13,5 @@ fridge/
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^sandbox$
+_tests

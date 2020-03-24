@@ -21,11 +21,5 @@
 #' @name Momit
 NULL
 
-# Rexport the forward pipe from dplyr (saves magrittr dependency)
-#' @importFrom dplyr "%>%"
-#' @export
-dplyr::"%>%"
-
-
 # prevents "no visible binding for global variable"
 globalVariables(c(".", "partition"))

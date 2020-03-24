@@ -4,4 +4,6 @@
 inst/doc
 tmp/
 *.DS_Store
+sandbox
+
 
