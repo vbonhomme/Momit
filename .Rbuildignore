@@ -10,3 +10,6 @@ _pkgdown.yaml
 docs/
 fridge/
 ^cran-comments\.md$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

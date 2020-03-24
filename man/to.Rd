@@ -34,9 +34,9 @@ to_mom(x, ...)
 \arguments{
 \item{x}{\code{mom_df} object, typically returned by one of \link{from}}
 
-\item{coo}{\code{character} column\code{to use for}$coo\code{(default to}coo`)}
+\item{coo}{\code{character} column\verb{to use for}$coo\verb{(default to}coo`)}
 
-\item{fac}{\code{data.frame} to use for \code{$fac} (default to everything minus \code{coo})}
+\item{fac}{\code{data.frame} to use for \verb{$fac} (default to everything minus \code{coo})}
 
 \item{...}{additional parameters to feed Momocs's builders see
 \code{\link[Momocs:Out]{Momocs::Out()}}, \code{\link[Momocs:Opn]{Momocs::Opn()}}, \code{\link[Momocs:Ldk]{Momocs::Ldk()}}}

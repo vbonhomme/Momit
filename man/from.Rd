@@ -12,7 +12,8 @@ from_tps(pattern = "tps$", where = getwd(), encoding = "unknown", ...)
 }
 \arguments{
 \item{pattern}{a regular expression (see \link{regex} and examples below) to subset the list of
-harvested files. Defaults to \code{filetype$} for each \code{from_filetype} (eg \code{tps$} for \code{from_tps}), etc.}
+harvested files. Defaults to \verb{filetype$} for each \code{from_filetype} (eg \verb{tps$} for \code{from_tps}), etc.
+\code{$} is the \link[base:regex]{base::regex} marker for "end of string".}
 
 \item{where}{either path(s) or a \code{list} of \code{character}s typically obtained with \code{harvest} or the raw \code{readLines}.
 By default, \code{setwd()} so that all files somewhere in your current working directory will be
@@ -29,7 +30,7 @@ By default, \code{setwd()} so that all files somewhere in your current working d
 Import morphometric files data
 }
 \details{
-\code{from_*} are nothing but shortcuts on top of \link{harvest} and \link{parse}.
+\verb{from_*} are nothing but shortcuts on top of \link{harvest} and \link{parse}.
 Type for example \code{from_mom} (no brackets) to see it.
 }
 \note{
@@ -68,3 +69,4 @@ from_tps("tpsDig_allowen1", example_dir())
 harvest(example_data("tpsDig_allowen1.tps")) \%>\%
   parse_tps()
 }
+\concept{from functions}

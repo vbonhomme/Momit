@@ -3,7 +3,6 @@
 \name{momify}
 \alias{momify}
 \alias{momify1}
-\alias{momify}
 \title{Turns mom_list(s) into mom_df}
 \usage{
 momify1(x)

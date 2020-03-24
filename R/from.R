@@ -12,6 +12,7 @@
 #'
 #' @param pattern a regular expression (see [regex] and examples below) to subset the list of
 #' harvested files. Defaults to `filetype$` for each `from_filetype` (eg `tps$` for `from_tps`), etc.
+#' `$` is the [base::regex] marker for "end of string".
 #' @param where either path(s) or a `list` of `character`s typically obtained with `harvest` or the raw `readLines`.
 #' By default, `setwd()` so that all files somewhere in your current working directory will be
 #' `harvest`ed and imported.

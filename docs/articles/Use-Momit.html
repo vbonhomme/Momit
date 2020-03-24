@@ -82,7 +82,7 @@
       <h1>Use Momit</h1>
                         <h4 class="author">Vincent Bonhomme</h4>
             
-            <h4 class="date">2018-07-06</h4>
+            <h4 class="date">2018-10-28</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MomX/Momit/blob/master/vignettes/Use-Momit.Rmd"><code>vignettes/Use-Momit.Rmd</code></a></small>
       <div class="hidden name"><code>Use-Momit.Rmd</code></div>
@@ -223,7 +223,14 @@ sl2
 <div id="general-workflow" class="section level4">
 <h4 class="hasAnchor">
 <a href="#general-workflow" class="anchor"></a>General workflow</h4>
-<p>If you’re here, you probably have morphometric data that you want to import into R and/or convert to another format. Momit aims at making this easy. Actually, most of the time, you will only need two (or even one) function to do this: 1. <code>from_*()</code>, that will find, read and parse them to a `<code>data_frame</code> 2. <code>to_*()</code> translate them and write to the format you want</p>
+<p>If you’re here, you probably have morphometric data that you want to import into R and/or convert to another format. Momit aims at making this easy. Actually, most of the time, you will only need two (or even one) function to do this:</p>
+<ol style="list-style-type: decimal">
+<li>
+<code>from_*()</code>, that will find, read and parse them to a `<code>data_frame</code>
+</li>
+<li>
+<code>to_*()</code> translate them and write to the format you want</li>
+</ol>
 <p>The general workflow from (and possibly to) files on your machine and R’s memory follows:</p>
 <pre><code>files  +--&gt; from_*() +--------&gt; to_*()  +----&gt;   files
             └─ list.files       └─ soon
@@ -252,7 +259,7 @@ sl2
 <li><p>Same but wih <code>.tps</code>files and you want to collate them into a single <code>.mom</code> file:<br><code>from_tps() %&gt;% to_mom() %&gt;% write_single()</code></p></li>
 <li><p>You have thousands of outlines of the same object, spread accross a messy (or neat) subfolders structures. Outlines coordinates represent two views (say lateral and dorsal), and saved as <code>.mom</code> files with the appropriate cofactor (say <code>view dorsal</code>) and you only want the dorsal outlines to be imported in Momocs:<br><code>from_mom() %&gt;% filter(view=="dorsal") %&gt;% to_Out()</code></p></li>
 </ul>
-<p>Talking about pipes, all <a href="https://github.com/MomX">MomX</a> packages use them intensively, so you may want to read <a href="https://cran.r-project.org/package=magrittr/vignettes/magrittr.html">magrittr’s vignette</a></p>
+<p>Talking about pipes, all <a href="https://github.com/MomX">MomX</a> packages use them intensively, so you may want to read <a href="https://magrittr.tidyverse.org/articles/magrittr.html">some introduction to magrittr’s</a>.</p>
 <!-- `from_tps` and `to_tps` -->
 <!-- `from_nts` and `to_nps` -->
 </div>
@@ -350,14 +357,14 @@ sl2
 ##     x &lt;- where
 ##   x %&gt;% parse_mom()
 ## }
-## &lt;bytecode: 0x7f8bba2da8f8&gt;
+## &lt;bytecode: 0x7fe1105a3d38&gt;
 ## &lt;environment: namespace:Momit&gt;</code></pre>
 <p><code>harvest</code> itself eases the passing of selected files. All <code>from_*</code> functions have the same skeleton. You can dissecate it with <code>harvest</code> (again, no quotes). Note that this is not peculiar to Momit, it would work with all R functions. For methods, you will need to add the concerned class (eg <code>print.data.frame</code>).</p>
 </div>
 <div id="handling-imported-data-data-frame-is-life-data-frame-is-love" class="section level4">
 <h4 class="hasAnchor">
 <a href="#handling-imported-data-data-frame-is-life-data-frame-is-love" class="anchor"></a>Handling imported data: data.frame is life, data.frame is love</h4>
-<p>Because once you started to like, you will love it. Particularly if you do some “modern R”. If you never heard of it or if you do not think it’s worth the pain, let me disagree with you and please read the <a href="https://cran.r-project.org/package=dplyr/vignettes/dplyr.html">dplyr’s introduction</a> (5 min), and <a href="http://r4ds.had.co.nz/"><em>R for data science</em></a> (from 2 days to 2 years).</p>
+<p>Because once you started to like, you will love it. Particularly if you do some “modern R”. If you never heard of it or if you do not think it’s worth the pain, let me disagree with you and please read the <a href="https://dplyr.tidyverse.org/articles/dplyr.html">dplyr’s introduction</a> (5 min), and <a href="http://r4ds.had.co.nz/"><em>R for data science</em></a> (from 2 days to 2 years).</p>
 <p>Alternatively, just keep reading this vignette.</p>
 <p>Did you ever need to filter some data to retain only some, say species; or to transforms some variables? Of course you did. With <code>dplyr</code> handling data becomes easy. All operations that follow depends on <code>dplyr</code>’s verbs that work just like exemplified in the vignette mentionned above since <code>mom_df</code> (what is returned by the <code>from_</code> importers is <em>also</em> a <code>data.frame</code>).</p>
 <div id="selecting-columns" class="section level5">
@@ -525,113 +532,45 @@ sl2
 <a href="#continue-with-momocs" class="anchor"></a>Continue with Momocs</h2>
 <p>Whether you just want an overview of your data or do all the analyses with Momocs, going there from Momit is straightforward.</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">library</span>(Momocs)</a>
-<a class="sourceLine" id="cb47-2" data-line-number="2">x</a></code></pre></div>
-<pre><code>## # A tibble: 5 x 7
-##   name                 var      domes    view  ind    size coo      
-##   &lt;chr&gt;                &lt;fct&gt;    &lt;fct&gt;    &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;list&gt;   
-## 1 0001-cPastor_O10VD   Pastor   Pastor   VD    O10    2.23 &lt;S3: coo&gt;
-## 2 0001-cPastor_O10VL   Pastor   Pastor   VL    O10    2.43 &lt;S3: coo&gt;
-## 3 0001-cIvorra_O11VL   Ivorra   Ivorra   VL    O11    2.56 &lt;S3: coo&gt;
-## 4 0001-cIvorra_O11VD   Ivorra   Ivorra   VD    O11    2.74 &lt;S3: coo&gt;
-## 5 0005-cBonhomme_O11VD Bonhomme Bonhomme VD    O11    2.55 &lt;S3: coo&gt;</code></pre>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">x <span class="op">%$%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/Out">Out</a></span>(coo) <span class="op">%&gt;%</span><span class="st"> </span>panel <span class="co"># just a panel plot (ugly but data were dummy)</span></a></code></pre></div>
-<p><img src="Use-Momit_files/figure-html/Momocs-1.png" width="700"></p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="co"># equivalent to</span></a>
-<a class="sourceLine" id="cb50-2" data-line-number="2"><span class="co"># Out(x$coo) %&gt;% panel</span></a>
-<a class="sourceLine" id="cb50-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb50-4" data-line-number="4"><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/Out">Out</a></span>(x<span class="op">$</span>coo, <span class="dt">fac=</span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/select">select</a></span>(x, <span class="op">-</span>coo))</a></code></pre></div>
-<pre><code>## Out (outlines)
-##   - 5 outlines, 3 +/- 0 coords (in $coo)
-##   - 6 classifiers (in $fac): 
-## # A tibble: 5 x 6
-##   name                 var      domes    view  ind    size
-##   &lt;chr&gt;                &lt;fct&gt;    &lt;fct&gt;    &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt;
-## 1 0001-cPastor_O10VD   Pastor   Pastor   VD    O10    2.23
-## 2 0001-cPastor_O10VL   Pastor   Pastor   VL    O10    2.43
-## 3 0001-cIvorra_O11VL   Ivorra   Ivorra   VL    O11    2.56
-## 4 0001-cIvorra_O11VD   Ivorra   Ivorra   VD    O11    2.74
-## 5 0005-cBonhomme_O11VD Bonhomme Bonhomme VD    O11    2.55
-##   - also: $ldk</code></pre>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="co"># or if this is not outlines but landmarks:</span></a>
-<a class="sourceLine" id="cb52-2" data-line-number="2"><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/Ldk">Ldk</a></span>(x<span class="op">$</span>coo, <span class="dt">fac=</span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/select">select</a></span>(x, <span class="op">-</span>coo))</a></code></pre></div>
-<pre><code>## Ldk (landmarks)
-##   - 5 landmarks, 3 +/- 0 coords (in $coo)
-##   - 6 classifiers (in $fac): 
-## # A tibble: 5 x 6
-##   name                 var      domes    view  ind    size
-##   &lt;chr&gt;                &lt;fct&gt;    &lt;fct&gt;    &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt;
-## 1 0001-cPastor_O10VD   Pastor   Pastor   VD    O10    2.23
-## 2 0001-cPastor_O10VL   Pastor   Pastor   VL    O10    2.43
-## 3 0001-cIvorra_O11VL   Ivorra   Ivorra   VL    O11    2.56
-## 4 0001-cIvorra_O11VD   Ivorra   Ivorra   VD    O11    2.74
-## 5 0005-cBonhomme_O11VD Bonhomme Bonhomme VD    O11    2.55
-##   - also: $links   - also: $slidings</code></pre>
+<a class="sourceLine" id="cb47-2" data-line-number="2">x</a>
+<a class="sourceLine" id="cb47-3" data-line-number="3"><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/Out">Out</a></span>(x) <span class="co"># equivalent to Out(x$coo, dplyr::select(x, -coo))</span></a>
+<a class="sourceLine" id="cb47-4" data-line-number="4"><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/Out">Out</a></span>(x) <span class="op">%&gt;%</span><span class="st"> </span>panel <span class="co"># just a panel plot (ugly but we used dummy data)</span></a>
+<a class="sourceLine" id="cb47-5" data-line-number="5"><span class="co"># equivalent to</span></a>
+<a class="sourceLine" id="cb47-6" data-line-number="6"><span class="co"># Out(x$coo) %&gt;% panel</span></a>
+<a class="sourceLine" id="cb47-7" data-line-number="7"><span class="co"># or if this is not outlines but landmarks:</span></a>
+<a class="sourceLine" id="cb47-8" data-line-number="8"><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/Ldk">Ldk</a></span>(x)</a>
+<a class="sourceLine" id="cb47-9" data-line-number="9"><span class="co"># or curves, again, dead simple</span></a>
+<a class="sourceLine" id="cb47-10" data-line-number="10"><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/Opn">Opn</a></span>(x)</a></code></pre></div>
 <p>Once you have a <code>Coo</code> object, you enter the <code>Momocs</code> zone, eg:</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/Ldk">Ldk</a></span>(x<span class="op">$</span>coo, <span class="dt">fac=</span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/select">select</a></span>(x, <span class="op">-</span>coo)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># build the Ldl</span></a>
-<a class="sourceLine" id="cb54-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/fgProcrustes">fgProcrustes</a></span>(<span class="dt">tol=</span><span class="fl">0.1</span>) <span class="op">%T&gt;%</span><span class="st">        </span><span class="co"># high tol, save trees</span></a>
-<a class="sourceLine" id="cb54-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/LDA">LDA</a></span>(<span class="op">~</span>domes) <span class="op">%&gt;%</span><span class="st">                   </span><span class="co"># discriminant analysis then continue to PCA</span></a>
-<a class="sourceLine" id="cb54-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/PCA">PCA</a></span>() <span class="op">%T&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb54-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/plot_PCA">plot_PCA</a></span>(<span class="op">~</span>size) <span class="op">%&gt;%</span><span class="st">               </span><span class="co"># plotting vs a numeric</span></a>
-<a class="sourceLine" id="cb54-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/plot_PCA">plot_PCA</a></span>(<span class="op">~</span>var)                    <span class="co"># and versus a factor</span></a></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/Ldk">Ldk</a></span>(x<span class="op">$</span>coo, <span class="dt">fac=</span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/select">select</a></span>(x, <span class="op">-</span>coo)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># build the Ldl</span></a>
+<a class="sourceLine" id="cb48-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/fgProcrustes">fgProcrustes</a></span>(<span class="dt">tol=</span><span class="fl">0.1</span>) <span class="op">%T&gt;%</span><span class="st">        </span><span class="co"># high tol, save trees</span></a>
+<a class="sourceLine" id="cb48-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/LDA">LDA</a></span>(<span class="op">~</span>domes) <span class="op">%&gt;%</span><span class="st">                   </span><span class="co"># discriminant analysis then continue to PCA</span></a>
+<a class="sourceLine" id="cb48-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/PCA">PCA</a></span>() <span class="op">%T&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb48-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/plot_PCA">plot_PCA</a></span>(<span class="op">~</span>size) <span class="op">%&gt;%</span><span class="st">               </span><span class="co"># plotting vs a numeric</span></a>
+<a class="sourceLine" id="cb48-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/Momocs/topics/plot_PCA">plot_PCA</a></span>(<span class="op">~</span>var)                    <span class="co"># and versus a factor</span></a></code></pre></div>
 </div>
 <div id="convert-and-write-files" class="section level2">
 <h2 class="hasAnchor">
 <a href="#convert-and-write-files" class="anchor"></a>Convert and write files</h2>
 <p>TODO</p>
-<table style="width:8%;" class="table">
-<colgroup><col width="8%"></colgroup>
-<tbody>
-<tr class="odd">
-<td>If you created the files, don’t forget to remove them!</td>
-</tr>
-<tr class="even">
-<td><code>r file.remove("mom_files/foo.mom")</code></td>
-</tr>
-<tr class="odd">
-<td><code>## Warning in file.remove("mom_files/foo.mom"): impossible d'effacer le ## fichier 'mom_files/foo.mom', à cause de 'No such file or directory'</code></td>
-</tr>
-<tr class="even">
-<td><code>## [1] FALSE</code></td>
-</tr>
-<tr class="odd">
-<td><code>r unlink("mom_files", recursive=TRUE, force=TRUE)</code></td>
-</tr>
-<tr class="even">
-<td>## Final word * I will add more <code>from_*</code> and <code>to_*</code> functions asap * I also still need to implement missing values handling and units. * All of this is pretty experimental so all comments are welcome. * Please use GitHub issues for bugs/ideas. If you’d like to get in touch privately or send me some exotic data to be included in Momit, you can email me at: <code>bonhomme.vincent@gmail.com</code>. * More to come.</td>
-</tr>
-</tbody>
-</table>
-<p>With these following packages/versions, this vignette compiles properly:</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
-<pre><code>## R version 3.5.0 (2018-04-23)
-## Platform: x86_64-apple-darwin15.6.0 (64-bit)
-## Running under: macOS High Sierra 10.13.4
-## 
-## Matrix products: default
-## BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
-## LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
-## 
-## locale:
-## [1] fr_FR.UTF-8/fr_FR.UTF-8/fr_FR.UTF-8/C/fr_FR.UTF-8/fr_FR.UTF-8
-## 
-## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
-## 
-## other attached packages:
-## [1] bindrcpp_0.2.2 Momocs_1.2.9.3 Momit_0.1.0    dplyr_0.7.5   
-## 
-## loaded via a namespace (and not attached):
-##  [1] Rcpp_0.12.17     plyr_1.8.4       compiler_3.5.0   pillar_1.2.3    
-##  [5] bindr_0.1.1      tools_3.5.0      digest_0.6.15    evaluate_0.10.1 
-##  [9] memoise_1.1.0    tibble_1.4.2     gtable_0.2.0     pkgconfig_2.0.1 
-## [13] rlang_0.2.1      cli_1.0.0        rstudioapi_0.7   commonmark_1.5  
-## [17] yaml_2.1.19      pkgdown_1.1.0    stringr_1.3.1    roxygen2_6.0.1  
-## [21] xml2_1.2.0       knitr_1.20       desc_1.2.0       fs_1.2.3        
-## [25] rprojroot_1.3-2  grid_3.5.0       tidyselect_0.2.4 glue_1.2.0      
-## [29] R6_2.2.2         rmarkdown_1.9    purrr_0.2.4      ggplot2_2.2.1   
-## [33] magrittr_1.5     backports_1.1.2  scales_0.5.0     htmltools_0.3.6 
-## [37] MASS_7.3-49      assertthat_0.2.0 colorspace_1.3-2 utf8_1.1.4      
-## [41] stringi_1.2.2    lazyeval_0.2.1   munsell_0.4.3    crayon_1.3.4</code></pre>
+<hr>
+<p>If you created the files, don’t forget to remove them!</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">file.remove</span>(<span class="st">"mom_files/foo.mom"</span>)</a></code></pre></div>
+<pre><code>## Warning in file.remove("mom_files/foo.mom"): impossible d'effacer le
+## fichier 'mom_files/foo.mom', à cause de 'No such file or directory'</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="kw">unlink</span>(<span class="st">"mom_files"</span>, <span class="dt">recursive=</span><span class="ot">TRUE</span>, <span class="dt">force=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+</div>
+<div id="final-word" class="section level2">
+<h2 class="hasAnchor">
+<a href="#final-word" class="anchor"></a>Final word</h2>
+<ul>
+<li>I will add more <code>from_*</code> and <code>to_*</code> functions asap</li>
+<li>I also still need to implement missing values handling and units.</li>
+<li>All of this is pretty experimental so all comments are welcome.</li>
+<li>Please use GitHub issues for bugs/ideas. If you’d like to get in touch privately or send me some exotic data to be included in Momit, you can email me at: <code>bonhomme.vincent@gmail.com</code>.</li>
+<li>More to come.</li>
+</ul>
 </div>
   </div>
 
@@ -644,6 +583,7 @@ sl2
       <li><a href="#use-momit">Use Momit</a></li>
       <li><a href="#continue-with-momocs">Continue with Momocs</a></li>
       <li><a href="#convert-and-write-files">Convert and write files</a></li>
+      <li><a href="#final-word">Final word</a></li>
       </ul>
 </div>
       </div>

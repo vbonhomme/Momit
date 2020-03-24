@@ -23,14 +23,14 @@ A convenient wrapper around \link{list.files} and \link{readLines} that
 also prepare files for the momification.
 }
 \note{
-\code{from_*} importers harvest internally so most of the time you should not need
-\code{harvest} alone. Internally, \code{list.files} is passed with \code{full.names=TRUE, recursive = TRUE},
+\verb{from_*} importers harvest internally so most of the time you should not need
+\code{harvest} alone. Internally, \code{list.files} is passed with \verb{full.names=TRUE, recursive = TRUE},
 so that full names are returned and all subfolders (if any) will be scrapped.
 If you do not want this behaviour, you can still harvest directly after the proper list (or single)
 of paths, typically obtained with \code{list.files}.
 
 Also, some problems with encoding may occur, particularly with \code{latin1}.
-\code{from_*} importers, when used directly, should message you with "see ?harvest".
+\verb{from_*} importers, when used directly, should message you with "see ?harvest".
 In that case, try changing the \code{encoding} parameter (see \link{readLines}).
 }
 \examples{

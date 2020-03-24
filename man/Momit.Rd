@@ -3,7 +3,6 @@
 \docType{package}
 \name{Momit}
 \alias{Momit}
-\alias{Momit-package}
 \title{Momit}
 \description{
 A minimalist file format for morphometrics data exchange and conversion.

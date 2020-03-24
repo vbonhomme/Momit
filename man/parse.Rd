@@ -17,17 +17,17 @@ parse_tps1(x)
 parse_tps(x)
 }
 \arguments{
-\item{x}{\code{vector} or \code{list} (for \code{parse_*1} and \code{parse_*}) of lines to parse}
+\item{x}{\code{vector} or \code{list} (for \code{parse_*1} and \verb{parse_*}) of lines to parse}
 }
 \value{
-\code{mom_list} or \code{mom_df} (for \code{parse_*1} and \code{parse_*})
+\code{mom_list} or \code{mom_df} (for \code{parse_*1} and \verb{parse_*})
 }
 \description{
 Parse, eg polish and analyse the syntax of, morphometric file data.
 Most of the time you should prefer \link{from}
 }
 \details{
-The \code{parse_*1} and \code{parse_*} dichotomy is not redundant:
+The \code{parse_*1} and \verb{parse_*} dichotomy is not redundant:
 depending on formatting and/or the possible collated nature of the data,
 some polishing steps must be done before or after these individual files are split.
 }

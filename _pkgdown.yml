@@ -1,0 +1,20 @@
+destination: docs
+
+url: http://momx.github.io/Momit
+
+template:
+  params:
+    bootswatch: cosmo
+
+home:
+  strip_header: true
+
+navbar:
+  type: default
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/MomX/Momit
+
+authors:
+  Vincent Bonhomme:
+    href: http://www.vincentbonhomme.fr

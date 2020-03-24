@@ -21,17 +21,17 @@ sift_coo(x)
 \value{
 \code{sift} returns a \code{mom_list}, a list with these components:
 \itemize{
-\item \code{$name} \code{character} or \code{NA} if not provided
-\item \code{$coo} a list of partitions, that are matrices of coordinates (aka shapes) or \code{NA} if not provided
-\item \code{$cov} a named vector of covariates or \code{NA} if not provided
+\item \verb{$name} \code{character} or \code{NA} if not provided
+\item \verb{$coo} a list of partitions, that are matrices of coordinates (aka shapes) or \code{NA} if not provided
+\item \verb{$cov} a named vector of covariates or \code{NA} if not provided
 }
 
 \code{mom_list} can be turned into a \code{mom_df} with \link{momify}.
 
-\code{sift_{name, coo, cov}} each return a \code{list} with two components:
+\verb{sift_\{name, coo, cov\}} each return a \code{list} with two components:
 \itemize{
-\item \code{$x}, which is the provided \code{x} minus the extracted information (if any)...
-\item now in the proper format in \code{$y}
+\item \verb{$x}, which is the provided \code{x} minus the extracted information (if any)...
+\item now in the proper format in \verb{$y}
 }
 }
 \description{

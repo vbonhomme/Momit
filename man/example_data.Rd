@@ -2,7 +2,6 @@
 % Please edit documentation in R/extdata.R
 \name{example_data}
 \alias{example_data}
-\alias{example_data}
 \alias{example_dir}
 \title{Helpers for example raw data}
 \usage{

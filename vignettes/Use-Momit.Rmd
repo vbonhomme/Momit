@@ -133,10 +133,10 @@ files  +--> from_*() +--------> to_*()  +---->   files
                 └─ momify
             └─ bind mom_df
             
+└─: detail the main steps that happen behind the curtain
 *: one of supported formats (eg. .mom, .tps, etc.)
 †: depends on the format(ting) being treated
 ```
-Below `from`, I detailed the main steps that happen behind the curtain.
 
 The only mandatory part below is `from_*`, in the case where you would only like to import `{.mom, .tps, .nts, etc.}` files into R (no convert, no export). See the first example below.
 
@@ -144,12 +144,14 @@ The only mandatory part below is `from_*`, in the case where you would only like
 
 * You have `.mom` files in the folder "data", and want to import them into R:<br /> `from_mom("data/")`
 
-__ Below, not yet implemented __
+```
+# Not yet implemented
 
-* Same but wih `.tps`files and you want to collate them into a single `.mom` file:<br /> `from_tps() %>% to_mom() %>% write_single()`
+* You have `.tps` files and you want to collate them into a single `.mom` file:<br /> `from_tps() %>% to_mom() %>% write_single()`
 
 * You have thousands of outlines of the same object, spread accross a messy (or neat) subfolders structures. Outlines coordinates represent two views (say lateral and dorsal), and saved as `.mom` files with the appropriate cofactor (say `view dorsal`) and you only want the dorsal outlines to be imported in Momocs:<br />
 `from_mom() %>% filter(view=="dorsal") %>% to_Out()`
+```
 
 Talking about pipes, all [MomX](https://github.com/MomX) packages use them intensively, so you may want to read [some introduction to magrittr's](https://magrittr.tidyverse.org/articles/magrittr.html).
 
@@ -382,13 +384,6 @@ unlink("mom_files", recursive=TRUE, force=TRUE)
  * All of this is pretty experimental so all comments are welcome.
  * Please use GitHub issues for bugs/ideas. If you'd like to get in touch privately or send me some exotic data to be included in Momit, you can email me at: `bonhomme.vincent@gmail.com`.
  * More to come.
- 
-----
-With these following packages/versions, this vignette compiles properly:
-
-```{r}
-sessionInfo()
-```
 
 
 
