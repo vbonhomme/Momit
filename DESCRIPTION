@@ -21,6 +21,8 @@ Imports:
     Momocs2,
     tibble,
     yaml
+Remotes:  
+    MomX/Momocs2
 Suggests: devtools, knitr, rmarkdown, testthat, covr
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
