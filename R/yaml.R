@@ -8,6 +8,8 @@ print.yaml <- function(x, ...){
 # yaml ----------------------------------------------------
 #' yaml wrappers
 #'
+#' Around `pkg::yaml` base functions
+#'
 #' @param x any object
 #'
 #' @name yaml
