@@ -1,4 +1,4 @@
-# chivas <- Momocs2::bot2 %>% dplyr::slice(24) %>% dplyr::mutate(size=-123.45, missing=NA)
+# chivas <- Momocs2::bot2 %>% dplyr::slice(24) %>% Momocs2::coo_sample(12) %>% dplyr::mutate(size=-123.45, missing=NA)
 # usethis::use_data(chivas)
 
 #' A one row coo_tbl from Momocs
