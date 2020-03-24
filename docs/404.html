@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Filter components of morphometric data — sift • Momit</title>
+<title>Page not found (404) • Momit</title>
 
 
 <!-- jquery -->
@@ -29,18 +29,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script>
+<link href="http://momx.github.io/Momit/pkgdown.css" rel="stylesheet">
+<script src="http://momx.github.io/Momit/pkgdown.js"></script>
 
 
 
 
-<meta property="og:title" content="Filter components of morphometric data — sift" />
-<meta property="og:description" content="For a single individual, morphometric data can be: name, coordinates or associated covariates.
-All can be present, some (or even all) can be absent. This function takes such a single individual,
-as polished lines of text that stick to .mom file format definition, typically prepared by parse, and
-filter existing components. You should not need it directly unless you write your own parse/from functions." />
-<meta name="twitter:card" content="summary" />
+<meta property="og:title" content="Page not found (404)" />
 
 
 
@@ -59,7 +54,7 @@ filter existing components. You should not need it directly unless you write you
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container template-title-body">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -71,7 +66,7 @@ filter existing components. You should not need it directly unless you write you
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">Momit</a>
+        <a class="navbar-link" href="http://momx.github.io/Momit/index.html">Momit</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
@@ -79,13 +74,13 @@ filter existing components. You should not need it directly unless you write you
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
+  <a href="index.html">
     <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -95,12 +90,12 @@ filter existing components. You should not need it directly unless you write you
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Use-Momit.html">Use Momit</a>
+      <a href="articles/Use-Momit.html">Use Momit</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
+  <a href="news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -121,62 +116,17 @@ filter existing components. You should not need it directly unless you write you
       </header>
 
 <div class="row">
-  <div class="col-md-9 contents">
+  <div class="contents col-md-9">
     <div class="page-header">
-    <h1>Filter components of morphometric data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MomX/Momit/blob/master/R/sift.R'><code>R/sift.R</code></a></small>
-    <div class="hidden name"><code>sift.Rd</code></div>
+      <h1>Page not found (404)</h1>
     </div>
 
-    <div class="ref-description">
-    <p>For a single individual, morphometric data can be: name, coordinates or associated covariates.
-All can be present, some (or even all) can be absent. This function takes such a single individual,
-as polished lines of text that stick to <code>.mom</code> file format definition, typically prepared by <a href='parse.html'>parse</a>, and
-filter existing components. You should not need it directly unless you write your own <code>parse/from</code> functions.</p>
-    </div>
-
-    <pre class="usage"><span class='fu'>sift</span>(<span class='no'>x</span>)
-
-<span class='fu'>sift_name</span>(<span class='no'>x</span>)
-
-<span class='fu'>sift_cov</span>(<span class='no'>x</span>)
-
-<span class='fu'>sift_coo</span>(<span class='no'>x</span>)</pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>lines of text, typically in the <code>.mom</code> format and prepared by <a href='parse.html'>parse</a></p></td>
-    </tr>
-    </table>
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p><code>sift</code> returns a <code>mom_list</code>, a list with these components:</p><ul>
-<li><p><code>$name</code> <code>character</code> or <code>NA</code> if not provided</p></li>
-<li><p><code>$coo</code> a list of partitions, that are matrices of coordinates (aka shapes) or <code>NA</code> if not provided</p></li>
-<li><p><code>$cov</code> a named vector of covariates or <code>NA</code> if not provided</p></li>
-</ul>
-
-<p><code>mom_list</code> can be turned into a <code>mom_df</code> with <a href='momify.html'>momify</a>.</p>
-<p><code>sift_{name, coo, cov}</code> each return a <code>list</code> with two components:</p><ul>
-<li><p><code>$x</code>, which is the provided <code>x</code> minus the extracted information (if any)...</p></li>
-<li><p>now in the proper format in <code>$y</code></p></li>
-</ul>
-
+Content not found. Please use links in the navbar.
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-    </ul>
 
-  </div>
 </div>
+
 
 
       <footer>
