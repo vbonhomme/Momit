@@ -2,9 +2,12 @@
 % Please edit documentation in R/yaml.R
 \name{to_yaml}
 \alias{to_yaml}
+\alias{from_yaml}
 \title{yaml wrappers}
 \usage{
 to_yaml(x)
+
+from_yaml(x)
 }
 \arguments{
 \item{x}{any object}

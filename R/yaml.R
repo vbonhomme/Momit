@@ -23,7 +23,7 @@ to_yaml <- function(x){
     `class<-`(c("yaml", class(.)))
 }
 
-#' @rdname yaml
+#' @rdname to_yaml
 #' @export
 from_yaml <- function(x){
   x %>%
