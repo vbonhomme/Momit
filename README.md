@@ -1,6 +1,4 @@
 
-*Part of [MomX](https://momx.github.io/MomX/)*
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ## Momit
