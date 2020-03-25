@@ -20,8 +20,18 @@ Imports:
     crayon,
     tibble,
     yaml,
-    stringr
-Suggests: devtools, knitr, rmarkdown, testthat, covr
+    stringr,
+    fs,
+    here,
+    rlang (>= 0.1.2),
+    purrr
+Suggests: 
+    devtools,
+    knitr,
+    rmarkdown,
+    testthat,
+    covr,
+    roxygen2
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0

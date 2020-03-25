@@ -16,6 +16,6 @@ from_yaml(x)
 Around \code{pkg::yaml} base functions
 }
 \examples{
-chivas \%>\% to_yaml()
-
+(chivas \%>\% to_yaml() -> x)
+x \%>\% from_yaml()
 }
