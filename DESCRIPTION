@@ -29,6 +29,7 @@ Suggests:
     devtools,
     knitr,
     rmarkdown,
+    pkgdown,
     testthat,
     covr,
     roxygen2
