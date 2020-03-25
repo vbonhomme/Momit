@@ -35,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">Momit</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.0</span>
       </span>
     </div>
 
@@ -58,7 +58,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/Use-Momit.html">Use Momit</a>
+      <a href="articles/intro.html">Find, filter, convert and import your files</a>
     </li>
   </ul>
 </li>
@@ -98,9 +98,9 @@
 <h2 class="hasAnchor">
 <a href="#get-it" class="anchor"></a>Get it</h2>
 <p><strong>This package is still in active development.</strong></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">devtools<span class="op">::</span><span class="kw"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"MomX/Momit"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"MomX/Momit"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>Then have a look to the vignette:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/browseVignettes.html">browseVignettes</a></span>(<span class="st">"Momit"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/browseVignettes.html">browseVignettes</a></span>(<span class="st">"Momit"</span>)</a></code></pre></div>
 </div>
 <div id="rationale" class="section level2">
 <h2 class="hasAnchor">
@@ -254,60 +254,60 @@
 <h2 class="hasAnchor">
 <a href="#examples" class="anchor"></a>Examples</h2>
 <p>A single shape with one covariate:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">name brahma</a>
-<a class="sourceLine" id="cb3-2" title="2">type beer</a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="dv">37</span>  <span class="dv">561</span></a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="dv">40</span>  <span class="dv">540</span></a>
-<a class="sourceLine" id="cb3-5" title="5"><span class="dv">40</span>  <span class="dv">529</span></a>
-<a class="sourceLine" id="cb3-6" title="6">[...]</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">name brahma</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">type beer</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="dv">37</span>  <span class="dv">561</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="dv">40</span>  <span class="dv">540</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="dv">40</span>  <span class="dv">529</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">[...]</a></code></pre></div>
 <p>Two shapes with more covariates/cofactors:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="op">~</span><span class="dv">0001</span><span class="op">-</span>cAglan_O10VD</a>
-<a class="sourceLine" id="cb4-2" title="2">var Aglan</a>
-<a class="sourceLine" id="cb4-3" title="3">domes cult</a>
-<a class="sourceLine" id="cb4-4" title="4">view VD</a>
-<a class="sourceLine" id="cb4-5" title="5">ind O10</a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="fl">-0.5000</span> <span class="fl">0.00000</span></a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="fl">-0.4967</span> <span class="fl">0.01035</span></a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="fl">-0.4935</span> <span class="fl">0.02414</span></a>
-<a class="sourceLine" id="cb4-9" title="9">[...]</a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="op">~</span><span class="dv">0001</span><span class="op">-</span>cAglan_O10VL </a>
-<a class="sourceLine" id="cb4-11" title="11">var Aglan</a>
-<a class="sourceLine" id="cb4-12" title="12">domes cult</a>
-<a class="sourceLine" id="cb4-13" title="13">view VL</a>
-<a class="sourceLine" id="cb4-14" title="14">ind O10</a>
-<a class="sourceLine" id="cb4-15" title="15"><span class="fl">-0.5000</span> <span class="fl">0.00000</span></a>
-<a class="sourceLine" id="cb4-16" title="16"><span class="fl">-0.4995</span> <span class="fl">0.01018</span></a>
-<a class="sourceLine" id="cb4-17" title="17"><span class="fl">-0.4957</span> <span class="fl">0.02022</span></a>
-<a class="sourceLine" id="cb4-18" title="18">[...]</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="op">~</span><span class="dv">0001</span><span class="op">-</span>cAglan_O10VD</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">var Aglan</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">domes cult</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">view VD</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">ind O10</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="fl">-0.5000</span> <span class="fl">0.00000</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="fl">-0.4967</span> <span class="fl">0.01035</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="fl">-0.4935</span> <span class="fl">0.02414</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">[...]</a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="op">~</span><span class="dv">0001</span><span class="op">-</span>cAglan_O10VL </a>
+<a class="sourceLine" id="cb4-11" data-line-number="11">var Aglan</a>
+<a class="sourceLine" id="cb4-12" data-line-number="12">domes cult</a>
+<a class="sourceLine" id="cb4-13" data-line-number="13">view VL</a>
+<a class="sourceLine" id="cb4-14" data-line-number="14">ind O10</a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="fl">-0.5000</span> <span class="fl">0.00000</span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="fl">-0.4995</span> <span class="fl">0.01018</span></a>
+<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="fl">-0.4957</span> <span class="fl">0.02022</span></a>
+<a class="sourceLine" id="cb4-18" data-line-number="18">[...]</a></code></pre></div>
 <p>A single shape with landmarks and 2 partitions of semi-landmarks:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">id <span class="dv">571</span></a>
-<a class="sourceLine" id="cb5-2" title="2">taxa T. mono</a>
-<a class="sourceLine" id="cb5-3" title="3">ldk</a>
-<a class="sourceLine" id="cb5-4" title="4"><span class="dv">697</span>  <span class="dv">977</span></a>
-<a class="sourceLine" id="cb5-5" title="5"><span class="dv">766</span>  <span class="dv">991</span></a>
-<a class="sourceLine" id="cb5-6" title="6"><span class="dv">704</span> <span class="dv">1046</span></a>
-<a class="sourceLine" id="cb5-7" title="7">[...]</a>
-<a class="sourceLine" id="cb5-8" title="8">sl1</a>
-<a class="sourceLine" id="cb5-9" title="9"><span class="dv">541</span> <span class="dv">962</span></a>
-<a class="sourceLine" id="cb5-10" title="10"><span class="dv">542</span> <span class="dv">965</span></a>
-<a class="sourceLine" id="cb5-11" title="11"><span class="dv">543</span> <span class="dv">967</span></a>
-<a class="sourceLine" id="cb5-12" title="12">[...]</a>
-<a class="sourceLine" id="cb5-13" title="13">sl2</a>
-<a class="sourceLine" id="cb5-14" title="14"><span class="dv">541</span> <span class="dv">949</span></a>
-<a class="sourceLine" id="cb5-15" title="15"><span class="dv">542</span> <span class="dv">952</span></a>
-<a class="sourceLine" id="cb5-16" title="16"><span class="dv">542</span> <span class="dv">954</span></a>
-<a class="sourceLine" id="cb5-17" title="17">[...]</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">id <span class="dv">571</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">taxa T. mono</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">ldk</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="dv">697</span>  <span class="dv">977</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="dv">766</span>  <span class="dv">991</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="dv">704</span> <span class="dv">1046</span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">[...]</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">sl1</a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="dv">541</span> <span class="dv">962</span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="dv">542</span> <span class="dv">965</span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="dv">543</span> <span class="dv">967</span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12">[...]</a>
+<a class="sourceLine" id="cb5-13" data-line-number="13">sl2</a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="dv">541</span> <span class="dv">949</span></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="dv">542</span> <span class="dv">952</span></a>
+<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="dv">542</span> <span class="dv">954</span></a>
+<a class="sourceLine" id="cb5-17" data-line-number="17">[...]</a></code></pre></div>
 <p>A shape with nothing else but coordinates:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="dv">200</span>   <span class="dv">91</span></a>
-<a class="sourceLine" id="cb6-2" title="2"><span class="dv">187</span>   <span class="dv">95</span></a>
-<a class="sourceLine" id="cb6-3" title="3"><span class="dv">173</span>  <span class="dv">105</span></a>
-<a class="sourceLine" id="cb6-4" title="4">[...]</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="dv">200</span>   <span class="dv">91</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="dv">187</span>   <span class="dv">95</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="dv">173</span>  <span class="dv">105</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">[...]</a></code></pre></div>
 <p>Examples adapted from <a href="https://github.com/vbonhomme/Momocs/">Momocs</a>: <code>bot[1]</code>, <code>olea[1]</code>, <code>charring[1]</code>, <code>shapes[1]</code>.</p>
 </div>
 <div id="thanks" class="section level2">
 <h2 class="hasAnchor">
 <a href="#thanks" class="anchor"></a>Thanks</h2>
-<p>See <code><a href="reference/Momit.html">?Momit</a></code>.</p>
+<p>See <code>?Momit</code>.</p>
 </div>
 
   </div>

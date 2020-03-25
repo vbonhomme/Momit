@@ -7,30 +7,24 @@
     <loc>http://momx.github.io/Momit/reference/Momit.html</loc>
   </url>
   <url>
+    <loc>http://momx.github.io/Momit/reference/chivas.html</loc>
+  </url>
+  <url>
     <loc>http://momx.github.io/Momit/reference/example_data.html</loc>
-  </url>
-  <url>
-    <loc>http://momx.github.io/Momit/reference/from.html</loc>
-  </url>
-  <url>
-    <loc>http://momx.github.io/Momit/reference/harvest.html</loc>
-  </url>
-  <url>
-    <loc>http://momx.github.io/Momit/reference/momify.html</loc>
-  </url>
-  <url>
-    <loc>http://momx.github.io/Momit/reference/parse.html</loc>
   </url>
   <url>
     <loc>http://momx.github.io/Momit/reference/reexports.html</loc>
   </url>
   <url>
-    <loc>http://momx.github.io/Momit/reference/sift.html</loc>
+    <loc>http://momx.github.io/Momit/reference/sniff.html</loc>
   </url>
   <url>
-    <loc>http://momx.github.io/Momit/reference/to.html</loc>
+    <loc>http://momx.github.io/Momit/reference/tidyeval.html</loc>
   </url>
   <url>
-    <loc>http://momx.github.io/Momit/articles/Use-Momit.html</loc>
+    <loc>http://momx.github.io/Momit/reference/to_yaml.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momit/articles/intro.html</loc>
   </url>
 </urlset>

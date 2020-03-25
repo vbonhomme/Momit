@@ -1,8 +1,7 @@
-pandoc: '2.5'
+pandoc: '2.2'
 pkgdown: 1.4.1
 pkgdown_sha: ~
-articles:
-  Use-Momit: Use-Momit.html
+articles: []
 urls:
   reference: http://momx.github.io/Momit/reference
   article: http://momx.github.io/Momit/articles
