@@ -92,7 +92,26 @@
 
     
     
+<p>_ <strong>This is no more than a notebook for now !!</strong></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(Momit)</a></code></pre></div>
+<p>Momit use intricated functions to do things right.If your data are already manically organized, you will only need the top level one: <code>import</code>. But shall you need finer grain control, here is the depth tree:</p>
+<ul>
+<li>
+<strong>import</strong> wraps around these two
+<ul>
+<li>
+<strong>sniff</strong> will find your files and return a tibble</li>
+<li>
+<strong>from_*</strong> will find column (<code>path</code> by default) in the previous and import them. It maps paths to the correct parser
+<ul>
+<li>
+<strong>parse_*</strong> is the workhouse where conversion actually happens</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>In the end, you have a <code>coo_tbl</code></p>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
