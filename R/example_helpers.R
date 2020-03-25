@@ -2,14 +2,15 @@
 #'
 #' A wrapper on top of [system.file] to ease Momit examples. See examples below.
 #'
-#' Most of Momit examples use this to cope with different file locations between
-#' your machine and mine. Providing that your working directory contains the file(s) you are
+#' Most of Momit __examples__ use these functions. This is not intended for real world, that is for __your__ files.
+#' Here, it helps find correct locations where raw example files bundled with the package are located.
+#' Providing that your working directory contains the file(s) you are
 #' interested in, everything should work fine, just like in the vignette.
 #'
-#' @param x `character` file(s) names from the example folder
+#' @param x `character` file(s) names from the example folder, only for `example_data`
 #'
-#' @return `example_data` will return
-#' the full path where passed files are; `example_data` will return the containing folder
+#' @return `character` the full path pointing to the file (for `example_data`)
+#' or to the containing folder (for `example_dir`)
 #' where examples data have been copied on your computer.
 #'
 #' @references Adapted from [R-pkg](http://r-pkgs.had.co.nz/data.html#data-extdata) by Hadley Wickham.
@@ -18,10 +19,7 @@
 #'  example_dir()
 #'
 #'  # List all example data
-#'  list.files(example_dir(), recursive=TRUE, full.names=TRUE)
-#'
-#'  # path to one of them
-#'  example_data("bot_lite.mom")
+#'  example_dir() %>% sniff()
 #'
 #' @name example_data
 #' @export

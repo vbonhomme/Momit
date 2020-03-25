@@ -10,19 +10,20 @@ example_data(x)
 example_dir()
 }
 \arguments{
-\item{x}{\code{character} file(s) names from the example folder}
+\item{x}{\code{character} file(s) names from the example folder, only for \code{example_data}}
 }
 \value{
-\code{example_data} will return
-the full path where passed files are; \code{example_data} will return the containing folder
+\code{character} the full path pointing to the file (for \code{example_data})
+or to the containing folder (for \code{example_dir})
 where examples data have been copied on your computer.
 }
 \description{
 A wrapper on top of \link{system.file} to ease Momit examples. See examples below.
 }
 \details{
-Most of Momit examples use this to cope with different file locations between
-your machine and mine. Providing that your working directory contains the file(s) you are
+Most of Momit \strong{examples} use these functions. This is not intended for real world, that is for \strong{your} files.
+Here, it helps find correct locations where raw example files bundled with the package are located.
+Providing that your working directory contains the file(s) you are
 interested in, everything should work fine, just like in the vignette.
 }
 \examples{
@@ -30,10 +31,7 @@ interested in, everything should work fine, just like in the vignette.
  example_dir()
 
  # List all example data
- list.files(example_dir(), recursive=TRUE, full.names=TRUE)
-
- # path to one of them
- example_data("bot_lite.mom")
+ example_dir() \%>\% sniff()
 
 }
 \references{
