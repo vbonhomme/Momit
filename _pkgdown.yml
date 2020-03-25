@@ -18,3 +18,23 @@ navbar:
 authors:
   Vincent Bonhomme:
     href: http://www.vincentbonhomme.fr
+
+reference:
+  - title: "High-level friends"
+    desc: >
+      You should mostly need these ones
+    contents:
+      - Momit
+      - sniff
+  - title: "Importers"
+    desc: >
+      From the jungle of format to R
+    contents:
+      - ends_with("yaml")
+  - title: "Data"
+    desc: >
+      Helpers and toy data as raw files and R objects
+    contents:
+      - chivas
+      - starts_with("example")
+
