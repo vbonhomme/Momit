@@ -10,10 +10,28 @@
     <loc>http://momx.github.io/Momit/reference/chivas.html</loc>
   </url>
   <url>
+    <loc>http://momx.github.io/Momit/reference/digest.html</loc>
+  </url>
+  <url>
     <loc>http://momx.github.io/Momit/reference/example_data.html</loc>
   </url>
   <url>
-    <loc>http://momx.github.io/Momit/reference/reexports.html</loc>
+    <loc>http://momx.github.io/Momit/reference/extract_path.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momit/reference/fix_path.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momit/reference/image_helpers.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momit/reference/messy_paths.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momit/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momit/reference/review.html</loc>
   </url>
   <url>
     <loc>http://momx.github.io/Momit/reference/sniff.html</loc>

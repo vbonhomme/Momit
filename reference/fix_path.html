@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>yaml wrappers — to_yaml • Momit</title>
+<title>Fix messy paths — fix_path • Momit</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="yaml wrappers — to_yaml" />
-<meta property="og:description" content="Around pkg::yaml base functions" />
+<meta property="og:title" content="Fix messy paths — fix_path" />
+<meta property="og:description" content="Useful (and simple) wrappers around stringr functions." />
 <meta property="og:image" content="http://momx.github.io/Momit/logo.png" />
 
 
@@ -131,65 +131,65 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>yaml wrappers</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MomX/Momit/blob/master/R/yaml.R'><code>R/yaml.R</code></a></small>
-    <div class="hidden name"><code>to_yaml.Rd</code></div>
+    <h1>Fix messy paths</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MomX/Momit/blob/master/R/path_helpers.R'><code>R/path_helpers.R</code></a></small>
+    <div class="hidden name"><code>fix_path.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Around <code>pkg::yaml</code> base functions</p>
+    <p>Useful (and simple) wrappers around stringr functions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>to_yaml</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>str_underscorise</span>(<span class='no'>x</span>, <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"-+|[[:space:]]+"</span>)
 
-<span class='fu'>from_yaml</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>str_trim_ext</span>(<span class='no'>x</span>, <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"\\.[[:alnum:]]+$"</span>)
+
+<span class='fu'>str_trim_dirpath</span>(<span class='no'>x</span>, <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"^.*/"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>any object</p></td>
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a></p></td>
+    </tr>
+    <tr>
+      <th>pattern</th>
+      <td><p><a href='https://rdrr.io/r/base/regex.html'>regex</a> (a regular expression)</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><a href='https://rdrr.io/r/base/character.html'>character</a></p>
+    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
+
+    
+<ul>
+<li><p><code>str_underscorise</code>: turn dashes and spaces into underscores</p></li>
+<li><p><code>str_trim_ext</code>: trim extension</p></li>
+<li><p><code>str_trim_dirpath</code>: trim dirpath</p></li>
+</ul>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>To <em>extract</em> information from paths see extract_path</p>
+<p>To <em>fix</em> information from paths, besides these ones,
+you have plenty friends in stringr, and particularly:</p><ul>
+<li><p><a href='str_to_lower'>stringr::str_to_lower</a>: lowercase them all</p></li>
+<li><p><a href='https://stringr.tidyverse.org/reference/str_trim.html'>stringr::str_trim</a>: remove whitespace from start and end of string</p></li>
+</ul>
+
+<p>Other path: 
+<code>extract_path</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>(<span class='no'>chivas</span> <span class='kw'>%&gt;%</span> <span class='fu'>to_yaml</span>() <span class='kw'>-&gt;</span> <span class='no'>x</span>)</div><div class='output co'>#&gt; coo:
-#&gt;   chivas:
-#&gt;     x:
-#&gt;     - 33.0
-#&gt;     - 32.0
-#&gt;     - 36.0
-#&gt;     - 141.0
-#&gt;     - 297.0
-#&gt;     - 329.0
-#&gt;     - 332.0
-#&gt;     - 273.0
-#&gt;     - 238.0
-#&gt;     - 232.0
-#&gt;     - 130.0
-#&gt;     - 113.0
-#&gt;     'y':
-#&gt;     - 437.0
-#&gt;     - 273.0
-#&gt;     - 125.0
-#&gt;     - 44.0
-#&gt;     - 52.0
-#&gt;     - 201.0
-#&gt;     - 349.0
-#&gt;     - 508.0
-#&gt;     - 668.0
-#&gt;     - 816.0
-#&gt;     - 770.0
-#&gt;     - 614.0
-#&gt; type: beer
-#&gt; fake: c
-#&gt; size: -123.45
-#&gt; missing: .na</div><div class='input'><span class='no'>x</span> <span class='kw'>%&gt;%</span> <span class='fu'>from_yaml</span>()</div><div class='output co'>#&gt; # A tibble: 1 x 5
-#&gt;   coo              type  fake   size missing
-#&gt;   &lt;named list&gt;     &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  
-#&gt; 1 &lt;named list [2]&gt; beer  c     -123. NA     </div></pre>
+    <pre class="examples"><div class='input'><span class='no'>messy_paths</span></div><div class='output co'>#&gt; [1] "Big_one/folder-foo/file_n.jpg" "folder-foo/File n.jpg"        
+#&gt; [3] "folder-foo2/file   5.jpg"      "file.txt"                     
+#&gt; [5] "file.jpeg"                     "file.png"                     
+#&gt; [7] "file.mom"                     </div><div class='input'><span class='no'>messy_paths</span> <span class='kw'>%&gt;%</span> <span class='fu'>str_underscorise</span>()</div><div class='output co'>#&gt; [1] "Big_one/folder_foo/file_n.jpg" "folder_foo/File_n.jpg"        
+#&gt; [3] "folder_foo2/file_5.jpg"        "file.txt"                     
+#&gt; [5] "file.jpeg"                     "file.png"                     
+#&gt; [7] "file.mom"                     </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

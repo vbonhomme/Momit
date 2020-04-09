@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>yaml wrappers — to_yaml • Momit</title>
+<title>Some messy paths — messy_paths • Momit</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="yaml wrappers — to_yaml" />
-<meta property="og:description" content="Around pkg::yaml base functions" />
+<meta property="og:title" content="Some messy paths — messy_paths" />
+<meta property="og:description" content="A nice vector of paths with many problems" />
 <meta property="og:image" content="http://momx.github.io/Momit/logo.png" />
 
 
@@ -131,65 +131,22 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>yaml wrappers</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MomX/Momit/blob/master/R/yaml.R'><code>R/yaml.R</code></a></small>
-    <div class="hidden name"><code>to_yaml.Rd</code></div>
+    <h1>Some messy paths</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MomX/Momit/blob/master/R/Momit_datasets.R'><code>R/Momit_datasets.R</code></a></small>
+    <div class="hidden name"><code>messy_paths.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Around <code>pkg::yaml</code> base functions</p>
+    <p>A nice vector of paths with many problems</p>
     </div>
 
-    <pre class="usage"><span class='fu'>to_yaml</span>(<span class='no'>x</span>)
-
-<span class='fu'>from_yaml</span>(<span class='no'>x</span>)</pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>any object</p></td>
-    </tr>
-    </table>
+    <pre class="usage"><span class='no'>messy_paths</span></pre>
 
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>(<span class='no'>chivas</span> <span class='kw'>%&gt;%</span> <span class='fu'>to_yaml</span>() <span class='kw'>-&gt;</span> <span class='no'>x</span>)</div><div class='output co'>#&gt; coo:
-#&gt;   chivas:
-#&gt;     x:
-#&gt;     - 33.0
-#&gt;     - 32.0
-#&gt;     - 36.0
-#&gt;     - 141.0
-#&gt;     - 297.0
-#&gt;     - 329.0
-#&gt;     - 332.0
-#&gt;     - 273.0
-#&gt;     - 238.0
-#&gt;     - 232.0
-#&gt;     - 130.0
-#&gt;     - 113.0
-#&gt;     'y':
-#&gt;     - 437.0
-#&gt;     - 273.0
-#&gt;     - 125.0
-#&gt;     - 44.0
-#&gt;     - 52.0
-#&gt;     - 201.0
-#&gt;     - 349.0
-#&gt;     - 508.0
-#&gt;     - 668.0
-#&gt;     - 816.0
-#&gt;     - 770.0
-#&gt;     - 614.0
-#&gt; type: beer
-#&gt; fake: c
-#&gt; size: -123.45
-#&gt; missing: .na</div><div class='input'><span class='no'>x</span> <span class='kw'>%&gt;%</span> <span class='fu'>from_yaml</span>()</div><div class='output co'>#&gt; # A tibble: 1 x 5
-#&gt;   coo              type  fake   size missing
-#&gt;   &lt;named list&gt;     &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  
-#&gt; 1 &lt;named list [2]&gt; beer  c     -123. NA     </div></pre>
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>An object of class <code>character</code> of length 7.</p>
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

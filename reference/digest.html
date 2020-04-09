@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>yaml wrappers — to_yaml • Momit</title>
+<title>Digest tibbles and vector content — digest • Momit</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="yaml wrappers — to_yaml" />
-<meta property="og:description" content="Around pkg::yaml base functions" />
+<meta property="og:title" content="Digest tibbles and vector content — digest" />
+<meta property="og:description" content="A kind of improved summary" />
 <meta property="og:image" content="http://momx.github.io/Momit/logo.png" />
 
 
@@ -131,65 +131,67 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>yaml wrappers</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MomX/Momit/blob/master/R/yaml.R'><code>R/yaml.R</code></a></small>
-    <div class="hidden name"><code>to_yaml.Rd</code></div>
+    <h1>Digest tibbles and vector content</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MomX/Momit/blob/master/R/digest.R'><code>R/digest.R</code></a></small>
+    <div class="hidden name"><code>digest.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Around <code>pkg::yaml</code> base functions</p>
+    <p>A kind of improved <a href='https://rdrr.io/r/base/summary.html'>summary</a></p>
     </div>
 
-    <pre class="usage"><span class='fu'>to_yaml</span>(<span class='no'>x</span>)
-
-<span class='fu'>from_yaml</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>digest</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>any object</p></td>
+      <td><p><code>tibble</code> or <code>vector</code></p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>For <code>numeric</code> columns, returns a tiny <code>summary</code>.
+For <code>character</code>/<code>factor</code> columns, returns a count table.
+For the two previous cases tests if values are constant or unique, respectively.
+In both cases, returning a tibble would not be useful,
+but knowing that a <code>character</code>/<code>factor</code> is unique can be useful
+when making an <code>id</code> column.
+Also report NA cases, if any.
+For tibbles, prints a colwise digest.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>(<span class='no'>chivas</span> <span class='kw'>%&gt;%</span> <span class='fu'>to_yaml</span>() <span class='kw'>-&gt;</span> <span class='no'>x</span>)</div><div class='output co'>#&gt; coo:
-#&gt;   chivas:
-#&gt;     x:
-#&gt;     - 33.0
-#&gt;     - 32.0
-#&gt;     - 36.0
-#&gt;     - 141.0
-#&gt;     - 297.0
-#&gt;     - 329.0
-#&gt;     - 332.0
-#&gt;     - 273.0
-#&gt;     - 238.0
-#&gt;     - 232.0
-#&gt;     - 130.0
-#&gt;     - 113.0
-#&gt;     'y':
-#&gt;     - 437.0
-#&gt;     - 273.0
-#&gt;     - 125.0
-#&gt;     - 44.0
-#&gt;     - 52.0
-#&gt;     - 201.0
-#&gt;     - 349.0
-#&gt;     - 508.0
-#&gt;     - 668.0
-#&gt;     - 816.0
-#&gt;     - 770.0
-#&gt;     - 614.0
-#&gt; type: beer
-#&gt; fake: c
-#&gt; size: -123.45
-#&gt; missing: .na</div><div class='input'><span class='no'>x</span> <span class='kw'>%&gt;%</span> <span class='fu'>from_yaml</span>()</div><div class='output co'>#&gt; # A tibble: 1 x 5
-#&gt;   coo              type  fake   size missing
-#&gt;   &lt;named list&gt;     &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  
-#&gt; 1 &lt;named list [2]&gt; beer  c     -123. NA     </div></pre>
+    <pre class="examples"><div class='input'><span class='co'># numeric</span>
+<span class='fl'>1</span>:<span class='fl'>5</span> <span class='kw'>%&gt;%</span> <span class='no'>digest</span></div><div class='output co'>#&gt; # A tibble: 3 x 2
+#&gt;   quantile value
+#&gt;   &lt;chr&gt;    &lt;dbl&gt;
+#&gt; 1 min          1
+#&gt; 2 median       3
+#&gt; 3 max          5</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>NA</span>, <span class='fl'>1</span>:<span class='fl'>5</span>) <span class='kw'>%&gt;%</span> <span class='fu'>digest</span>() <span class='co'># count NA</span></div><div class='output co'>#&gt; # A tibble: 4 x 2
+#&gt;   quantile value
+#&gt; * &lt;chr&gt;    &lt;dbl&gt;
+#&gt; 1 &lt;NA&gt;         1
+#&gt; 2 min          1
+#&gt; 3 median       3
+#&gt; 4 max          5</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>, <span class='fl'>5</span>) <span class='kw'>%&gt;%</span> <span class='fu'>digest</span>()  <span class='co'># constant</span></div><div class='output co'>#&gt; [1] "constant (5)"</div><div class='input'>
+<span class='co'># factor</span>
+<span class='no'>iris</span>$<span class='no'>Species</span> <span class='kw'>%&gt;%</span> <span class='no'>digest</span></div><div class='output co'>#&gt; # A tibble: 3 x 2
+#&gt;   level      count
+#&gt;   &lt;chr&gt;      &lt;int&gt;
+#&gt; 1 setosa        50
+#&gt; 2 versicolor    50
+#&gt; 3 virginica     50</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>NA</span>, <span class='no'>iris</span>$<span class='no'>Species</span>) <span class='kw'>%&gt;%</span> <span class='fu'>digest</span>() <span class='co'># count NA</span></div><div class='output co'>#&gt; # A tibble: 4 x 2
+#&gt;   quantile value
+#&gt; * &lt;chr&gt;    &lt;dbl&gt;
+#&gt; 1 &lt;NA&gt;         1
+#&gt; 2 min          1
+#&gt; 3 median       2
+#&gt; 4 max          3</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>"a"</span>, <span class='fl'>5</span>)) <span class='kw'>%&gt;%</span> <span class='fu'>digest</span>() <span class='co'># unique</span></div><div class='output co'>#&gt; # A tibble: 1 x 2
+#&gt;   level count
+#&gt;   &lt;chr&gt; &lt;int&gt;
+#&gt; 1 a         5</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
