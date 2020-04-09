@@ -16,3 +16,4 @@ fridge/
 ^sandbox$
 _tests
 ^Momit\.Rproj$
+inst/extdata/vitis
