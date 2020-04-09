@@ -1,3 +1,11 @@
+# valid images
+is_imagefile <- function(x){
+  extract_ext(x) %in% c("jpg", "png", "tiff")
+}
+
+
+
+
 # sniff ---------------------------------------------------
 #' Find files
 #'
@@ -16,31 +24,46 @@ sniff <- function(path, pattern=NULL){
   path %>%
     # grab paths and useful infos
     fs::dir_info(recurse = TRUE, type = "file", regexp=pattern) %>%
-    # mutate useful bits
-    dplyr::mutate(filename = .data$path %>% stringr::str_split("/") %>% purrr::map_chr(~.x[length(.x)]), # take last
-                  id       = .data$filename %>% stringr::str_remove("\\..*$"), # remove from dot to the end
-                  ext      = .data$filename %>% stringr::str_remove("^.*\\."), # remove from begin to the dot
-                  folder   = .data$path %>% stringr::str_split("/") %>% purrr::map_chr(~.x[length(.x)-1]) # containing folder
-    ) %>%
-    # add count id
-    dplyr::add_count(.data$id) %>%
-    # drop most created by fs::dir_info
-    dplyr::select(.data$n, .data$id, .data$folder, .data$filename, .data$ext, .data$size, .data$path,) %>%
-    # arrange a bit
-    dplyr::arrange(.data$id, .data$ext, .data$folder) -> res
-
-  # header with number of items and size
-  cli::cli_alert_success("Found {nrow(res)} items. Total size {sum(res$size)}:")
-  return(res)
+    # only retain path and size
+    dplyr::select(.data$size, .data$path) %>%
+    dplyr::mutate(path_dir = .data$path %>% extract_dir(),
+                  file     = .data$path %>% extract_file(),
+                  ext      = .data$path %>% extract_ext()) %>%
+    tibble::as_tibble() %>%
+    Momocs2::new_mom() %>%
+    .append_class("sniff_tbl")
 }
-#
-# sniff("inst/extdata/")
-#
-# install.packages("here")
 
-# "~/Research/2020-DeepMorphometrics/data_PSL/ready/" %>% sniff()
+# printer methods add umber of files and size (if retained)
+print.sniff_tbl <- function(x){
+  NextMethod(print, x)
 
-# "~/Research/2020-DeepMorphometrics/data/PSL/" %>% sniff() %>%
-#   dplyr::mutate(to=glue("plop/{ext}"))
+  # if size column, add it
+  sizes <- x %>% dplyr::select_if(~class(.x)[1]=="fs_bytes")
+  if (ncol(sizes)>0){
+    size_sum <- sizes %>% dplyr::select(1) %>% dplyr::pull() %>% sum() %>% paste0("(", ., ")")
+  } else {
+    size_sum <- ""
+  }
+
+  # add the number of files
+  cli::cli_alert_success("{nrow(x)} files {size_sum}")
+}
+
+# pick a single row from a tibble
+# https://english.stackexchange.com/questions/20948/single-word-for-thin-slice
+
+slive <- function(x, i){
+  if (missing(i))
+    i <- sample(nrow(x), 1)
+  dplyr::slice(x, i)
+}
+
 #
+# coo_close <- function(x){
+#   x <- x[-1, ]
+#   rbind(x, x[1,, drop=FALSE])
+# }
+
+
 
