@@ -35,7 +35,7 @@ Useful (and simple) wrappers around \link{stringr} functions.
 
 \examples{
 messy_paths
-messy_paths \%>\% fix_underscorise()
+messy_paths \%>\% str_underscorise()
 }
 \seealso{
 To \emph{extract} information from paths see \link{extract_path}

@@ -83,7 +83,7 @@ digest.numeric <- function(x){
   tibble::tribble(
     ~quantile,  ~value,
     "min",      min(x),
-    "median",   median(x),
+    "median",   stats::median(x),
     "max",      max(x)
   ) -> res
 
@@ -117,5 +117,5 @@ digest.mom_tbl <- function(x){
   # early case when  NA detected
   if (any(is.na(x))) return(FALSE)
   # use var coeff to test if constant
-  ifelse((stats::sd(x)/stats::mean(x)) < 1e-10, TRUE, FALSE)
+  ifelse((stats::sd(x)/mean(x)) < 1e-10, TRUE, FALSE)
 }

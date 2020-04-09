@@ -31,7 +31,7 @@ paths <- c("Big_one/folder-foo/file_n.jpg",
 #'
 #' @examples
 #' messy_paths
-#' messy_paths %>% fix_underscorise()
+#' messy_paths %>% str_underscorise()
 NULL
 
 #' @describeIn  fix_path turn dashes and spaces into underscores
