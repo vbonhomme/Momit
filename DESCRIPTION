@@ -1,6 +1,6 @@
 Package: Momit
-Title: Read, Write, Convert, Handle Morphometric Data using .mom Minimalist File Format
-Version: 0.9.0.0000
+Title: Read, Write, Convert, Tidy Morphometric Data and Covariates using .mom Minimalist File Format
+Version: 0.1.0.9000
 Date: 2020-03-24
 Authors@R: person("Vincent", "Bonhomme", email = "bonhomme.vincent@gmail.com", role = c("aut", "cre"))
 Description: Aimed at being a `pandoc` for morphometrics,
@@ -24,7 +24,12 @@ Imports:
     fs,
     here,
     rlang (>= 0.1.2),
-    purrr
+    purrr,
+    Momocs2,
+    magick,
+    magrittr,
+    grDevices,
+    stats
 Suggests: 
     devtools,
     knitr,
