@@ -1,0 +1,335 @@
+---
+title: "Tidying databases"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{tidy_database}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+I hereby summarise collection of tips, learnt (the hard way) by my colleagues^[Laurent Bouby, Allowen Evin, Sarah Ivorra] and (marginally) by myself. Contributions are welcome! 
+
+I will take the example of an image database but if what you collect is something else, say a text file, same tips apply. This begins with a curated list of good practices, then dig into lower level aspects.
+
+## Good practices
+
+(todo)
+
+### Raw data
+* All pictures should be in the same folder
+* Keep your raw data
+* Do not crop, resize, etc.
+* Repeat (at least some) pictures to measure error
+* Post-processing should be reproducible. If manual (thus error-prone) operations are needed (like artistic reconstruction of missing part), each error should be properly measured
+
+### Working data
+* All pictures and associated data should be in the same folder
+* Your analysis pipeline should be exhaustivelly reproducible
+
+----
+
+rough copy paste:
+
+Spreadsheet are very popular to store and organize data collection and associated covariates.
+
+Forget artistic touch on your .xlsx, .odt, .wtf files. No hierarchical header, no missing column name, no white lines here and there. Anything else than text to _encode_ information like cell background color, bold, etc. are crazy ideas. Never do that. Use syntactic, meaningful and well thought colnames. Overall, keep things simple:
+
+
+lowercase are fine. Tend to only use lowercase now for code. Saving dozens of maj key press, and muting one fountain of typos are quite convincing experiments to try at home.  It's a matter of taste.
+
+id  date location lat lon species cultivar tree branch position
+
+Lacamp_AcMtp_001
+Lacamp_AcMtp_001
+
+Home_AcMtp_001
+Pump_
+Oiselette
+site_species_n : 
+
+#template_acq
+	site 		Home / Castle / Forest1 / Forest2    # pick one
+	collector 	c("sl", "vb")
+	tree        001
+	opening 	1:5
+	height	 	c(min=0, max=5, na="none")
+	i 			numeric
+	comment 	NA_character
+
+
+# for file names : aims for the minimal scheme ie things that cannot be deduced by any other mean than by manual typing/picking
+
+eg: 
+Home_mons_vb_1
+Home_mons_vb_2
+Home_mons_vl_3
+
+
+momacs propose template
+photo -> name immediately when possible
+decharge -> validate
+
+
+species 	c("mons" / "camp" / na="explicit")   # or ok, 
+
+
+
+
+
+
+
+Site_Species_open
+
+template
+	status: allowed("status", "domesticated")
+	cépage: meet(is_character, matches(regex))
+	id:     domain()
+
+
+
+complete
+	ID (4)
+	NA: allowed/none
+	etc.
+
+
+end tough copy paste 
+
+-----
+
+## Choosing an `id`
+
+### Setting the problem
+Before starting a single study or the world largest database, your will need to think of how to:
+
+1. name individual images
+2. store additional informations
+3. join the two
+
+The three tasks actually reduce to a single one: finding what will be your id and how to structure it^[ What I call `id` can also be called a [primary key](https://en.wikipedia.org/wiki/Primary_key) but I like how compact `id` is (versus `key`) and still explicit (versus `i` for instance)].
+
+### Choosing an id pattern
+
+There is no definitive rule for what the right id pattern but is likely between these two extremes:
+
+1. Using a single number (eg `00001`)
+2. Encode everything in filenames (eg `chivas_whisky_0.75l`)
+
+The first case would be the [canonic view](https://en.wikipedia.org/wiki/Primary_key) of what an id is, but not user-friendly at all.
+
+The second case does not solve the problem, it avoids it. It first sounds like a good idea until you want to add stuff and reveal the foolishness of this idea^[I love regular expressions, and even more when I do not need them].
+ 
+I think the good compromise is to reflect the granulometry of measurements.
+
+For instance:
+
+> `chivas_75.jpg`
+
+is a better choice. 
+
+Indeed, `whisky` can be deduced from chivas, and filename is not a place to decimals or units. More importantly, if you access additional information it is, by far, preferable to include them in an external file (eg a spreadsheet) than in the filenames.
+
+### A more realistic case
+
+So far, this example was so trivial that all of this appear pointless. But wait a bit: you got a mountain of dollars to make a longitudinal analysis of alcoholic bottles shapes throught both time and space, ie collect pictures of the different contenance, country and years. Your id could be:
+
+`chivas_75_mex_1984`
+
+When taking pictures in alcoolism museums or scrapping webpages, it is acceptable to manually type this _and_ when working with files you do not have to find this bloody 6-digits number in the spreadsheet, you just have to read your its name.
+
+Now you hire three post-docs to add covariates such as price, glass colour, tasting note, etc. should code in another file, the natural choice being a spreadsheet formatted this way:
+
+| id                    | name       | volume   | country  |  year   | price   | glass_colour | note   |
+| --------------------  | --------   | -------- | -------  | ------- | ------- | ------------ | ------ |     
+| chivas_75_mexico_1984 | Chivas     | 0.75     | MEX      | 1984    | 3.14    | brown        | 4.2    |
+
+You add much value to your database, but you did not touch in single bit in your folder image.
+
+### An id does _not_ have to be unique
+
+For morphometrics collection, whether small and simple or gigantic and complex, I do not think an id as to be unique. For instance, the same id often refers to:
+
+* several images (eg two orthogonal views)
+* data of different type (eg images and txt file for landmarks)
+* repeated measurements of the same object (eg when measuring user error)
+* different sub objects (eg pips of the same grape cultivar for which we have additional information)
+
+Even in the short-term, it's certainly worse to repeat lines in your spreadsheet, than to create a column in your tibble! (todo link to dedicated vignette)
+
+So, again, I think the id pattern choice should reflect the level where measurements where taken.
+
+That being said, you are a grown up adult, so choose whatever you want and fits your present (and possibly future) needs. Just think twice about it, it could save severe headaches later (and possibly sooner as imagined).
+
+
+### Join the two
+
+As I told you before, this is the easy part, since you are not the first (neither the last) person who wants to join two tables. Have a look to `?dplyr::join`.
+
+Let's exemplify this. I will first build two dummy objects, in the MomX way. 
+
+```{r, message=FALSE, warning=FALSE}
+library(Momit)
+library(Momocs2)
+library(dplyr)
+
+data_raw <- tibble(id   = c("chivas_75_mex_1984", "guiness_50_irl_1988"),    # two individuals
+                   coo  = coo_list(list(coo_single(), coo_single())))        # two empty coo_single, but that's not our point here
+
+data_cov <- tibble(id    = c("guiness_50_irl_1988", "chivas_75_mex_1984"),
+                   type  = c("beer", "whisky"),
+                   price = c(1.1, 3.14),
+                   note  = c(NA, 4.1)
+                   )
+
+```
+This appears boring here but you will never use it. Your `data_raw` will likely be generated using Momit, and your `data_cov` will be a `read*` to bring your spreadheet into R.
+
+
+Here are our tibbles:
+
+```{r}
+data_raw
+data_cov
+```
+
+Let's join them now with `dplyr::left_join`.
+
+```{r}
+library(dplyr)
+df <- left_join(data_raw, data_cov, by="id")
+```
+
+Turning such tibble into a `<mom>` can be achieved in a reasonable time by a [typing monkey](https://en.wikipedia.org/wiki/Infinite_monkey_theorem) and you can now enter MomX pipeline:
+
+```{r}
+df %>% mom()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+Your id should be minimal: it will save time when naming cannot be automated, it will save typos, and we do not need more anyway. But where to 
+
+
+
+
+Yes, that's `iris`:
+
+```{r}
+head(iris)
+```
+
+
+1. individual images will be named
+
+
+
+An id is an unique identifyers accross your database. Let's take an example using the `iris` dataset:
+
+```{r}
+iris[c(1, 50:51, 100:101, 150), ]
+```
+
+So a good id could have been of the form: `species_individual`. For such trivial cases, building an id is straighforward:
+
+```{r, warning=FALSE}
+library(dplyr)
+iris %>% 
+  group_by(Species) %>%
+  mutate(id=paste(Species, 1:n(), sep="_")) %>% 
+  # only print the newly created column 'id', and the first 5 individuals
+  pull(id) %>% head(5)
+```
+
+
+
+
+
+
+## Good practices
+
+### Raw data (images) and covariates (external file)
+
+
+### Naming images
+* Names 
+
+
+
+```{r setup}
+library(Momit)
+```
+
+I begin with listing 
+
+
+## Collecting data
+
+### Individual naming scheme
+for file names : aims for the minimal scheme ie things that cannot be deduced by any other mean than by manual typing/picking
+
+eg: 
+```
+Home_mons_vb_1
+Home_mons_vb_2
+Home_mons_vl_3
+```
+
+### Acquisition template
+```
+template_acq
+	site 		Home / Castle / Forest1 / Forest2    # pick one
+	collector 	c("sl", "vb")
+	tree        001
+	opening 	1:5
+	height	 	c(min=0, max=5, na="none")
+	i 			numeric
+	comment 	NA_character
+```
+
+momacs propose template
+photo -> name immediately when possible
+decharge -> validate
+
+## Covariates
+
+Spreadsheet are very popular to store and organize data collection and associated covariates. Anything that can be read and contain an id for joining is fine.
+
+Forget artistic touch on your .xlsx, .odt, .wtf files. No hierarchical header, no missing column name, no white lines here and there. Anything else than text to _encode_ information like cell background color, bold, etc. are crazy ideas. Never do that. Use syntactic, meaningful and well thought colnames. Overall, keep things simple:
+
+Lowercase are fine. Tend to only use lowercase now for code. Saving dozens of maj key press, and muting one fountain of typos are quite convincing experiments to try at home.  It's a matter of taste.
+
+## Joining
+dplyr::join
+
+
+## Validating data
+todo
+digest
+glimpse
+View
+
+## Backup and isolate your data
+
+
+## Adding new data
+todo
+
+
+
+

@@ -1,0 +1,57 @@
+---
+title: "An introduction to Momit"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Momit_intro}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+-----
+**Work in progress**
+-----
+
+## Momit scope
+The main goal of Momit is to bring your files into R, and typically into a `<mom>`.
+
+
+If:
+
+  * your database is clean
+  * if you are in your working directory
+  
+It should only take:
+
+> from_*()
+
+For example: `from_mask` or `from_tps`.
+
+If your database is a mess, then the battle may be long but Momit can give a hand. This is described in [tidy_database.html](Tidying database) vignette.
+
+
+
+
+
+
+
+
+
+
+
+
+```{r setup}
+library(Momit)
+```
+
+
+
+
+
+
+In the end, you have a `coo_tbl`

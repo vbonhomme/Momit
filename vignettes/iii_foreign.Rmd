@@ -1,0 +1,63 @@
+---
+title: "Importing foreign formats"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{foreign}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+The [mom_mom.html] vignette details why `.mom` is the native MomX class and why it can just be seen as a textual representation of the `<mom>` tibble that lives in your console.
+
+This vignette is dedicated to importing foreign files. It provides examples of all supported file formats, then show how to write a custom importer.
+
+Currently supported formats are : (todo and possibly recycle from elsewhere)
+
+## Available importers
+### raw text files
+
+### tps
+
+### nts
+
+## Custom importers: extending Momit
+Writing importers tends to resume to turning your data, whatever its representation, into valid `mom` tibbles. 
+
+csv row example
+
+develop your own, please share. aims for good test coverage and push. or get in touch with me and I'll do it.
+
+## Custom exporters: towards a pandoc for morphometrics
+Until I have completed other MomX organs, I will not not have time to write exporters. I'm not even sure we need that much importers but if there is a need and you cannot manage yourself, I will be happy to help. 
+
+Ideally, yes, Momit could be used as a pandoc for morphometric like: 
+
+> pan(from, to)  
+Happy message: 184k tps files were imported successfully.
+
+With `from/to` being, ideally, whatever beast exist in the misty forests of morphometrics. Or worse: in the jungle of what people use to ride the morphometrics pipe.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Import from foreign formats
+
+### Currently supported
+(table)
+

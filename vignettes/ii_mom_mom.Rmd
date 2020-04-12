@@ -1,0 +1,82 @@
+---
+title: ".mom files, \\<mom\\> tibbles"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{mom_mom}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,    
+  comment = "#>"
+)
+```
+-----
+**Work in progress**
+-----
+
+**
+> a common file format is essential for you and morphometrics  
+> `.mom` files and `<mom>` tibbles are the same object, presented differently
+**
+
+## Rationale for a common morphometric format
+
+Since I started morphometrics on a daily basis, I have always been surprised that a common file format for morphometrics, to the best of my knowledge, does not exist.
+
+Perhaps to my bigger surprise, it even does not seem to be really missing.
+
+A common file format have direct benefits from the single user to the community scale: it is easy to share, archive, reuse, recycle, publish, etc.
+
+In my humble opinion, morphometrics as a whole, and the questions it feeds, can hardly scale up without a common file format.
+
+## `.mom` : yaml file and markup language
+
+An ideal file format for morphometrics would be:
+
+ * easy to read for humans
+ * easy to parse for machines
+ * easy to write and develop on
+
+Good news, this exists : yaml (todo) (and more generally...). yaml and structure language wikipedia's pages are nice ones. 
+
+For general i/o operations with yaml, the eponym package by xx is just perfect.
+
+## Relations between `<mom>` and `.mom`
+A `.mom` file is nothing but a yaml file with the `.mom` extension. Actually, `.mom` files are textual _and_ strutured representation of a `<mom>` tibble, no matter how small or complex it is.
+
+Chivas looks like this in R, eg as a `<mom>` tibble:
+
+```{r}
+library(Momit)
+# shorten it for the sake of readability
+chivas <- chivas %>% Momocs2::coo_sample(4)
+```
+
+And like this in yaml, eg in a `.mom`:
+
+```{r}
+chivas_yaml <- chivas %>% yaml::as.yaml()
+# cat help visualize what would be written in a a .mom file
+chivas_yaml %>% cat()
+```
+
+Now, let's `chivas_yaml` is read back into R:
+```{r}
+chivas2 <- chivas_yaml %>% yaml::yaml.load() %>% tibble::as_tibble()
+chivas2
+```
+
+And, finally, let's compare with the original tibble. We unsophisticate the mom for a tibble:
+
+```{r}
+chivas %>% tibble::as_tibble()
+```
+
+Not bad isn't? If you dissecate the two prints, you will notice that three things were dropped: 
+
+1. the `mom_df` class (but we asked for it)
+2. the `coo_list` nature of the `coo` column. Now it's just a `list`
+3. the `names` within this column
