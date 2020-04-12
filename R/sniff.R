@@ -16,11 +16,11 @@ is_imagefile <- function(x){
 #' @param pattern a [regexp] passed to [fs::dir_info]
 #'
 #' @export
-sniff <- function(path, pattern=NULL){
+sniff <- function(path=here::here(), pattern=NULL){
   # messaging where we are looking at
-  paste0("sniffing files in ", crayon::green(paste0(here::here(), path))) %>%
-    cli::cli_alert_info()
+  paste0("sniffing for files in ", crayon::green(path)) %>% cli::cli_alert_info()
 
+  # here we go
   path %>%
     # grab paths and useful infos
     fs::dir_info(recurse = TRUE, type = "file", regexp=pattern) %>%

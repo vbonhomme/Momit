@@ -4,7 +4,7 @@
 \alias{sniff}
 \title{Find files}
 \usage{
-sniff(path, pattern = NULL)
+sniff(path = here::here(), pattern = NULL)
 }
 \arguments{
 \item{path}{where to find item}

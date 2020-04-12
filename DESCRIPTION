@@ -29,7 +29,9 @@ Imports:
     magick,
     magrittr,
     grDevices,
-    stats
+    stats,
+    jpeg,
+    progress
 Suggests: 
     devtools,
     knitr,

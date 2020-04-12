@@ -2,8 +2,6 @@
 # img should already be a 2D raster matrix
 # x are coordinate positions where to start the algo (center point otherwise)
 algo_Conte <- function(img, x=image_center(img)){
-  # turns to raster matrix and trim third dimension if any
-  img <- image_to_raster(img)
 
   # algo starts here
   while (abs(img[x[1], x[2]] - img[x[1] - 1, x[2]]) < 0.1) {
