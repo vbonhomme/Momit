@@ -36,6 +36,8 @@
 
 
 <meta property="og:title" content="Function reference" />
+<meta property="og:image" content="http://momx.github.io/Momit/logo.png" />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -67,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Momit</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
       </span>
     </div>
 
@@ -90,7 +92,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/intro.html">Find, filter, convert and import your files</a>
+      <a href="../articles/i_intro.html">An introduction to Momit</a>
+    </li>
+    <li>
+      <a href="../articles/ii_mom_mom.html">.mom files, \&lt;mom\&gt; tibbles</a>
+    </li>
+    <li>
+      <a href="../articles/iii_foreign.html">Importing foreign formats</a>
+    </li>
+    <li>
+      <a href="../articles/iv_database.html">Tidying databases</a>
     </li>
   </ul>
 </li>
@@ -132,7 +143,7 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-high-level-friends" class="hasAnchor"><a href="#section-high-level-friends" class="anchor"></a>High-level friends</h2>
+          <h2 id="section-high-level-helpers" class="hasAnchor"><a href="#section-high-level-helpers" class="anchor"></a>High-level helpers</h2>
           <p class="section-desc"><p>You should mostly need these ones</p></p>
         </th>
       </tr>
@@ -148,6 +159,44 @@
           <p><code><a href="sniff.html">sniff()</a></code> </p>
         </td>
         <td><p>Find files</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="digest.html">digest()</a></code> </p>
+        </td>
+        <td><p>Digest tibbles and vector content</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="review.html">review()</a></code> </p>
+        </td>
+        <td><p>Review files</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-path-str-and-image-helpers" class="hasAnchor"><a href="#section-path-str-and-image-helpers" class="anchor"></a>path, str and image helpers</h2>
+          <p class="section-desc"><p>Help deal with messy paths, id, etc.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="extract_path.html">extract_dir()</a></code> <code><a href="extract_path.html">extract_ext()</a></code> <code><a href="extract_path.html">extract_file()</a></code> </p>
+        </td>
+        <td><p>Extract information from paths</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="fix_path.html">str_underscorise()</a></code> <code><a href="fix_path.html">str_trim_ext()</a></code> <code><a href="fix_path.html">str_trim_dirpath()</a></code> </p>
+        </td>
+        <td><p>Fix messy paths</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="image_helpers.html">is_image()</a></code> <code><a href="image_helpers.html">image_to_raster()</a></code> <code><a href="image_helpers.html">image_center()</a></code> </p>
+        </td>
+        <td><p>Add helpers for working with image-magick</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -157,6 +206,12 @@
         </th>
       </tr>
       <tr>
+        
+        <td>
+          <p><code><a href="from_mask.html">from_mask()</a></code> </p>
+        </td>
+        <td><p>Import outline coordinates from mask image file</p></td>
+      </tr><tr>
         
         <td>
           <p><code><a href="to_yaml.html">to_yaml()</a></code> <code><a href="to_yaml.html">from_yaml()</a></code> </p>
@@ -173,15 +228,21 @@
       <tr>
         
         <td>
-          <p><code><a href="chivas.html">chivas</a></code> </p>
+          <p><code><a href="example_data.html">Momit_data()</a></code> </p>
         </td>
-        <td><p>A one row coo_tbl from Momocs</p></td>
+        <td><p>Helpers for example raw data</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="example_data.html">example_data()</a></code> <code><a href="example_data.html">example_dir()</a></code> </p>
+          <p><code><a href="messy_paths.html">messy_paths</a></code> </p>
         </td>
-        <td><p>Helpers for example raw data</p></td>
+        <td><p>Some messy paths</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="chivas.html">chivas</a></code> </p>
+        </td>
+        <td><p>Chivas bottle outline</p></td>
       </tr>
     </tbody>
     </table>
@@ -190,7 +251,8 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-high-level-friends">High-level friends</a></li>
+      <li><a href="#section-high-level-helpers">High-level helpers</a></li>
+      <li><a href="#section-path-str-and-image-helpers">path, str and image helpers</a></li>
       <li><a href="#section-importers">Importers</a></li>
       <li><a href="#section-data">Data</a></li>
     </ul>

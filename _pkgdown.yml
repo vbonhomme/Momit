@@ -20,21 +20,39 @@ authors:
     href: http://www.vincentbonhomme.fr
 
 reference:
-  - title: "High-level friends"
+  - title: "High-level helpers"
     desc: >
       You should mostly need these ones
     contents:
       - Momit
       - sniff
+      - digest
+      - review
+
+  - title: "path, str and image helpers"
+    desc: >
+      Help deal with messy paths, id, etc.
+    contents:
+      - extract_path
+      - str_trim_ext
+      - str_trim_dirpath
+      - str_underscorise
+      - is_image
+      - image_to_raster
+      - image_center
+
   - title: "Importers"
     desc: >
       From the jungle of format to R
     contents:
+      - from_mask
       - ends_with("yaml")
+
   - title: "Data"
     desc: >
       Helpers and toy data as raw files and R objects
     contents:
+      - Momit_data
+      - messy_paths
       - chivas
-      - starts_with("example")
 
