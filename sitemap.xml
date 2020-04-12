@@ -22,6 +22,9 @@
     <loc>http://momx.github.io/Momit/reference/fix_path.html</loc>
   </url>
   <url>
+    <loc>http://momx.github.io/Momit/reference/from_mask.html</loc>
+  </url>
+  <url>
     <loc>http://momx.github.io/Momit/reference/image_helpers.html</loc>
   </url>
   <url>
@@ -43,6 +46,15 @@
     <loc>http://momx.github.io/Momit/reference/to_yaml.html</loc>
   </url>
   <url>
-    <loc>http://momx.github.io/Momit/articles/intro.html</loc>
+    <loc>http://momx.github.io/Momit/articles/i_intro.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momit/articles/ii_mom_mom.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momit/articles/iii_foreign.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momit/articles/iv_database.html</loc>
   </url>
 </urlset>

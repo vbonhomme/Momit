@@ -47,7 +47,7 @@
 
 
 <meta property="og:title" content="Helpers for example raw data — example_data" />
-<meta property="og:description" content="A wrapper on top of system.file to ease Momit examples. See examples below." />
+<meta property="og:description" content="A wrapper on top of system.file to ease Momit examples." />
 <meta property="og:image" content="http://momx.github.io/Momit/logo.png" />
 
 
@@ -103,7 +103,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/intro.html">Find, filter, convert and import your files</a>
+      <a href="../articles/i_intro.html">An introduction to Momit</a>
+    </li>
+    <li>
+      <a href="../articles/ii_mom_mom.html">.mom files, \&lt;mom\&gt; tibbles</a>
+    </li>
+    <li>
+      <a href="../articles/iii_foreign.html">Importing foreign formats</a>
+    </li>
+    <li>
+      <a href="../articles/iv_database.html">Tidying databases</a>
     </li>
   </ul>
 </li>
@@ -137,12 +146,10 @@
     </div>
 
     <div class="ref-description">
-    <p>A wrapper on top of <a href='https://rdrr.io/r/base/system.file.html'>system.file</a> to ease Momit examples. See examples below.</p>
+    <p>A wrapper on top of <a href='https://rdrr.io/r/base/system.file.html'>system.file</a> to ease Momit examples.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>example_data</span>(<span class='no'>x</span>)
-
-<span class='fu'>example_dir</span>()</pre>
+    <pre class="usage"><span class='fu'>Momit_data</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -155,36 +162,32 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>character</code> the full path pointing to the file (for <code>example_data</code>)
-or to the containing folder (for <code>example_dir</code>)
-where examples data have been copied on your computer.</p>
+    <p><code>character</code> the full path pointing to <code>Momit/extdata/</code></p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Most of Momit <strong>examples</strong> use these functions. This is not intended for real world, that is for <strong>your</strong> files.
-Here, it helps find correct locations where raw example files bundled with the package are located.
-Providing that your working directory contains the file(s) you are
-interested in, everything should work fine, just like in the vignette.</p>
+    <p>You do not need it for <em>your</em> data.
+Most of Momit examples use these functions.
+In Momit examples (unit testing, R CMD CHECK etc.),
+it helps find correct locations where raw example files bundled with the package are located.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Adapted from <a href='http://r-pkgs.had.co.nz/data.html#data-extdata'>R-pkg</a> by Hadley Wickham.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'> <span class='co'># Example folder path</span>
- <span class='fu'>example_dir</span>()</div><div class='output co'>#&gt; [1] "/tmp/RtmpF13E8d/temp_libpath3d2917da8e66/Momit/extdata"</div><div class='input'>
- <span class='co'># List all example data</span>
- <span class='fu'>example_dir</span>() <span class='kw'>%&gt;%</span> <span class='fu'>sniff</span>()</div><div class='output co'>#&gt; <span class='message'>ℹ sniffing files in /home/travis/build/MomX/Momit/tmp/RtmpF13E8d/temp_libpath3d2917da8e66/Momit/extdata</span></div><div class='output co'>#&gt; # A tibble: 21 x 5
+    <pre class="examples"><div class='input'> <span class='co'># List all example data</span>
+ <span class='fu'>Momit_data</span>() <span class='kw'>%&gt;%</span> <span class='fu'>sniff</span>()</div><div class='output co'>#&gt; <span class='message'>ℹ sniffing for files in /tmp/RtmpKid7P5/temp_libpath40ddedaaeaa/Momit/extdata/</span></div><div class='output co'>#&gt; # A tibble: 21 x 5
 #&gt;         size path                         path_dir               file      ext  
 #&gt;    &lt;fs::byt&gt; &lt;fs::path&gt;                   &lt;chr&gt;                  &lt;chr&gt;     &lt;chr&gt;
-#&gt;  1       348 /tmp/RtmpF13E8d/temp_libpat… /tmp/RtmpF13E8d/temp_… 3parts.m… mom  
-#&gt;  2     1.25K /tmp/RtmpF13E8d/temp_libpat… /tmp/RtmpF13E8d/temp_… Momit_bo… mom  
-#&gt;  3       348 /tmp/RtmpF13E8d/temp_libpat… /tmp/RtmpF13E8d/temp_… Momit_th… mom  
-#&gt;  4       127 /tmp/RtmpF13E8d/temp_libpat… /tmp/RtmpF13E8d/temp_… amrut.mom mom  
-#&gt;  5       129 /tmp/RtmpF13E8d/temp_libpat… /tmp/RtmpF13E8d/temp_… ballanti… mom  
-#&gt;  6       130 /tmp/RtmpF13E8d/temp_libpat… /tmp/RtmpF13E8d/temp_… brahma.m… mom  
-#&gt;  7       130 /tmp/RtmpF13E8d/temp_libpat… /tmp/RtmpF13E8d/temp_… bushmill… mom  
-#&gt;  8       128 /tmp/RtmpF13E8d/temp_libpat… /tmp/RtmpF13E8d/temp_… caney.mom mom  
-#&gt;  9       125 /tmp/RtmpF13E8d/temp_libpat… /tmp/RtmpF13E8d/temp_… chimay.m… mom  
-#&gt; 10       128 /tmp/RtmpF13E8d/temp_libpat… /tmp/RtmpF13E8d/temp_… chivas.m… mom  
+#&gt;  1       348 /tmp/RtmpKid7P5/temp_libpat… /tmp/RtmpKid7P5/temp_… 3parts.m… mom  
+#&gt;  2     1.25K /tmp/RtmpKid7P5/temp_libpat… /tmp/RtmpKid7P5/temp_… Momit_bo… mom  
+#&gt;  3       348 /tmp/RtmpKid7P5/temp_libpat… /tmp/RtmpKid7P5/temp_… Momit_th… mom  
+#&gt;  4       127 /tmp/RtmpKid7P5/temp_libpat… /tmp/RtmpKid7P5/temp_… amrut.mom mom  
+#&gt;  5       129 /tmp/RtmpKid7P5/temp_libpat… /tmp/RtmpKid7P5/temp_… ballanti… mom  
+#&gt;  6       130 /tmp/RtmpKid7P5/temp_libpat… /tmp/RtmpKid7P5/temp_… brahma.m… mom  
+#&gt;  7       130 /tmp/RtmpKid7P5/temp_libpat… /tmp/RtmpKid7P5/temp_… bushmill… mom  
+#&gt;  8       128 /tmp/RtmpKid7P5/temp_libpat… /tmp/RtmpKid7P5/temp_… caney.mom mom  
+#&gt;  9       125 /tmp/RtmpKid7P5/temp_libpat… /tmp/RtmpKid7P5/temp_… chimay.m… mom  
+#&gt; 10       128 /tmp/RtmpKid7P5/temp_libpat… /tmp/RtmpKid7P5/temp_… chivas.m… mom  
 #&gt; # … with 11 more rows
 #&gt; ❯mom_tbl</div><div class='input'>
 </div></pre>
