@@ -2,36 +2,29 @@
 % Please edit documentation in R/example_helpers.R
 \name{example_data}
 \alias{example_data}
-\alias{example_dir}
+\alias{Momit_data}
 \title{Helpers for example raw data}
 \usage{
-example_data(x)
-
-example_dir()
+Momit_data(x = "")
 }
 \arguments{
 \item{x}{\code{character} file(s) names from the example folder, only for \code{example_data}}
 }
 \value{
-\code{character} the full path pointing to the file (for \code{example_data})
-or to the containing folder (for \code{example_dir})
-where examples data have been copied on your computer.
+\code{character} the full path pointing to \verb{Momit/extdata/}
 }
 \description{
-A wrapper on top of \link{system.file} to ease Momit examples. See examples below.
+A wrapper on top of \link{system.file} to ease Momit examples.
 }
 \details{
-Most of Momit \strong{examples} use these functions. This is not intended for real world, that is for \strong{your} files.
-Here, it helps find correct locations where raw example files bundled with the package are located.
-Providing that your working directory contains the file(s) you are
-interested in, everything should work fine, just like in the vignette.
+You do not need it for \emph{your} data.
+Most of Momit examples use these functions.
+In Momit examples (unit testing, R CMD CHECK etc.),
+it helps find correct locations where raw example files bundled with the package are located.
 }
 \examples{
- # Example folder path
- example_dir()
-
  # List all example data
- example_dir() \%>\% sniff()
+ Momit_data() \%>\% sniff()
 
 }
 \references{
