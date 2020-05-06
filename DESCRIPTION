@@ -40,6 +40,8 @@ Suggests:
     testthat,
     covr,
     roxygen2
+Remotes:
+    MomX/Momocs2
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
