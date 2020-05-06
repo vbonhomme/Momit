@@ -31,6 +31,50 @@ Then have a look to the vignette:
 browseVignettes("Momit")
 ```
 
+## Things to implement before initial release
+
+### high level verbs
+
+* sniff   turn a tailored tibble of files 
+* digest  an extrovert summary
+* ship    make a tidy folder of images
+* review  inspect carefully
+
+### Momit import export
+
+#### import (accept list of files, return mom)
+
+* import_mom (=import)
+* import_mask (handles multi)
+* import_mask_Conte
+* import_tps
+* import_txt
+* import_*1
+
+#### export (turn mom, into list of files)
+
+* export_mom (=export)
+* export_tps
+* export_*1
+
+### image post-processing
+
+* image_mask   # turn any jpg into mask
+* image_canny  # turn any mask(s) into list of coordinates
+
+### string helpers
+
+ * str_sort_natural <- str_sort with numeric=T - also show how to fix
+ * 
+
+### datasets
+
+* bot   raw 40 jpg
+* acer  two scans jpg
+* some tps
+* some txt
+
+<!--
 ## Rationale
  * Morphometrics data essentially consist of coordinates and, if any, associated covariates.
 
@@ -143,3 +187,5 @@ Examples adapted from [Momocs](https://github.com/vbonhomme/Momocs/): `bot[1]`, 
 
 ## Thanks
 See `?Momit`.
+
+-->

@@ -3,28 +3,62 @@
 \name{image_helpers}
 \alias{image_helpers}
 \alias{is_image}
-\alias{image_to_raster}
+\alias{image_rasterize2D}
+\alias{image_mask}
+\alias{image_explode}
 \alias{image_center}
 \title{Add helpers for working with image-magick}
 \usage{
 is_image(x)
 
-image_to_raster(x)
+image_rasterize2D(x)
+
+image_mask(x, threshold = "50\%", canny_geometry = "0x1+10\%+30\%")
+
+image_explode(x)
 
 image_center(x)
 }
 \arguments{
 \item{x}{\code{image-magick} object}
+
+\item{threshold}{to feed \link[magick:image_threshold]{magick::image_threshold}}
+
+\item{canny_geometry}{to feed \link[magick:image_canny]{magick::image_canny}}
 }
 \description{
 Add helpers for working with image-magick
 }
+\details{
+For image_mask, some "missed" objects can
+be avoided with large image files or by adjusting threshold
+and canny_edge radius.
+}
 \section{Functions}{
 \itemize{
-\item \code{is_image}: tests if is image-magick
+\item \code{is_image}: tests if is of image-magick class
 
-\item \code{image_to_raster}: converts image-magick to 2D raster matrix
+\item \code{image_rasterize2D}: converts image-magick to 2D raster matrix
+
+\item \code{image_mask}: turn an inmage into a mask
+
+\item \code{image_explode}: turn a multi-object image into multiple image with single object
 
 \item \code{image_center}: returns image center coordinates
 }}
 
+\examples{
+Momit_data("malus/malus1.jpg") \%>\%
+# you dont need magick:: if your library(magick before)
+  magick::image_read() -> m0
+  m0
+  m1 <- m0 \%>\% image_mask()
+  m1
+  mx <- m1 \%>\% image_explode
+
+  \dontrun{
+  mx
+  }
+
+  mx[1] \%>\% image_rasterize2D \%>\% algo_Conte()
+}

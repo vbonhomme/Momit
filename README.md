@@ -3,8 +3,7 @@
 
 ## Momit <a href='http://momx.github.io/Momit'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
-*Part of
-[MomX](https://momx.github.io/MomX/)*
+*Part of [MomX](https://momx.github.io/MomX/)*
 
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis build
@@ -22,121 +21,161 @@ Then have a look to the vignette:
 
     browseVignettes("Momit")
 
+## Things to implement before initial release
+
+### high level verbs
+
+  - sniff turn a tailored tibble of files
+  - digest an extrovert summary
+  - ship make a tidy folder of images
+  - review inspect carefully
+
+### Momit import export
+
+#### import (accept list of files, return mom)
+
+  - import\_mom (=import)
+  - import\_mask (handles multi)
+  - import\_mask\_Conte
+  - import\_tps
+  - import\_txt
+  - import\_\*1
+
+#### export (turn mom, into list of files)
+
+  - export\_mom (=export)
+  - export\_tps
+  - export\_\*1
+
+### image post-processing
+
+  - image\_mask \# turn any jpg into mask
+  - image\_canny \# turn any mask(s) into list of coordinates
+
+### string helpers
+
+  - str\_sort\_natural \<- str\_sort with numeric=T - also show how to
+    fix
+  - 
+### datasets
+
+  - bot raw 40 jpg
+  - acer two scans jpg
+  - some tps
+  - some txt
+
+<!--
 ## Rationale
+ * Morphometrics data essentially consist of coordinates and, if any, associated covariates.
 
-  - Morphometrics data essentially consist of coordinates and, if any,
-    associated covariates.
+* Existing morphometrics file format, eg `.tps`, `.nts`, `.xml`, etc. are not fully generic and/or explicitely defined/consistent, etc.
 
-  - Existing morphometrics file format, eg `.tps`, `.nts`, `.xml`, etc.
-    are not fully generic and/or explicitely defined/consistent, etc.
+* Here is proposed the `.mom` (short for *mo*dern *m*orphometrics and to echo [`MomX`](https://github.com/MomX)) file format along with R utilities to import, parse, manipulate, export them.
 
-  - Here is proposed the `.mom` (short for *mo*dern *m*orphometrics and
-    to echo [`MomX`](https://github.com/MomX)) file format along with R
-    utilities to import, parse, manipulate, export them.
-
-  - `.mom` files are easy to read, for humans, and to parse, for
-    computers.
+* `.mom` files are easy to read, for humans, and to parse, for computers.
 
 ## `.mom` file format definition
+`.mom` files are plain text files whose single line syntax fall within one of the five following rules:
 
-`.mom` files are plain text files whose single line syntax fall within
-one of the five following
-rules:
+Rule | Pattern                 | What                          | Examples
+-----|-------------------------|-------------------------------|--------------
+ 1   | space-separated numbers | coordinates in each dimension | `-0.5 0.5`; `0 0 0`
+ 2   | word and word/number    | covariate name and its value  | `scale 56`
+ 3   | single word             | partition of coordinates      | `LM` ; `out`
+ 4   | tilde and word          | shape name when collated      |  `~iris150`  ; `~H. sapiens`
+ 5   | anything else           | ignored                       | `#a comment`
+ 
+Handling of units and of missing data is planned.
 
-| Rule | Pattern                 | What                          | Examples                   |
-| ---- | ----------------------- | ----------------------------- | -------------------------- |
-| 1    | space-separated numbers | coordinates in each dimension | `-0.5 0.5`; `0 0 0`        |
-| 2    | word and word/number    | covariate name and its value  | `scale 56`                 |
-| 3    | single word             | partition of coordinates      | `LM` ; `out`               |
-| 4    | tilde and word          | shape name when collated      | `~iris150` ; `~H. sapiens` |
-| 5    | anything else           | ignored                       | `#a comment`               |
-
-Handling of units and of missing data is
-planned.
 
 ## Planned Supported formats
 
-| extension | software              | `from_*` function   | `to_*` function |
-| --------- | --------------------- | ------------------- | --------------- |
-| `.mom`    | MomX suite            | `from_mom`\*        | most            |
-| `.tps`    | tps series and others | `from_tps`\*        | of              |
-| `.nts`    | tps series and others | `from_nts`          | them            |
-| `.lmk`    | meshtools             | `from_lmk`          | planned         |
-| `.stv`    | meshtools             | `from_stv`          | but             |
-| `.txt`    | StereoMorph           | `from_StereoMorph`  | none            |
-| `.asc`    | Optimas               | `from_Optimas`      | yet             |
-| `.txt`    | PAST                  | `from_PAST`         |                 |
-| `.txt`    | ImageJ xy (among ot.) | `from_ImageJ`       | see             |
-| `.xml`    | morphoJ               | `from_morphoJ`      | vignette        |
-| `.txt`    | morphologika          | `from_morphologika` |                 |
+extension | software              | `from_*` function  | `to_*` function 
+--------- | --------------------- | ------------------ | -----------------
+`.mom`    | MomX suite            | `from_mom`*        | most
+`.tps`    | tps series and others | `from_tps`*        | of
+`.nts`    | tps series and others | `from_nts`         | them
+`.lmk`    | meshtools             | `from_lmk`         | planned
+`.stv`    | meshtools             | `from_stv`         | but
+`.txt`    | StereoMorph           | `from_StereoMorph` | none
+`.asc`    | Optimas               | `from_Optimas`     | yet
+`.txt`    | PAST                  | `from_PAST`        | 
+`.txt`    | ImageJ xy (among ot.) | `from_ImageJ`      | see
+`.xml`    | morphoJ               | `from_morphoJ`     | vignette
+`.txt`    | morphologika          | `from_morphologika`|
 
 `*` = available
 
-**Any suggestion of additional formats/softs, along with example
-datasets are more than welcome.**
-
+__Any suggestion of additional formats/softs, along with example datasets are more than welcome.__
+ 
 ## Examples
 
 A single shape with one covariate:
 
-    name brahma
-    type beer
-    37  561
-    40  540
-    40  529
-    [...]
-
+```
+name brahma
+type beer
+37  561
+40  540
+40  529
+[...]
+```
 Two shapes with more covariates/cofactors:
 
-    ~0001-cAglan_O10VD
-    var Aglan
-    domes cult
-    view VD
-    ind O10
-    -0.5000 0.00000
-    -0.4967 0.01035
-    -0.4935 0.02414
-    [...]
-    ~0001-cAglan_O10VL 
-    var Aglan
-    domes cult
-    view VL
-    ind O10
-    -0.5000 0.00000
-    -0.4995 0.01018
-    -0.4957 0.02022
-    [...]
+```
+~0001-cAglan_O10VD
+var Aglan
+domes cult
+view VD
+ind O10
+-0.5000 0.00000
+-0.4967 0.01035
+-0.4935 0.02414
+[...]
+~0001-cAglan_O10VL 
+var Aglan
+domes cult
+view VL
+ind O10
+-0.5000 0.00000
+-0.4995 0.01018
+-0.4957 0.02022
+[...]
+```
 
 A single shape with landmarks and 2 partitions of semi-landmarks:
 
-    id 571
-    taxa T. mono
-    ldk
-    697  977
-    766  991
-    704 1046
-    [...]
-    sl1
-    541 962
-    542 965
-    543 967
-    [...]
-    sl2
-    541 949
-    542 952
-    542 954
-    [...]
+```
+id 571
+taxa T. mono
+ldk
+697  977
+766  991
+704 1046
+[...]
+sl1
+541 962
+542 965
+543 967
+[...]
+sl2
+541 949
+542 952
+542 954
+[...]
+```
 
 A shape with nothing else but coordinates:
 
-    200   91
-    187   95
-    173  105
-    [...]
-
-Examples adapted from [Momocs](https://github.com/vbonhomme/Momocs/):
-`bot[1]`, `olea[1]`, `charring[1]`, `shapes[1]`.
+```
+200   91
+187   95
+173  105
+[...]
+```
+Examples adapted from [Momocs](https://github.com/vbonhomme/Momocs/): `bot[1]`, `olea[1]`, `charring[1]`, `shapes[1]`.
 
 ## Thanks
-
 See `?Momit`.
+
+-->

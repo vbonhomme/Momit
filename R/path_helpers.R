@@ -54,6 +54,7 @@ str_trim_dirpath <- function(x, pattern="^.*/"){
 
 # expect_false(paths %>% str_underscorise() %>% str_detect("-") %>% any())
 
+
 # path_extract --------------------------------------------
 #' Extract information from paths
 #'
@@ -98,6 +99,30 @@ extract_ext <- function(x){
 #' @export
 extract_file <- function(x){
   fs::path_file(x)
+}
+
+# list_files ----------------------------------------------
+#' List files in path
+#'
+#' A wrapper on top of [list.files] with `recursive` and `full.names` set to `TRUE`
+#'
+#' @param x path
+#' @param ... other arguments passed to [list.files]
+#' @return list of files
+#'
+#' @export
+#' @name path_helpers
+#' @examples
+#' Momit_data("acer") %>% list.files()
+#' Momit_data("acer") %>% list_files()
+list_files <- function(x, ...){
+    list.files(x, full.names=TRUE, recursive=TRUE, ...)
+  }
+
+#' @describeIn path_helpers test if a path has an image extension
+#' @export
+is_imagepath <- function(x){
+  extract_ext(x) %in% image_ext
 }
 
 # Regex helpers

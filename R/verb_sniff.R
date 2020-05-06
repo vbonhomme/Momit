@@ -1,10 +1,3 @@
-# valid images
-is_imagefile <- function(x){
-  extract_ext(x) %in% c("jpg", "png", "tiff")
-}
-
-
-
 
 # sniff ---------------------------------------------------
 #' Find files
@@ -50,14 +43,6 @@ print.sniff_tbl <- function(x){
   cli::cli_alert_success("{nrow(x)} files {size_sum}")
 }
 
-# pick a single row from a tibble
-# https://english.stackexchange.com/questions/20948/single-word-for-thin-slice
-
-slive <- function(x, i){
-  if (missing(i))
-    i <- sample(nrow(x), 1)
-  dplyr::slice(x, i)
-}
 
 #
 # coo_close <- function(x){

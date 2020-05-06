@@ -1,6 +1,19 @@
 # Conte ===================================================
 # img should already be a 2D raster matrix
 # x are coordinate positions where to start the algo (center point otherwise)
+#' Extract outline coordinates from a mask raster
+#'
+#' Image must already be a 2D binary raster. See examples in [image_mask]
+#'
+#' @param img matrix
+#' @param x where to start a length 2 integer vector. Default to [image_center]
+#'
+#' @references Borrowed from Julien Claude's (2008) _Morphometrics using R_.
+#' Retained argument naming.
+#'
+#' @note Used to be the core of retired Momocs' import_jpg
+#'
+#' @export
 algo_Conte <- function(img, x=image_center(img)){
 
   # algo starts here

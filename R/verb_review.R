@@ -23,9 +23,9 @@ review.sniff_tbl <- function(x){
   # checks for images in path
   repeat {
     readline(prompt = "Press <Enter> to continue, <Esc> to quit...")
-    x_i <- x %>% slive()
+    x_i <- x %>% Momocs2::slive()
     path_i <- dplyr::pull(x_i, .data$path)
-    if (is_imagefile(path_i)){
+    if (is_imagepath(path_i)){
       paste0("Viewing: ", path_i) %>% cli::cat_line()
       # regular viewer
       path_i %>% magick::image_read() %>% print()
