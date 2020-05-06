@@ -8,6 +8,8 @@
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis build
 status](https://travis-ci.org/MomX/Momit.svg?branch=master)](https://travis-ci.org/MomX/Momit)
+[![R build
+status](https://github.com/MomX/Momit/workflows/R-CMD-check/badge.svg)](https://github.com/MomX/Momit/actions)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/Momit)](https://cran.r-project.org/package=Momit)
 
