@@ -102,227 +102,194 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div id="momit" class="section level2">
+<div id="momit-" class="section level2">
 <h2 class="hasAnchor">
-<a href="#momit" class="anchor"></a>Momit <a href="http://momx.github.io/Momit"><img src="reference/figures/logo.png" align="right" height="139"></a>
+<a href="#momit-" class="anchor"></a>Momit <a href="http://momx.github.io/Momit"><img src="reference/figures/logo.png" align="right" height="139"></a>
 </h2>
 <p><em>Part of <a href="https://momx.github.io/MomX/">MomX</a></em></p>
-<p><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="lifecycle"></a> <a href="https://travis-ci.org/MomX/Momit"><img src="https://travis-ci.org/MomX/Momit.svg?branch=master" alt="Travis build status"></a> <a href="https://cran.r-project.org/package=Momit"><img src="https://www.r-pkg.org/badges/version/Momit" alt="CRAN status"></a></p>
+<p><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="lifecycle"></a> <a href="https://travis-ci.org/MomX/Momit"><img src="https://travis-ci.org/MomX/Momit.svg?branch=master" alt="Travis build status"></a> <a href="https://github.com/MomX/Momit/actions"><img src="https://github.com/MomX/Momit/workflows/R-CMD-check/badge.svg" alt="R build status"></a> <a href="https://cran.r-project.org/package=Momit"><img src="https://www.r-pkg.org/badges/version/Momit" alt="CRAN status"></a></p>
 </div>
 <div id="get-it" class="section level2">
 <h2 class="hasAnchor">
 <a href="#get-it" class="anchor"></a>Get it</h2>
 <p><strong>This package is still in active development.</strong></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"MomX/Momit"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"MomX/Momit"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p>Then have a look to the vignette:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">browseVignettes</span>(<span class="st">"Momit"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">browseVignettes</span>(<span class="st">"Momit"</span>)</span></code></pre></div>
 </div>
-<div id="rationale" class="section level2">
+<div id="things-to-implement-before-initial-release" class="section level2">
 <h2 class="hasAnchor">
-<a href="#rationale" class="anchor"></a>Rationale</h2>
+<a href="#things-to-implement-before-initial-release" class="anchor"></a>Things to implement before initial release</h2>
+<div id="high-level-verbs" class="section level3">
+<h3 class="hasAnchor">
+<a href="#high-level-verbs" class="anchor"></a>high level verbs</h3>
 <ul>
-<li><p>Morphometrics data essentially consist of coordinates and, if any, associated covariates.</p></li>
-<li><p>Existing morphometrics file format, eg <code>.tps</code>, <code>.nts</code>, <code>.xml</code>, etc. are not fully generic and/or explicitely defined/consistent, etc.</p></li>
-<li><p>Here is proposed the <code>.mom</code> (short for <em>mo</em>dern <em>m</em>orphometrics and to echo <a href="https://github.com/MomX"><code>MomX</code></a>) file format along with R utilities to import, parse, manipulate, export them.</p></li>
-<li><p><code>.mom</code> files are easy to read, for humans, and to parse, for computers.</p></li>
+<li>sniff turn a tailored tibble of files</li>
+<li>digest an extrovert summary</li>
+<li>ship make a tidy folder of images</li>
+<li>review inspect carefully</li>
 </ul>
 </div>
-<div id="mom-file-format-definition" class="section level2">
-<h2 class="hasAnchor">
-<a href="#mom-file-format-definition" class="anchor"></a><code>.mom</code> file format definition</h2>
-<p><code>.mom</code> files are plain text files whose single line syntax fall within one of the five following rules:</p>
-<table class="table">
-<thead><tr class="header">
-<th>Rule</th>
-<th>Pattern</th>
-<th>What</th>
-<th>Examples</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td>space-separated numbers</td>
-<td>coordinates in each dimension</td>
-<td>
-<code>-0.5 0.5</code>; <code>0 0 0</code>
-</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>word and word/number</td>
-<td>covariate name and its value</td>
-<td><code>scale 56</code></td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td>single word</td>
-<td>partition of coordinates</td>
-<td>
-<code>LM</code> ; <code>out</code>
-</td>
-</tr>
-<tr class="even">
-<td>4</td>
-<td>tilde and word</td>
-<td>shape name when collated</td>
-<td>
-<code>~iris150</code> ; <code>~H. sapiens</code>
-</td>
-</tr>
-<tr class="odd">
-<td>5</td>
-<td>anything else</td>
-<td>ignored</td>
-<td><code>#a comment</code></td>
-</tr>
-</tbody>
-</table>
-<p>Handling of units and of missing data is planned.</p>
+<div id="momit-import-export" class="section level3">
+<h3 class="hasAnchor">
+<a href="#momit-import-export" class="anchor"></a>Momit import export</h3>
+<div id="import-accept-list-of-files-return-mom" class="section level4">
+<h4 class="hasAnchor">
+<a href="#import-accept-list-of-files-return-mom" class="anchor"></a>import (accept list of files, return mom)</h4>
+<ul>
+<li>import_mom (=import)</li>
+<li>import_mask (handles multi)</li>
+<li>import_mask_Conte</li>
+<li>import_tps</li>
+<li>import_txt</li>
+<li>import_*1</li>
+</ul>
 </div>
-<div id="planned-supported-formats" class="section level2">
-<h2 class="hasAnchor">
-<a href="#planned-supported-formats" class="anchor"></a>Planned Supported formats</h2>
-<table class="table">
-<thead><tr class="header">
-<th>extension</th>
-<th>software</th>
-<th>
-<code>from_*</code> function</th>
-<th>
-<code>to_*</code> function</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td><code>.mom</code></td>
-<td>MomX suite</td>
-<td>
-<code>from_mom</code>*</td>
-<td>most</td>
-</tr>
-<tr class="even">
-<td><code>.tps</code></td>
-<td>tps series and others</td>
-<td>
-<code>from_tps</code>*</td>
-<td>of</td>
-</tr>
-<tr class="odd">
-<td><code>.nts</code></td>
-<td>tps series and others</td>
-<td><code>from_nts</code></td>
-<td>them</td>
-</tr>
-<tr class="even">
-<td><code>.lmk</code></td>
-<td>meshtools</td>
-<td><code>from_lmk</code></td>
-<td>planned</td>
-</tr>
-<tr class="odd">
-<td><code>.stv</code></td>
-<td>meshtools</td>
-<td><code>from_stv</code></td>
-<td>but</td>
-</tr>
-<tr class="even">
-<td><code>.txt</code></td>
-<td>StereoMorph</td>
-<td><code>from_StereoMorph</code></td>
-<td>none</td>
-</tr>
-<tr class="odd">
-<td><code>.asc</code></td>
-<td>Optimas</td>
-<td><code>from_Optimas</code></td>
-<td>yet</td>
-</tr>
-<tr class="even">
-<td><code>.txt</code></td>
-<td>PAST</td>
-<td><code>from_PAST</code></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><code>.txt</code></td>
-<td>ImageJ xy (among ot.)</td>
-<td><code>from_ImageJ</code></td>
-<td>see</td>
-</tr>
-<tr class="even">
-<td><code>.xml</code></td>
-<td>morphoJ</td>
-<td><code>from_morphoJ</code></td>
-<td>vignette</td>
-</tr>
-<tr class="odd">
-<td><code>.txt</code></td>
-<td>morphologika</td>
-<td><code>from_morphologika</code></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p><code><a href="https://rdrr.io/r/base/Arithmetic.html">*</a></code> = available</p>
-<p><strong>Any suggestion of additional formats/softs, along with example datasets are more than welcome.</strong></p>
+<div id="export-turn-mom-into-list-of-files" class="section level4">
+<h4 class="hasAnchor">
+<a href="#export-turn-mom-into-list-of-files" class="anchor"></a>export (turn mom, into list of files)</h4>
+<ul>
+<li>export_mom (=export)</li>
+<li>export_tps</li>
+<li>export_*1</li>
+</ul>
 </div>
-<div id="examples" class="section level2">
-<h2 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h2>
-<p>A single shape with one covariate:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">name brahma</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">type beer</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="dv">37</span>  <span class="dv">561</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="dv">40</span>  <span class="dv">540</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="dv">40</span>  <span class="dv">529</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">[...]</a></code></pre></div>
-<p>Two shapes with more covariates/cofactors:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="op">~</span><span class="dv">0001</span><span class="op">-</span>cAglan_O10VD</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">var Aglan</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">domes cult</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">view VD</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">ind O10</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="fl">-0.5000</span> <span class="fl">0.00000</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="fl">-0.4967</span> <span class="fl">0.01035</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="fl">-0.4935</span> <span class="fl">0.02414</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">[...]</a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="op">~</span><span class="dv">0001</span><span class="op">-</span>cAglan_O10VL </a>
-<a class="sourceLine" id="cb4-11" data-line-number="11">var Aglan</a>
-<a class="sourceLine" id="cb4-12" data-line-number="12">domes cult</a>
-<a class="sourceLine" id="cb4-13" data-line-number="13">view VL</a>
-<a class="sourceLine" id="cb4-14" data-line-number="14">ind O10</a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="fl">-0.5000</span> <span class="fl">0.00000</span></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="fl">-0.4995</span> <span class="fl">0.01018</span></a>
-<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="fl">-0.4957</span> <span class="fl">0.02022</span></a>
-<a class="sourceLine" id="cb4-18" data-line-number="18">[...]</a></code></pre></div>
-<p>A single shape with landmarks and 2 partitions of semi-landmarks:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">id <span class="dv">571</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">taxa T. mono</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">ldk</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="dv">697</span>  <span class="dv">977</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="dv">766</span>  <span class="dv">991</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="dv">704</span> <span class="dv">1046</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">[...]</a>
-<a class="sourceLine" id="cb5-8" data-line-number="8">sl1</a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="dv">541</span> <span class="dv">962</span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="dv">542</span> <span class="dv">965</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="dv">543</span> <span class="dv">967</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12">[...]</a>
-<a class="sourceLine" id="cb5-13" data-line-number="13">sl2</a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="dv">541</span> <span class="dv">949</span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="dv">542</span> <span class="dv">952</span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="dv">542</span> <span class="dv">954</span></a>
-<a class="sourceLine" id="cb5-17" data-line-number="17">[...]</a></code></pre></div>
-<p>A shape with nothing else but coordinates:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="dv">200</span>   <span class="dv">91</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="dv">187</span>   <span class="dv">95</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="dv">173</span>  <span class="dv">105</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">[...]</a></code></pre></div>
-<p>Examples adapted from <a href="https://github.com/vbonhomme/Momocs/">Momocs</a>: <code>bot[1]</code>, <code>olea[1]</code>, <code>charring[1]</code>, <code>shapes[1]</code>.</p>
 </div>
-<div id="thanks" class="section level2">
-<h2 class="hasAnchor">
-<a href="#thanks" class="anchor"></a>Thanks</h2>
-<p>See <code>?Momit</code>.</p>
+<div id="image-post-processing" class="section level3">
+<h3 class="hasAnchor">
+<a href="#image-post-processing" class="anchor"></a>image post-processing</h3>
+<ul>
+<li>image_mask # turn any jpg into mask</li>
+<li>image_canny # turn any mask(s) into list of coordinates</li>
+</ul>
+</div>
+<div id="string-helpers" class="section level3">
+<h3 class="hasAnchor">
+<a href="#string-helpers" class="anchor"></a>string helpers</h3>
+<ul>
+<li>str_sort_natural &lt;- str_sort with numeric=T - also show how to fix</li>
+<li><h3 id="datasets">datasets</h3></li>
+<li>bot raw 40 jpg</li>
+<li>acer two scans jpg</li>
+<li>some tps</li>
+<li>some txt</li>
+</ul>
+<!--
+## Rationale
+ * Morphometrics data essentially consist of coordinates and, if any, associated covariates.
+
+* Existing morphometrics file format, eg `.tps`, `.nts`, `.xml`, etc. are not fully generic and/or explicitely defined/consistent, etc.
+
+* Here is proposed the `.mom` (short for *mo*dern *m*orphometrics and to echo [`MomX`](https://github.com/MomX)) file format along with R utilities to import, parse, manipulate, export them.
+
+* `.mom` files are easy to read, for humans, and to parse, for computers.
+
+## `.mom` file format definition
+`.mom` files are plain text files whose single line syntax fall within one of the five following rules:
+
+Rule | Pattern                 | What                          | Examples
+-----|-------------------------|-------------------------------|--------------
+ 1   | space-separated numbers | coordinates in each dimension | `-0.5 0.5`; `0 0 0`
+ 2   | word and word/number    | covariate name and its value  | `scale 56`
+ 3   | single word             | partition of coordinates      | `LM` ; `out`
+ 4   | tilde and word          | shape name when collated      |  `~iris150`  ; `~H. sapiens`
+ 5   | anything else           | ignored                       | `#a comment`
+ 
+Handling of units and of missing data is planned.
+
+
+## Planned Supported formats
+
+extension | software              | `from_*` function  | `to_*` function 
+--------- | --------------------- | ------------------ | -----------------
+`.mom`    | MomX suite            | `from_mom`*        | most
+`.tps`    | tps series and others | `from_tps`*        | of
+`.nts`    | tps series and others | `from_nts`         | them
+`.lmk`    | meshtools             | `from_lmk`         | planned
+`.stv`    | meshtools             | `from_stv`         | but
+`.txt`    | StereoMorph           | `from_StereoMorph` | none
+`.asc`    | Optimas               | `from_Optimas`     | yet
+`.txt`    | PAST                  | `from_PAST`        | 
+`.txt`    | ImageJ xy (among ot.) | `from_ImageJ`      | see
+`.xml`    | morphoJ               | `from_morphoJ`     | vignette
+`.txt`    | morphologika          | `from_morphologika`|
+
+`*` = available
+
+__Any suggestion of additional formats/softs, along with example datasets are more than welcome.__
+ 
+## Examples
+
+A single shape with one covariate:
+
+```
+name brahma
+type beer
+37  561
+40  540
+40  529
+[...]
+```
+Two shapes with more covariates/cofactors:
+
+```
+~0001-cAglan_O10VD
+var Aglan
+domes cult
+view VD
+ind O10
+-0.5000 0.00000
+-0.4967 0.01035
+-0.4935 0.02414
+[...]
+~0001-cAglan_O10VL 
+var Aglan
+domes cult
+view VL
+ind O10
+-0.5000 0.00000
+-0.4995 0.01018
+-0.4957 0.02022
+[...]
+```
+
+A single shape with landmarks and 2 partitions of semi-landmarks:
+
+```
+id 571
+taxa T. mono
+ldk
+697  977
+766  991
+704 1046
+[...]
+sl1
+541 962
+542 965
+543 967
+[...]
+sl2
+541 949
+542 952
+542 954
+[...]
+```
+
+A shape with nothing else but coordinates:
+
+```
+200   91
+187   95
+173  105
+[...]
+```
+Examples adapted from [Momocs](https://github.com/vbonhomme/Momocs/): `bot[1]`, `olea[1]`, `charring[1]`, `shapes[1]`.
+
+## Thanks
+See `?Momit`.
+
+-->
+</div>
 </div>
 
   </div>
@@ -368,7 +335,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>
