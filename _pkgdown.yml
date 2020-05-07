@@ -29,24 +29,38 @@ reference:
       - digest
       - review
 
-  - title: "path, str and image helpers"
-    desc: >
-      Help deal with messy paths, id, etc.
-    contents:
-      - extract_path
-      - str_trim_ext
-      - str_trim_dirpath
-      - str_underscorise
-      - is_image
-      - image_to_raster
-      - image_center
 
   - title: "Importers"
     desc: >
       From the jungle of format to R
     contents:
+      - import_yaml
+      - import_txt
       - from_mask
-      - ends_with("yaml")
+
+  - title: "Lower level friends"
+  - subtitle: Image
+    desc: additional image_* on top of magick
+  - contents:
+    - image_rasterize2D
+    - image_center
+    - image_explode
+    - is_image
+  - subtitle: Strings
+    desc: additional str_* helpers on top of stringr
+    contents:
+      - str_trim_ext
+      - str_trim_dirpath
+      - str_underscorise
+  - subtitle: Path
+    desc: string helpers targetted on paths
+    contents:
+      - extract_path
+      - path_helpers
+  - subtitle: Algorithms
+    desc: They do their best
+    contents:
+      - algo_Conte
 
   - title: "Data"
     desc: >
