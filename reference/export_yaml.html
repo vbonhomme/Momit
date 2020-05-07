@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Helpers for example raw data — example_data • Momit</title>
+<title>yaml wrappers — export_yaml • Momit</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Helpers for example raw data — example_data" />
-<meta property="og:description" content="A wrapper on top of system.file to ease Momit examples." />
+<meta property="og:title" content="yaml wrappers — export_yaml" />
+<meta property="og:description" content="Around pkg::yaml base functions" />
 <meta property="og:image" content="http://momx.github.io/Momit/logo.png" />
 
 
@@ -140,57 +140,71 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Helpers for example raw data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MomX/Momit/blob/master/R/Momit_datasets.R'><code>R/Momit_datasets.R</code></a></small>
-    <div class="hidden name"><code>example_data.Rd</code></div>
+    <h1>yaml wrappers</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MomX/Momit/blob/master/R/yaml.R'><code>R/yaml.R</code></a></small>
+    <div class="hidden name"><code>export_yaml.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A wrapper on top of <a href='https://rdrr.io/r/base/system.file.html'>system.file</a> to ease Momit examples.</p>
+    <p>Around <code>pkg::yaml</code> base functions</p>
     </div>
 
-    <pre class="usage"><span class='fu'>Momit_data</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
+    <pre class="usage"><span class='fu'>export_yaml</span>(<span class='no'>x</span>)
+
+<span class='fu'>import_yaml</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code>character</code> file(s) names from the example folder, only for <code>example_data</code></p></td>
+      <td><p>any object</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p><code>character</code> the full path pointing to <code>Momit/extdata/</code></p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>You do not need it for <em>your</em> data.
-Most of Momit examples use these functions.
-In Momit examples (unit testing, R CMD CHECK etc.),
-it helps find correct locations where raw example files bundled with the package are located.</p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>Adapted from <a href='http://r-pkgs.had.co.nz/data.html#data-extdata'>R-pkg</a> by Hadley Wickham.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'> <span class='co'># List all example data</span>
- <span class='fu'>Momit_data</span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='sniff.html'>sniff</a></span>()</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span><span> sniffing for files in </span><span style='color: #00BB00;'>/Users/runner/runners/2.169.1/work/_temp/Library/Momit/extdata/</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 24 x 5</span><span>
-#&gt;         size path                        path_dir                 file     ext  
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fs::byt&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fs::path&gt;</span><span>                  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span>       348 </span><span style='color: #00BB00;font-weight: bold;'>/Users/runner/runners/2.16</span><span>… /Users/runner/runners/2… 3parts.… mom  
-#&gt; </span><span style='color: #555555;'> 2</span><span>     1.25K </span><span style='color: #00BB00;font-weight: bold;'>/Users/runner/runners/2.16</span><span>… /Users/runner/runners/2… Momit_b… mom  
-#&gt; </span><span style='color: #555555;'> 3</span><span>       348 </span><span style='color: #00BB00;font-weight: bold;'>/Users/runner/runners/2.16</span><span>… /Users/runner/runners/2… Momit_t… mom  
-#&gt; </span><span style='color: #555555;'> 4</span><span>       127 </span><span style='color: #00BB00;font-weight: bold;'>/Users/runner/runners/2.16</span><span>… /Users/runner/runners/2… amrut.m… mom  
-#&gt; </span><span style='color: #555555;'> 5</span><span>       129 </span><span style='color: #00BB00;font-weight: bold;'>/Users/runner/runners/2.16</span><span>… /Users/runner/runners/2… ballant… mom  
-#&gt; </span><span style='color: #555555;'> 6</span><span>       130 </span><span style='color: #00BB00;font-weight: bold;'>/Users/runner/runners/2.16</span><span>… /Users/runner/runners/2… brahma.… mom  
-#&gt; </span><span style='color: #555555;'> 7</span><span>       130 </span><span style='color: #00BB00;font-weight: bold;'>/Users/runner/runners/2.16</span><span>… /Users/runner/runners/2… bushmil… mom  
-#&gt; </span><span style='color: #555555;'> 8</span><span>       128 </span><span style='color: #00BB00;font-weight: bold;'>/Users/runner/runners/2.16</span><span>… /Users/runner/runners/2… caney.m… mom  
-#&gt; </span><span style='color: #555555;'> 9</span><span>       125 </span><span style='color: #00BB00;font-weight: bold;'>/Users/runner/runners/2.16</span><span>… /Users/runner/runners/2… chimay.… mom  
-#&gt; </span><span style='color: #555555;'>10</span><span>       128 </span><span style='color: #00BB00;font-weight: bold;'>/Users/runner/runners/2.16</span><span>… /Users/runner/runners/2… chivas.… mom  
-#&gt; </span><span style='color: #555555;'># … with 14 more rows</span><span>
-#&gt; ❯</span><span style='background-color: #00BB00;'>mom_tbl</span><span></div><div class='input'>
-</div></span></pre>
+    <pre class="examples"><div class='input'>(<span class='no'>chivas</span>$<span class='no'>coo</span><span class='kw'>[[</span><span class='fl'>1</span>]] <span class='kw'>%&gt;%</span> <span class='fu'>export_yaml</span>() <span class='kw'>-&gt;</span> <span class='no'>x</span>)</div><div class='output co'>#&gt; x:
+#&gt; - 33.0
+#&gt; - 32.0
+#&gt; - 36.0
+#&gt; - 141.0
+#&gt; - 297.0
+#&gt; - 329.0
+#&gt; - 332.0
+#&gt; - 273.0
+#&gt; - 238.0
+#&gt; - 232.0
+#&gt; - 130.0
+#&gt; - 113.0
+#&gt; 'y':
+#&gt; - 437.0
+#&gt; - 273.0
+#&gt; - 125.0
+#&gt; - 44.0
+#&gt; - 52.0
+#&gt; - 201.0
+#&gt; - 349.0
+#&gt; - 508.0
+#&gt; - 668.0
+#&gt; - 816.0
+#&gt; - 770.0
+#&gt; - 614.0</div><div class='input'><span class='no'>x</span> <span class='kw'>%&gt;%</span> <span class='fu'>import_yaml</span>()</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 12 x 2</span><span>
+#&gt;        x     y
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span>    33   437
+#&gt; </span><span style='color: #555555;'> 2</span><span>    32   273
+#&gt; </span><span style='color: #555555;'> 3</span><span>    36   125
+#&gt; </span><span style='color: #555555;'> 4</span><span>   141    44
+#&gt; </span><span style='color: #555555;'> 5</span><span>   297    52
+#&gt; </span><span style='color: #555555;'> 6</span><span>   329   201
+#&gt; </span><span style='color: #555555;'> 7</span><span>   332   349
+#&gt; </span><span style='color: #555555;'> 8</span><span>   273   508
+#&gt; </span><span style='color: #555555;'> 9</span><span>   238   668
+#&gt; </span><span style='color: #555555;'>10</span><span>   232   816
+#&gt; </span><span style='color: #555555;'>11</span><span>   130   770
+#&gt; </span><span style='color: #555555;'>12</span><span>   113   614
+#&gt; ❯</span><span style='background-color: #0000BB;'>coo_single</span><span> with 12 coordinates</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

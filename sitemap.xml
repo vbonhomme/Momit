@@ -19,6 +19,9 @@
     <loc>http://momx.github.io/Momit/reference/example_data.html</loc>
   </url>
   <url>
+    <loc>http://momx.github.io/Momit/reference/export_yaml.html</loc>
+  </url>
+  <url>
     <loc>http://momx.github.io/Momit/reference/extract_path.html</loc>
   </url>
   <url>
@@ -29,6 +32,9 @@
   </url>
   <url>
     <loc>http://momx.github.io/Momit/reference/image_helpers.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momit/reference/import_txt.html</loc>
   </url>
   <url>
     <loc>http://momx.github.io/Momit/reference/messy_paths.html</loc>
@@ -47,9 +53,6 @@
   </url>
   <url>
     <loc>http://momx.github.io/Momit/reference/tidyeval.html</loc>
-  </url>
-  <url>
-    <loc>http://momx.github.io/Momit/reference/to_yaml.html</loc>
   </url>
   <url>
     <loc>http://momx.github.io/Momit/articles/i_intro.html</loc>
