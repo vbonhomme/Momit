@@ -41,7 +41,6 @@
 #' @param x paths to `.txt` files
 #' @param from_col,to_col column names where to get paths and where to store results
 #' @param time_limit if this take more than this (in second) calculation is aborted.
-#' @param ... useless here
 #' Useful for debugging.
 #'
 #' @return [Momocs2::coo_single]
