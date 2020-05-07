@@ -7,3 +7,9 @@
 }
 
 .msg_info    <- cli::cli_alert_info
+
+# standardizes message when no method
+not_defined <- function(fun=""){
+  paste0(fun, ": no method defined on this class") %>%
+    .msg_info()
+}

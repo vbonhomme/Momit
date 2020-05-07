@@ -17,3 +17,4 @@ fridge/
 _tests
 ^Momit\.Rproj$
 inst/extdata/vitis
+.github

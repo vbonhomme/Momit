@@ -1,3 +1,7 @@
+# r and s are in geometry helpers
+utils::globalVariables(c(".", "coo", "path"))
+
+
 #' Pipe operator
 #'
 #' See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.
