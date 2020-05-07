@@ -18,7 +18,6 @@
 #'
 #' @param x paths to `.txt` files
 #' @param from_col,to_col column names where to get paths and where to store results
-#' @param ... useless here
 #' Useful for debugging.
 #'
 #' @return [Momocs2::coo_single]
@@ -28,16 +27,21 @@
 #' 1+2
 #'
 #' @export
-import_multimask <- function(x, from_col, to_col, ...){
+import_multimask <- function(x, from_col, to_col){
   UseMethod("import_mask")
 }
 
 #' @export
-import_multimask.default <- function(x, ...){
+import_multimask.default <- function(x, from_col, to_col){
   not_defined("import_multimask")
 }
 
 #' @export
-import_multimask.mom_tbl <- function(x, from_col, to_col, ...){
+import_multimask.default <- function(x, from_col, to_col){
+  print("todo")
+}
+
+#' @export
+import_multimask.mom_tbl <- function(x, from_col, to_col){
   print("todo")
 }

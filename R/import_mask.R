@@ -55,7 +55,7 @@ import_mask <- function(x, from_col, to_col, time_limit){
 }
 
 #' @export
-import_mask <- function(x, from_col, to_col, time_limit){
+import_mask.default <- function(x, from_col, to_col, time_limit){
   not_defined("import_mask")
 }
 
