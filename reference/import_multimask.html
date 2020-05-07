@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Import outline coordinates from mask image file — import_mask • Momit</title>
+<title>Import outline coordinates from multiple mask image file — import_multimask • Momit</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Import outline coordinates from mask image file — import_mask" />
+<meta property="og:title" content="Import outline coordinates from multiple mask image file — import_multimask" />
 <meta property="og:description" content="Given a path to an image mask,
 returns a [Momocs2::coo_single] with xy outline coordinates." />
 <meta property="og:image" content="http://momx.github.io/Momit/logo.png" />
@@ -141,9 +141,9 @@ returns a [Momocs2::coo_single] with xy outline coordinates." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Import outline coordinates from mask image file</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MomX/Momit/blob/master/R/from_masks.R'><code>R/from_masks.R</code></a></small>
-    <div class="hidden name"><code>import_mask.Rd</code></div>
+    <h1>Import outline coordinates from multiple mask image file</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MomX/Momit/blob/master/R/from_multimask.R'><code>R/from_multimask.R</code></a></small>
+    <div class="hidden name"><code>import_multimask.Rd</code></div>
     </div>
 
     <div class="ref-description">
@@ -151,7 +151,7 @@ returns a [Momocs2::coo_single] with xy outline coordinates." />
 returns a <code>[Momocs2::coo_single]</code> with xy outline coordinates.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>import_mask</span>(<span class='no'>x</span>, <span class='no'>from_col</span>, <span class='no'>to_col</span>, <span class='no'>time_limit</span>)</pre>
+    <pre class="usage"><span class='fu'>import_multimask</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,17 +161,13 @@ returns a <code>[Momocs2::coo_single]</code> with xy outline coordinates.</p>
       <td><p>paths to <code>.txt</code> files</p></td>
     </tr>
     <tr>
-      <th>from_col, to_col</th>
-      <td><p>column names where to get paths and where to store results</p></td>
-    </tr>
-    <tr>
-      <th>time_limit</th>
-      <td><p>if this take more than this (in second) calculation is aborted.</p></td>
-    </tr>
-    <tr>
       <th>...</th>
       <td><p>useless here
 Useful for debugging.</p></td>
+    </tr>
+    <tr>
+      <th>from_col, to_col</th>
+      <td><p>column names where to get paths and where to store results</p></td>
     </tr>
     </table>
 
@@ -190,7 +186,7 @@ Other files are processed with magick.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other import: 
-<code><a href='import_multimask.html'>import_multimask</a>()</code>,
+<code><a href='import_mask.html'>import_mask</a>()</code>,
 <code><a href='import_txt.html'>import_txt</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
