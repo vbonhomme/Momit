@@ -38,39 +38,31 @@
 #'
 #' If one or more image does not work, try time_limit
 #'
-#' @param x path to an mask image
+#' @param x paths to `.txt` files
+#' @param from_col,to_col column names where to get paths and where to store results
+#' @param ... useless here
 #' @param time_limit if this take more than this (in second) calculation is aborted.
 #' Useful for debugging.
+#'
 #' @return [Momocs2::coo_single]
+#' @family import
+#'
 #' @examples
 #' 1+2
 #'
 #' @export
-from_mask <- function(x, time_limit=5){
-  UseMethod("from_mask")
+import_mask <- function(x, from_col, to_col, time_limit=5, ...){
+  UseMethod("import_mask")
 }
 
 #' @export
-from_mask.mom_tbl <- function(x, time_limit=5){
-  if (missing(x)) x <- sniff()
-  f <- purrr::possibly(~ {
-    pb$tick()
-    from_mask(.x, time_limit=time_limit)
-  },
-  otherwise = Momocs2::new_coo_single())
-
-  pb <- progress::progress_bar$new(
-    format = "extracting outline :current/:total [:bar] :eta",
-    total=nrow(x),
-    width=60, clear=F)
-  # progress::pb()$print()
-
-  res <- dplyr::pull(x, .data$path) %>% purrr::map(f)
-  res
+import_mask <- function(x, time_limit, ...){
+  not_defined("import_mask")
 }
 
+
 #' @export
-from_mask.character <- function(x, time_limit=5){
+import_mask.character <- function(x, time_limit=5, ...){
   setTimeLimit(time_limit)
 
   if (extract_ext(x)=="jpg")
@@ -86,8 +78,28 @@ from_mask.character <- function(x, time_limit=5){
     .threshold_matrix() %>%
     # finally run Conte
     algo_Conte() %>%
-  # and return a coo_single
-  Momocs2::coo_single()
+    # and return a coo_single
+    Momocs2::coo_single()
+}
+
+
+#' @export
+import_mask.mom_tbl <- function(x, from_col, to_col, time_limit=5, ...){
+  if (missing(x)) x <- sniff()
+  f <- purrr::possibly(~ {
+    pb$tick()
+    import_mask(.x, time_limit=time_limit)
+  },
+  otherwise = Momocs2::new_coo_single())
+
+  pb <- progress::progress_bar$new(
+    format = "extracting outline :current/:total [:bar] :eta",
+    total=nrow(x),
+    width=60, clear=F)
+  # progress::pb()$print()
+
+  res <- dplyr::pull(x, .data$path) %>% purrr::map(f)
+  res
 }
 
 

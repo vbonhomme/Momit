@@ -1,8 +1,9 @@
 # from_txt
 
-#' Import txt files
+#' Import coordinates from .txt files
 #'
-#' Wraps `read.table`
+#' Wraps `read.table`. Typically useful for raw text file, such as those generated
+#' by the popular "ImageJ's > Export as xy coordinates".
 #'
 #' @param x paths to `.txt` files
 #' @param from_col,to_col column names where to get paths and where to store results

@@ -2,7 +2,7 @@
 % Please edit documentation in R/from_txt.R
 \name{import_txt}
 \alias{import_txt}
-\title{Import txt files}
+\title{Import coordinates from .txt files}
 \usage{
 import_txt(x, from_col, to_col, ...)
 }
@@ -17,7 +17,8 @@ import_txt(x, from_col, to_col, ...)
 \link[Momocs2:coo_single]{Momocs2::coo_single}
 }
 \description{
-Wraps \code{read.table}
+Wraps \code{read.table}. Typically useful for raw text file, such as those generated
+by the popular "ImageJ's > Export as xy coordinates".
 }
 \examples{
 # list of files case
@@ -36,5 +37,9 @@ z \%>\% import_txt()
 z \%>\%
   dplyr::rename(plop=path) \%>\%
   import_txt(from_col=plop, to_col=plip)
+}
+\seealso{
+Other import: 
+\code{\link{import_mask}()}
 }
 \concept{import}
