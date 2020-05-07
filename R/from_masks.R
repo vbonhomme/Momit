@@ -40,8 +40,8 @@
 #'
 #' @param x paths to `.txt` files
 #' @param from_col,to_col column names where to get paths and where to store results
-#' @param ... useless here
 #' @param time_limit if this take more than this (in second) calculation is aborted.
+#' @param ... useless here
 #' Useful for debugging.
 #'
 #' @return [Momocs2::coo_single]
@@ -51,18 +51,18 @@
 #' 1+2
 #'
 #' @export
-import_mask <- function(x, from_col, to_col, time_limit=5, ...){
+import_mask <- function(x, from_col, to_col, time_limit){
   UseMethod("import_mask")
 }
 
 #' @export
-import_mask <- function(x, time_limit, ...){
+import_mask <- function(x, from_col, to_col, time_limit){
   not_defined("import_mask")
 }
 
 
 #' @export
-import_mask.character <- function(x, time_limit=5, ...){
+import_mask.character <- function(x, from_col, to_col, time_limit=5){
   setTimeLimit(time_limit)
 
   if (extract_ext(x)=="jpg")
@@ -84,7 +84,7 @@ import_mask.character <- function(x, time_limit=5, ...){
 
 
 #' @export
-import_mask.mom_tbl <- function(x, from_col, to_col, time_limit=5, ...){
+import_mask.mom_tbl <- function(x, from_col=path, to_col=coo, time_limit=5){
   if (missing(x)) x <- sniff()
   f <- purrr::possibly(~ {
     pb$tick()

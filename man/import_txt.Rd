@@ -40,6 +40,7 @@ z \%>\%
 }
 \seealso{
 Other import: 
-\code{\link{import_mask}()}
+\code{\link{import_mask}()},
+\code{\link{import_multimask}()}
 }
 \concept{import}
