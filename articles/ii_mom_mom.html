@@ -173,9 +173,9 @@
 <p>And, finally, let’s compare with the original tibble. We unsophisticate the mom for a tibble:</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">chivas</span> <span class="kw">%&gt;%</span> <span class="kw pkg">tibble</span><span class="kw ns">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span>()
 <span class="co">#&gt; # A tibble: 1 x 5</span>
-<span class="co">#&gt;   coo              type  fake   size missing</span>
-<span class="co">#&gt;   &lt;list&lt;df[,2]&gt;&gt;   &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 &lt;tibble [4 × 2]&gt; beer  c     -123. NA</span></pre></body></html></div>
+<span class="co">#&gt;   coo                    type  fake   size missing</span>
+<span class="co">#&gt;   &lt;list&lt;coo_single[,2]&gt;&gt; &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;lgl&gt;  </span>
+<span class="co">#&gt; 1 &lt;tibble [4 × 2]&gt;       beer  c     -123. NA</span></pre></body></html></div>
 <p>Not bad isn’t? If you dissecate the two prints, you will notice that three things were dropped:</p>
 <ol style="list-style-type: decimal">
 <li>the <code>mom_df</code> class (but we asked for it)</li>
