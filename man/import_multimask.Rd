@@ -4,15 +4,15 @@
 \alias{import_multimask}
 \title{Import outline coordinates from multiple mask image file}
 \usage{
-import_multimask(x, ...)
+import_multimask(x, from_col, to_col, ...)
 }
 \arguments{
 \item{x}{paths to \code{.txt} files}
 
+\item{from_col, to_col}{column names where to get paths and where to store results}
+
 \item{...}{useless here
 Useful for debugging.}
-
-\item{from_col, to_col}{column names where to get paths and where to store results}
 }
 \value{
 \link[Momocs2:coo_single]{Momocs2::coo_single}

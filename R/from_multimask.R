@@ -33,7 +33,11 @@ import_multimask <- function(x, from_col, to_col, ...){
 }
 
 #' @export
-import_multimask <- function(x, ...){
+import_multimask.default <- function(x, ...){
   not_defined("import_multimask")
 }
 
+#' @export
+import_multimask.mom_tbl <- function(x, from_col, to_col, ...){
+  print("todo")
+}
