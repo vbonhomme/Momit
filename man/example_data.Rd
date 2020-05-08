@@ -4,7 +4,7 @@
 \alias{example_data}
 \alias{Momit_data}
 \alias{datasets}
-\title{Helpers for example raw data}
+\title{Example datasets and helpers}
 \usage{
 Momit_data(x = "")
 }
@@ -15,13 +15,13 @@ Momit_data(x = "")
 \code{character} the full path pointing to \verb{Momit/extdata/}
 }
 \description{
-A wrapper on top of \link{system.file} to ease Momit examples.
+\link{Momit_data} is wraps \link{system.file} to ease Momit examples. Below is a list of datasets
+provided with the package and the list of the generous providers.
 }
 \details{
-You do not need it for \emph{your} data.
-Most of Momit examples use these functions.
-In Momit examples (unit testing, R CMD CHECK etc.),
-it helps find correct locations where raw example files bundled with the package are located.
+You do not need \link{Momit_data} for \emph{your} data.
+Most of Momit examples use these functions in examples and vignettes.
+For package testing, R CMD CHECK etc., it is required to find correct locations of these files.
 }
 \examples{
  # List all example data

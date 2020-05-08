@@ -11,7 +11,7 @@
 #' @export
 sniff <- function(path=here::here(), pattern=NULL){
   # messaging where we are looking at
-  paste0("sniffing for files in ", crayon::green(path)) %>% cli::cli_alert_info()
+  paste0("sniffing files in ", crayon::green(path)) %>% cli::cli_alert_info()
 
   # here we go
   path %>%

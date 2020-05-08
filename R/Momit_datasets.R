@@ -15,18 +15,17 @@
 #'
 "messy_paths"
 
-#' Helpers for example raw data
+#' Example datasets and helpers
 #'
-#' A wrapper on top of [system.file] to ease Momit examples.
+#' [Momit_data] is wraps [system.file] to ease Momit examples. Below is a list of datasets
+#' provided with the package and the list of the generous providers.
 #'
 #' @details
-#' You do not need it for _your_ data.
-#' Most of Momit examples use these functions.
-#' In Momit examples (unit testing, R CMD CHECK etc.),
-#' it helps find correct locations where raw example files bundled with the package are located.
+#' You do not need [Momit_data] for _your_ data.
+#' Most of Momit examples use these functions in examples and vignettes.
+#' For package testing, R CMD CHECK etc., it is required to find correct locations of these files.
 #'
 #' @param x `character` file(s) names from the example folder, only for `example_data`
-#'
 #' @return `character` the full path pointing to `Momit/extdata/`
 #'
 #' @references
