@@ -1,4 +1,4 @@
-# from_txt
+# import_txt ----------------------------------------------
 
 #' Import coordinates from .txt files
 #'

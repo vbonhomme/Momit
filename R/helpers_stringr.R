@@ -8,9 +8,11 @@ paths <- c("Big_one/folder-foo/file_n.jpg",
            "file.png",
            "file.mom")
 
-#' Fix messy paths
+#' String helpers
 #'
-#' Useful (and simple) wrappers around [stringr] functions.
+#' Simple yet useful wrappers for working on strings.
+#' Most of them are built on top of existing [stringr] functions ;
+#' not all return strings.
 #'
 #' @param x [character]
 #' @param pattern [regex] (a regular expression)
@@ -26,7 +28,7 @@ paths <- c("Big_one/folder-foo/file_n.jpg",
 #' * [stringr::str_trim]: remove whitespace from start and end of string
 #'
 #'
-#' @name fix_path
+#' @name str_helpers
 #' @family path
 #'
 #' @examples
@@ -34,25 +36,96 @@ paths <- c("Big_one/folder-foo/file_n.jpg",
 #' messy_paths %>% str_underscorise()
 NULL
 
-#' @describeIn  fix_path turn dashes and spaces into underscores
+#' @describeIn  str_helpers remove empty lines, turn tabs into spaces and remove multiple spaces
+#' @export
+str_remove_useless_spaces <- function(x){
+  # remove empty lines
+  x <- x[stringr::str_length(x) > 0]
+
+  x %>%
+    # turn tab(s) to spaces
+    stringr::str_replace("(\t)+", " ") %>%
+    # remove trailing, trimming and multiple spaces
+    stringr::str_squish()
+}
+
+#' @describeIn  str_helpers turn dashes and spaces into underscores
 #' @export
 str_underscorise <- function(x, pattern="-+|[[:space:]]+"){
   stringr::str_replace_all(x, pattern=pattern, "_")
 }
 
-#' @describeIn  fix_path trim extension
+#' @describeIn  str_helpers trim extension
 #' @export
 str_trim_ext <- function(x, pattern="\\.[[:alnum:]]+$"){
   stringr::str_remove(x, pattern=pattern)
 }
 
-#' @describeIn  fix_path trim dirpath
+#' @describeIn  str_helpers trim dirpath
 #' @export
 str_trim_dirpath <- function(x, pattern="^.*/"){
   stringr::str_remove(x, pattern=pattern)
 }
 
-# expect_false(paths %>% str_underscorise() %>% str_detect("-") %>% any())
+# turns a vector of characters,
+# with some elements beginning with a pattern,
+# split it into a list
+# c("a", "b", "ab", "ac", "b") %>% .split_where_pattern("a")
+.splitting_vector <- function(x, pattern){
+  # detect pattern and prepare single partition
+  ids <- stringr::str_which(x, pattern)
+
+  # early return if nothing detected
+  if (length(ids)==0)
+    return(rep(1, length(x)))
+
+  # otherwise prepare a splitting vector
+  f   <- rep(NA_integer_, length(x))
+
+  # other complete the f
+  f[ids] <- seq_len(length(ids))
+
+  y <- !is.na(f)
+  cumsum(y)+1
+}
+
+#' @describeIn str_helpers given a string, split on pattern
+str_split_on <- function(x, pattern){
+  split(x, .splitting_vector(x, pattern))
+}
+
+#' @describeIn  str_helpers turn coordinates as vector of strings into a matrix
+#' @export
+str_to_mat <- function(x){
+  x %>%
+    stringr::str_split(" +") %>%
+    purrr::map(as.numeric) %>%
+    do.call("rbind", .)
+}
+
+#' @describeIn  str_helpers drop elements with pattern
+#' @export
+str_drop <- function(x, pattern){
+  x[stringr::str_detect(x, pattern, negate = TRUE)]
+}
+
+#' @describeIn  str_helpers turn a string with pattern on a named list
+#' @export
+str_to_named_list <- function(x, pattern){
+  # split on pattern
+  z <- x %>% stringr::str_split("=")
+  # take second element (was on the right hand side of pattern)
+  # also remove leading, trailing and multiple spaces
+  res <- purrr::map(z, 2) %>%
+    purrr::map(stringr::str_squish)
+  # take first element (was on the left hand side of pattern)
+  # also lowercase
+  names(res) <- purrr::map_chr(z, 1) %>%
+    stringr::str_to_lower()
+  # return this beauty
+  res
+}
+
 
 
 # path_extract --------------------------------------------
@@ -64,7 +137,7 @@ str_trim_dirpath <- function(x, pattern="^.*/"){
 #'
 #' @return [character]
 #' @seealso
-#' To _fix_ information from paths see [fix_path]
+#' To _fix_ information from paths see [str_helpers]
 #'
 #'
 #' @name extract_path
