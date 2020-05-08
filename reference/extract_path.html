@@ -177,9 +177,9 @@
 </ul>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>To <em>fix</em> information from paths see str_helpers</p>
+    <div class='dont-index'><p>To <em>fix</em> information from paths see <a href='str_helpers.html'>str_helpers</a></p>
 <p>Other path: 
-<code>str_helpers</code></p></div>
+<code><a href='str_helpers.html'>str_helpers</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>messy_paths</span></div><div class='output co'>#&gt; [1] "Big_one/folder-foo/file_n.jpg" "folder-foo/File n.jpg"        
@@ -193,16 +193,16 @@
 <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>paths</span> <span class='kw'>=</span> <span class='no'>messy_paths</span>,
               <span class='kw'>dir</span>    <span class='kw'>=</span> <span class='fu'>extract_dir</span>(<span class='no'>paths</span>),
               <span class='kw'>file</span>   <span class='kw'>=</span> <span class='fu'>extract_file</span>(<span class='no'>paths</span>),
-              <span class='kw'>ext</span>    <span class='kw'>=</span> <span class='fu'>extract_ext</span>(<span class='no'>paths</span>))</div><div class='output co'>#&gt; # A tibble: 7 x 4
+              <span class='kw'>ext</span>    <span class='kw'>=</span> <span class='fu'>extract_ext</span>(<span class='no'>paths</span>))</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 7 x 4</span><span>
 #&gt;   paths                         dir                file         ext  
-#&gt;   &lt;chr&gt;                         &lt;chr&gt;              &lt;chr&gt;        &lt;chr&gt;
-#&gt; 1 Big_one/folder-foo/file_n.jpg Big_one/folder-foo file_n.jpg   jpg  
-#&gt; 2 folder-foo/File n.jpg         folder-foo         File n.jpg   jpg  
-#&gt; 3 folder-foo2/file   5.jpg      folder-foo2        file   5.jpg jpg  
-#&gt; 4 file.txt                      .                  file.txt     txt  
-#&gt; 5 file.jpeg                     .                  file.jpeg    jpeg 
-#&gt; 6 file.png                      .                  file.png     png  
-#&gt; 7 file.mom                      .                  file.mom     mom  </div></pre>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                         </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> Big_one/folder-foo/file_n.jpg Big_one/folder-foo file_n.jpg   jpg  
+#&gt; </span><span style='color: #555555;'>2</span><span> folder-foo/File n.jpg         folder-foo         File n.jpg   jpg  
+#&gt; </span><span style='color: #555555;'>3</span><span> folder-foo2/file   5.jpg      folder-foo2        file   5.jpg jpg  
+#&gt; </span><span style='color: #555555;'>4</span><span> file.txt                      .                  file.txt     txt  
+#&gt; </span><span style='color: #555555;'>5</span><span> file.jpeg                     .                  file.jpeg    jpeg 
+#&gt; </span><span style='color: #555555;'>6</span><span> file.png                      .                  file.png     png  
+#&gt; </span><span style='color: #555555;'>7</span><span> file.mom                      .                  file.mom     mom  </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -218,7 +218,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

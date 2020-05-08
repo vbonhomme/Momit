@@ -176,85 +176,85 @@ by the popular "ImageJ's &gt; Export as xy coordinates".</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other import: 
-<code>import_mask()</code>,
-<code>import_multimask()</code></p></div>
+<code><a href='import_mask.html'>import_mask</a>()</code>,
+<code><a href='import_multimask.html'>import_multimask</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># list of files case</span>
-<span class='no'>lf</span> <span class='kw'>&lt;-</span> <span class='fu'>Momit_data</span>(<span class='st'>"txt"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>list_files</span>()
-<span class='no'>lf</span></div><div class='output co'>#&gt; [1] "/tmp/Rtmp59UGAM/temp_libpath3e46521bb942/Momit/extdata/txt/face1.txt"
-#&gt; [2] "/tmp/Rtmp59UGAM/temp_libpath3e46521bb942/Momit/extdata/txt/face2.txt"</div><div class='input'><span class='co'># single case</span>
-<span class='no'>lf</span>[<span class='fl'>1</span>] <span class='kw'>%&gt;%</span> <span class='fu'>import_txt</span>()</div><div class='output co'>#&gt; # A tibble: 13 x 2
+<span class='no'>lf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='example_data.html'>Momit_data</a></span>(<span class='st'>"txt"</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='path_helpers.html'>list_files</a></span>()
+<span class='no'>lf</span></div><div class='output co'>#&gt; [1] "/Users/runner/runners/2.169.1/work/_temp/Library/Momit/extdata/txt/face1.txt"
+#&gt; [2] "/Users/runner/runners/2.169.1/work/_temp/Library/Momit/extdata/txt/face2.txt"</div><div class='input'><span class='co'># single case</span>
+<span class='no'>lf</span>[<span class='fl'>1</span>] <span class='kw'>%&gt;%</span> <span class='fu'>import_txt</span>()</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 13 x 2</span><span>
 #&gt;        x     y
-#&gt;    &lt;dbl&gt; &lt;dbl&gt;
-#&gt;  1   206   148
-#&gt;  2   251   148
-#&gt;  3   218   178
-#&gt;  4   232   178
-#&gt;  5   242   178
-#&gt;  6   210   200
-#&gt;  7   248   199
-#&gt;  8   178   187
-#&gt;  9   275   181
-#&gt; 10   231   240
-#&gt; 11   228    91
-#&gt; 12   186   103
-#&gt; 13   268   106
-#&gt; ❯coo_single with 13 coordinates</div><div class='input'><span class='co'># multi case</span>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span>   206   148
+#&gt; </span><span style='color: #555555;'> 2</span><span>   251   148
+#&gt; </span><span style='color: #555555;'> 3</span><span>   218   178
+#&gt; </span><span style='color: #555555;'> 4</span><span>   232   178
+#&gt; </span><span style='color: #555555;'> 5</span><span>   242   178
+#&gt; </span><span style='color: #555555;'> 6</span><span>   210   200
+#&gt; </span><span style='color: #555555;'> 7</span><span>   248   199
+#&gt; </span><span style='color: #555555;'> 8</span><span>   178   187
+#&gt; </span><span style='color: #555555;'> 9</span><span>   275   181
+#&gt; </span><span style='color: #555555;'>10</span><span>   231   240
+#&gt; </span><span style='color: #555555;'>11</span><span>   228    91
+#&gt; </span><span style='color: #555555;'>12</span><span>   186   103
+#&gt; </span><span style='color: #555555;'>13</span><span>   268   106
+#&gt; ❯</span><span style='background-color: #0000BB;'>coo_single</span><span> with 13 coordinates</div><div class='input'><span class='co'># multi case</span>
 <span class='no'>lf</span> <span class='kw'>%&gt;%</span> <span class='fu'>import_txt</span>()</div><div class='output co'>#&gt; [[1]]
-#&gt; # A tibble: 13 x 2
+#&gt; </span><span style='color: #555555;'># A tibble: 13 x 2</span><span>
 #&gt;        x     y
-#&gt;    &lt;dbl&gt; &lt;dbl&gt;
-#&gt;  1   206   148
-#&gt;  2   251   148
-#&gt;  3   218   178
-#&gt;  4   232   178
-#&gt;  5   242   178
-#&gt;  6   210   200
-#&gt;  7   248   199
-#&gt;  8   178   187
-#&gt;  9   275   181
-#&gt; 10   231   240
-#&gt; 11   228    91
-#&gt; 12   186   103
-#&gt; 13   268   106
-#&gt; ❯coo_single with 13 coordinates
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span>   206   148
+#&gt; </span><span style='color: #555555;'> 2</span><span>   251   148
+#&gt; </span><span style='color: #555555;'> 3</span><span>   218   178
+#&gt; </span><span style='color: #555555;'> 4</span><span>   232   178
+#&gt; </span><span style='color: #555555;'> 5</span><span>   242   178
+#&gt; </span><span style='color: #555555;'> 6</span><span>   210   200
+#&gt; </span><span style='color: #555555;'> 7</span><span>   248   199
+#&gt; </span><span style='color: #555555;'> 8</span><span>   178   187
+#&gt; </span><span style='color: #555555;'> 9</span><span>   275   181
+#&gt; </span><span style='color: #555555;'>10</span><span>   231   240
+#&gt; </span><span style='color: #555555;'>11</span><span>   228    91
+#&gt; </span><span style='color: #555555;'>12</span><span>   186   103
+#&gt; </span><span style='color: #555555;'>13</span><span>   268   106
+#&gt; ❯</span><span style='background-color: #0000BB;'>coo_single</span><span> with 13 coordinates
 #&gt; 
 #&gt; [[2]]
-#&gt; # A tibble: 13 x 2
+#&gt; </span><span style='color: #555555;'># A tibble: 13 x 2</span><span>
 #&gt;        x     y
-#&gt;    &lt;dbl&gt; &lt;dbl&gt;
-#&gt;  1   206   146
-#&gt;  2   253   149
-#&gt;  3   217   176
-#&gt;  4   232   176
-#&gt;  5   242   176
-#&gt;  6   212   199
-#&gt;  7   250   200
-#&gt;  8   180   184
-#&gt;  9   275   184
-#&gt; 10   232   235
-#&gt; 11   230    89
-#&gt; 12   186   100
-#&gt; 13   269   107
-#&gt; ❯coo_single with 13 coordinates
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span>   206   146
+#&gt; </span><span style='color: #555555;'> 2</span><span>   253   149
+#&gt; </span><span style='color: #555555;'> 3</span><span>   217   176
+#&gt; </span><span style='color: #555555;'> 4</span><span>   232   176
+#&gt; </span><span style='color: #555555;'> 5</span><span>   242   176
+#&gt; </span><span style='color: #555555;'> 6</span><span>   212   199
+#&gt; </span><span style='color: #555555;'> 7</span><span>   250   200
+#&gt; </span><span style='color: #555555;'> 8</span><span>   180   184
+#&gt; </span><span style='color: #555555;'> 9</span><span>   275   184
+#&gt; </span><span style='color: #555555;'>10</span><span>   232   235
+#&gt; </span><span style='color: #555555;'>11</span><span>   230    89
+#&gt; </span><span style='color: #555555;'>12</span><span>   186   100
+#&gt; </span><span style='color: #555555;'>13</span><span>   269   107
+#&gt; ❯</span><span style='background-color: #0000BB;'>coo_single</span><span> with 13 coordinates
 #&gt; </div><div class='input'>
 <span class='co'># mom_tbl case</span>
-<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>Momit_data</span>(<span class='st'>"txt"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>sniff</span>()</div><div class='output co'>#&gt; <span class='message'>ℹ sniffing files in /tmp/Rtmp59UGAM/temp_libpath3e46521bb942/Momit/extdata/txt</span></div><div class='input'><span class='no'>z</span> <span class='kw'>%&gt;%</span> <span class='fu'>import_txt</span>()</div><div class='output co'>#&gt; # A tibble: 2 x 6
-#&gt;      size path                       path_dir             file   ext   coo      
-#&gt;   &lt;fs::b&gt; &lt;fs::path&gt;                 &lt;chr&gt;                &lt;chr&gt;  &lt;chr&gt; &lt;list&lt;co&gt;
-#&gt; 1     233 /tmp/Rtmp59UGAM/temp_libp… /tmp/Rtmp59UGAM/tem… face1… txt   &lt;tibble …
-#&gt; 2     233 /tmp/Rtmp59UGAM/temp_libp… /tmp/Rtmp59UGAM/tem… face2… txt   &lt;tibble …
-#&gt; ❯mom_tbl</div><div class='input'>
+<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='example_data.html'>Momit_data</a></span>(<span class='st'>"txt"</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='sniff.html'>sniff</a></span>()</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> sniffing files in </span><span style='color: #00BB00;'>/Users/runner/runners/2.169.1/work/_temp/Library/Momit/extdata/txt</span><span></span></div><div class='input'><span class='no'>z</span> <span class='kw'>%&gt;%</span> <span class='fu'>import_txt</span>()</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 6</span><span>
+#&gt;      size path                       path_dir               file  ext   coo     
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fs::b&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fs::path&gt;</span><span>                 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&lt;c&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>     233 /Users/runner/runners/2.1… /Users/runner/runners… face… txt   </span><span style='color: #555555;'>&lt;tibble</span><span>…
+#&gt; </span><span style='color: #555555;'>2</span><span>     233 /Users/runner/runners/2.1… /Users/runner/runners… face… txt   </span><span style='color: #555555;'>&lt;tibble</span><span>…
+#&gt; ❯</span><span style='background-color: #00BB00;'>mom_tbl</span><span></div><div class='input'>
 <span class='co'># case with different from/to_col names</span>
 <span class='no'>z</span> <span class='kw'>%&gt;%</span>
   <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span>(<span class='kw'>plop</span><span class='kw'>=</span><span class='no'>path</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>import_txt</span>(<span class='kw'>from_col</span><span class='kw'>=</span><span class='no'>plop</span>, <span class='kw'>to_col</span><span class='kw'>=</span><span class='no'>plip</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 6
-#&gt;      size plop                       path_dir             file   ext   plip     
-#&gt;   &lt;fs::b&gt; &lt;fs::path&gt;                 &lt;chr&gt;                &lt;chr&gt;  &lt;chr&gt; &lt;list&lt;co&gt;
-#&gt; 1     233 /tmp/Rtmp59UGAM/temp_libp… /tmp/Rtmp59UGAM/tem… face1… txt   &lt;tibble …
-#&gt; 2     233 /tmp/Rtmp59UGAM/temp_libp… /tmp/Rtmp59UGAM/tem… face2… txt   &lt;tibble …
-#&gt; ❯mom_tbl</div></pre>
+  <span class='fu'>import_txt</span>(<span class='kw'>from_col</span><span class='kw'>=</span><span class='no'>plop</span>, <span class='kw'>to_col</span><span class='kw'>=</span><span class='no'>plip</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 6</span><span>
+#&gt;      size plop                       path_dir               file  ext   plip    
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fs::b&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fs::path&gt;</span><span>                 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&lt;c&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>     233 /Users/runner/runners/2.1… /Users/runner/runners… face… txt   </span><span style='color: #555555;'>&lt;tibble</span><span>…
+#&gt; </span><span style='color: #555555;'>2</span><span>     233 /Users/runner/runners/2.1… /Users/runner/runners… face… txt   </span><span style='color: #555555;'>&lt;tibble</span><span>…
+#&gt; ❯</span><span style='background-color: #00BB00;'>mom_tbl</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -270,7 +270,7 @@ by the popular "ImageJ's &gt; Export as xy coordinates".</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>
