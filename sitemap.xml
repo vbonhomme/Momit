@@ -25,9 +25,6 @@
     <loc>http://momx.github.io/Momit/reference/extract_path.html</loc>
   </url>
   <url>
-    <loc>http://momx.github.io/Momit/reference/fix_path.html</loc>
-  </url>
-  <url>
     <loc>http://momx.github.io/Momit/reference/image_helpers.html</loc>
   </url>
   <url>
@@ -53,6 +50,9 @@
   </url>
   <url>
     <loc>http://momx.github.io/Momit/reference/sniff.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momit/reference/str_helpers.html</loc>
   </url>
   <url>
     <loc>http://momx.github.io/Momit/reference/tidyeval.html</loc>
